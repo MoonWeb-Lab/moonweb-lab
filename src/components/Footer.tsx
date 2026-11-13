@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Send, Instagram, ArrowUp, Heart, ShieldCheck } from 'lucide-react';
+import { ArrowUp, ArrowUpRight, Send, Instagram } from 'lucide-react';
 import { sounds } from '../audio/soundEngine';
 
 export const Footer: React.FC = () => {
@@ -9,41 +9,34 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="w-full bg-[#04070F] border-t border-white/10 relative overflow-hidden">
-      {/* Background neon ambient line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sky-500/50 to-transparent" />
-
+    <footer className="w-full bg-[#09090B] border-t border-white/[0.08] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-          {/* Col 1: Brand */}
-          <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-emerald-400 p-0.5 shadow-neon-cyan">
-                <div className="w-full h-full bg-[#080E1C] rounded-[10px] flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-sky-400" />
-                </div>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-xl tracking-tight text-white">MoonWeb</span>
-                <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">Lab</span>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
+          {/* Brand Col */}
+          <div className="md:col-span-6 space-y-4">
+            <div className="flex items-center gap-2.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-white" />
+              <span className="font-extrabold text-2xl tracking-tight text-white">
+                MoonWeb<span className="font-normal text-studio-muted ml-1 text-base tracking-normal">Lab</span>
+              </span>
             </div>
 
-            <p className="text-sm text-slate-400 max-w-md leading-relaxed">
-              Инженерная digital-студия. Проектируем и запускаем премиальные конверсионные сайты, Telegram Mini Apps и CRM-автоматизации для локального бизнеса и брендов.
+            <p className="text-sm text-studio-muted max-w-md leading-relaxed">
+              Бутиковая digital-студия. Проектируем и запускаем конверсионные веб-сайты, интерактивные Telegram Mini Apps и CRM-автоматизации для локального бизнеса.
             </p>
 
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
                 href="https://t.me/moonweb_labs"
                 target="_blank"
                 rel="noreferrer"
                 onMouseEnter={() => sounds.playHover()}
                 onClick={() => sounds.playClick()}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-300 border border-sky-500/30 text-xs font-semibold transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-studio-surface border border-white/[0.08] hover:border-white/20 text-xs font-semibold text-white transition-all"
               >
-                <Send className="w-4 h-4 text-sky-400" />
+                <Send className="w-3.5 h-3.5 text-neutral-300" />
                 <span>Telegram: @moonweb_labs</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-studio-muted" />
               </a>
 
               <a
@@ -52,90 +45,93 @@ export const Footer: React.FC = () => {
                 rel="noreferrer"
                 onMouseEnter={() => sounds.playHover()}
                 onClick={() => sounds.playClick()}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-pink-500/10 hover:bg-pink-500/20 text-pink-300 border border-pink-500/30 text-xs font-semibold transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-studio-surface border border-white/[0.08] hover:border-white/20 text-xs font-semibold text-white transition-all"
               >
-                <Instagram className="w-4 h-4 text-pink-400" />
+                <Instagram className="w-3.5 h-3.5 text-neutral-300" />
                 <span>@moonweb_labs</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-studio-muted" />
               </a>
             </div>
           </div>
 
-          {/* Col 2: Navigation */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300">Навигация</h4>
-            <ul className="space-y-2 text-sm text-slate-400">
+          {/* Navigation Links */}
+          <div className="md:col-span-3 space-y-3">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-studio-muted">
+              Навигация
+            </h4>
+            <ul className="space-y-2 text-xs text-studio-muted">
               <li>
-                <a href="#services" onMouseEnter={() => sounds.playHover()} className="hover:text-sky-300 transition-colors">
-                  Услуги & Стек
+                <a href="#cases" className="hover:text-white transition-colors">
+                  Портфолио проектов
                 </a>
               </li>
               <li>
-                <a href="#portfolio" onMouseEnter={() => sounds.playHover()} className="hover:text-sky-300 transition-colors">
-                  Живые кейсы
+                <a href="#flow" className="hover:text-white transition-colors">
+                  Интерактивная связка (CRM)
                 </a>
               </li>
               <li>
-                <a href="#configurator" onMouseEnter={() => sounds.playHover()} className="hover:text-sky-300 transition-colors">
-                  Конфигуратор сметы
+                <a href="#configurator" className="hover:text-white transition-colors">
+                  Калькулятор сметы
                 </a>
               </li>
               <li>
-                <a href="#process" onMouseEnter={() => sounds.playHover()} className="hover:text-sky-300 transition-colors">
-                  Этапы работы
+                <a href="#process" className="hover:text-white transition-colors">
+                  Этапы сотрудничества
                 </a>
               </li>
               <li>
-                <a href="#reviews" onMouseEnter={() => sounds.playHover()} className="hover:text-sky-300 transition-colors">
-                  Отзывы & Гарантии
+                <a href="#guarantees" className="hover:text-white transition-colors">
+                  Отзывы и гарантии
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Tech & Standards */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300">Стандарты качества</h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+          {/* Technical Standards */}
+          <div className="md:col-span-3 space-y-3">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-studio-muted">
+              Стандарты продакшна
+            </h4>
+            <ul className="space-y-2 text-xs text-studio-muted">
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                 <span>60 FPS GPU-анимации</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
-                <span>Web Audio API звуковая обратная связь</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                <span>Web Audio API звуковая отдача</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                <span>PageSpeed & Lighthouse 98+</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-white" />
                 <span>Telegram WebApp SDK 8.0+</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                <span>Lighthouse Score: 95–100</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
-                <span>Чистый React 18 & TypeScript</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                <span>TypeScript & Чистый React</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom copyright bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <div className="flex items-center gap-1.5">
-            <span>© 2026 MoonWeb Lab. Создано с любовью к деталям и технологиям.</span>
+        {/* Bottom copyright */}
+        <div className="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-studio-subtle font-mono">
+          <div>
+            © 2026 MoonWeb Lab. Минск & Дистанционно. Все права защищены.
           </div>
 
-          <div className="flex items-center gap-4">
-            <button
-              onClick={scrollToTop}
-              onMouseEnter={() => sounds.playHover()}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-white/10 hover:border-sky-500/40 text-slate-300 hover:text-white transition-all text-xs"
-            >
-              <span>Наверх</span>
-              <ArrowUp className="w-3.5 h-3.5 text-sky-400" />
-            </button>
-          </div>
+          <button
+            onClick={scrollToTop}
+            onMouseEnter={() => sounds.playHover()}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-studio-surface border border-white/[0.06] hover:border-white/20 text-studio-muted hover:text-white transition-all text-xs"
+          >
+            <span>Наверх</span>
+            <ArrowUp className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
     </footer>

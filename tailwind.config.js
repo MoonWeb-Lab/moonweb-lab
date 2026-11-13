@@ -1,49 +1,42 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        space: {
-          950: '#060A13',
-          900: '#0B1120',
-          800: '#111B31',
-          700: '#1A2847'
-        },
-        cyber: {
-          cyan: '#38BDF8',
-          indigo: '#6366F1',
-          violet: '#8B5CF6',
+        studio: {
+          bg: '#0E0E10',
+          surface: '#161619',
+          'surface-hover': '#1C1C21',
+          'surface-elevated': '#222228',
+          text: '#F4F4F6',
+          muted: '#9E9EA4',
+          subtle: '#66666D',
+          border: 'rgba(255, 255, 255, 0.08)',
+          'border-hover': 'rgba(255, 255, 255, 0.18)',
+          accent: '#FFFFFF',
+          brand: '#3B82F6',
           emerald: '#10B981',
-          rose: '#F43F5E'
+          danger: '#EF4444'
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace']
+        sans: ['Manrope', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
-      animation: {
-        'laser-flow': 'laserFlow 3s ease infinite',
-        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'marquee': 'marquee 25s linear infinite'
-      },
-      keyframes: {
-        laserFlow: {
-          '0%, 100%': { strokeDashoffset: '0%' },
-          '50%': { strokeDashoffset: '100%' }
-        },
-        marquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-50%)' }
-        }
+      letterSpacing: {
+        editorial: '-0.035em',
+        tightest: '-0.045em'
       },
       boxShadow: {
-        'neon-cyan': '0 0 25px -3px rgba(56, 189, 248, 0.35)',
-        'neon-indigo': '0 0 25px -3px rgba(99, 102, 241, 0.35)',
-        'neon-emerald': '0 0 25px -3px rgba(16, 185, 129, 0.35)'
+        'card': '0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4)',
+        'modal': '0 20px 40px -15px rgba(0, 0, 0, 0.7)'
       }
-    }
+    },
   },
-  plugins: []
-};
+  plugins: [],
+}

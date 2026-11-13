@@ -1,308 +1,311 @@
-import React, { useState, useMemo } from 'react';
-import { Send, Copy, Check, Sparkles, Calculator, Layers, Flame, Clock } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Check, Copy, Send, Sparkles, Clock, Calculator, ArrowUpRight } from 'lucide-react';
 import { sounds } from '../audio/soundEngine';
 
-interface ServiceOption {
+interface FormatOption {
   id: string;
-  name: string;
+  title: string;
   basePrice: number;
-  days: string;
+  days: number;
   desc: string;
 }
 
-const SERVICES: ServiceOption[] = [
-  { id: 'landing', name: 'Промо-лендинг под ключ', basePrice: 320, days: '4–6 дней', desc: 'Высокая конверсия, анимации, адаптив' },
-  { id: 'miniapp', name: 'Telegram Mini App (TMA)', basePrice: 480, days: '5–8 дней', desc: 'Встроенное приложение прямо в Telegram' },
-  { id: 'corporate', name: 'Корпоративный сайт / Сервис', basePrice: 580, days: '7–12 дней', desc: 'Многостраничный каталог с базой данных' },
-  { id: 'quiz', name: 'Квиз-калькулятор сметы', basePrice: 240, days: '3–5 дней', desc: 'Лидогенератор с расчетом цены за 1 мин' }
+const FORMATS: FormatOption[] = [
+  {
+    id: 'landing',
+    title: 'Конверсионный лендинг',
+    basePrice: 320,
+    days: 4,
+    desc: 'Одностраничный сайт с акцентом на онлайн-заявки и мобильную конверсию.'
+  },
+  {
+    id: 'miniapp',
+    title: 'Telegram Mini App (TMA)',
+    basePrice: 480,
+    days: 6,
+    desc: 'Приложение внутри Telegram: онлайн-запись, каталог и корзина прямо в мессенджере.'
+  },
+  {
+    id: 'corporate',
+    title: 'Многостраничный сайт / Сервис',
+    basePrice: 580,
+    days: 8,
+    desc: 'Сайт компании с каталогом, страницами услуг, блогом и интеграцией CRM.'
+  },
+  {
+    id: 'quiz',
+    title: 'Квиз-калькулятор сметы',
+    basePrice: 240,
+    days: 3,
+    desc: 'Пошаговый опросник для расчета стоимости (мебель, авто, ремонт).'
+  }
 ];
 
 const NICHES = [
-  { id: 'horeca', name: '☕ Общепит / Рестораны', hook: 'QR-меню и бронь столиков' },
-  { id: 'beauty', name: '💅 Бьюти & Барбершопы', hook: 'Онлайн-запись и прайс' },
-  { id: 'auto', name: '🚗 Авто & Детейлинг', hook: 'Калькулятор и слайдер До/После' },
-  { id: 'furniture', name: '🔨 Мебель & Ремонт', hook: 'Квиз-расчет стоимости' },
-  { id: 'tourism', name: '🌲 Усадьбы & Бани', hook: 'Календарь свободных дат' },
-  { id: 'services', name: '✨ Локальные услуги & B2B', hook: 'Презентация и кейсы' }
+  'Общепит & Доставка',
+  'Бьюти & Барбершопы',
+  'Авто & Детейлинг',
+  'Мебель & Ремонт',
+  'Усадьбы & Отдых',
+  'B2B & Услуги'
 ];
 
-const ADDONS = [
-  { id: 'tg_bot', name: 'Интеграция с Telegram-ботом', price: 90, desc: 'Заявки падают сразу в рабочий чат' },
-  { id: 'payments', name: 'Онлайн-оплата / Эквайринг', price: 80, desc: 'Прием платежей картами / ЕРИП' },
-  { id: 'seo', name: 'SEO-оптимизация и мета-теги', price: 60, desc: 'Попадание в Яндекс и Google' },
-  { id: 'express', name: 'Срочный запуск за 72 часа', price: 100, desc: 'Приоритет в очереди разработки' }
+interface AddonOption {
+  id: string;
+  name: string;
+  price: number;
+  days: number;
+}
+
+const ADDONS: AddonOption[] = [
+  { id: 'tg_bot', name: 'Telegram-бот уведомлений', price: 90, days: 1 },
+  { id: 'payment', name: 'Онлайн-оплата / Эквайринг', price: 80, days: 1 },
+  { id: 'seo', name: 'SEO-структура + Schema.org', price: 60, days: 1 },
+  { id: 'urgent', name: 'Срочный релиз за 72 часа', price: 100, days: -2 }
 ];
 
 export const ProjectConfigurator: React.FC = () => {
-  const [selectedService, setSelectedService] = useState(SERVICES[0].id);
-  const [selectedNiche, setSelectedNiche] = useState(NICHES[0].name);
+  const [selectedFormat, setSelectedFormat] = useState<FormatOption>(FORMATS[1]);
+  const [selectedNiche, setSelectedNiche] = useState<string>(NICHES[1]);
   const [selectedAddons, setSelectedAddons] = useState<string[]>(['tg_bot']);
-  const [businessName, setBusinessName] = useState('');
-  const [notes, setNotes] = useState('');
   const [copied, setCopied] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const toggleAddon = (id: string) => {
-    sounds.playClick();
-    setSelectedAddons(prev =>
-      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    sounds.playToggle();
+    setSelectedAddons((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
 
-  const currentServiceObj = SERVICES.find(s => s.id === selectedService) || SERVICES[0];
+  // Calculations
+  const addonsTotal = selectedAddons.reduce((sum, id) => {
+    const found = ADDONS.find((a) => a.id === id);
+    return sum + (found ? found.price : 0);
+  }, 0);
 
-  // Dynamic budget calculation
-  const totalBudget = useMemo(() => {
-    let sum = currentServiceObj.basePrice;
-    for (const addonId of selectedAddons) {
-      const a = ADDONS.find(x => x.id === addonId);
-      if (a) sum += a.price;
-    }
-    return sum;
-  }, [currentServiceObj, selectedAddons]);
+  const addonsDays = selectedAddons.reduce((sum, id) => {
+    const found = ADDONS.find((a) => a.id === id);
+    return sum + (found ? found.days : 0);
+  }, 0);
 
-  // Dynamic Telegram Brief text
-  const generatedBrief = useMemo(() => {
-    const addonsNames = selectedAddons
-      .map(id => ADDONS.find(a => a.id === id)?.name)
-      .filter(Boolean)
-      .join(', ');
+  const totalPrice = selectedFormat.basePrice + addonsTotal;
+  const totalDays = Math.max(3, selectedFormat.days + addonsDays);
 
-    return `👋 Привет, MoonWeb Lab! Хочу запустить проект:
-📌 Формат: ${currentServiceObj.name}
-🏢 Направление: ${selectedNiche}
-${businessName.trim() ? `🏷 Компания: «${businessName.trim()}»\n` : ''}⚙️ Дополнительно: ${addonsNames || 'Без доп. опций'}
-⏱ Срок: ${currentServiceObj.days}
-💰 Ориентировочный бюджет: ~$${totalBudget}
-${notes.trim() ? `💬 Пожелания: ${notes.trim()}\n` : ''}
-Подскажите, когда сможем обсудить детали и запустить работу?`;
-  }, [currentServiceObj, selectedNiche, businessName, selectedAddons, totalBudget, notes]);
+  const briefText = `👋 Здравствуйте, MoonWeb Lab! Хочу заказать проект:
+
+• Формат: ${selectedFormat.title}
+• Ниша: ${selectedNiche}
+• Дополнительно: ${selectedAddons.length > 0 ? selectedAddons.map((id) => ADDONS.find((a) => a.id === id)?.name).join(', ') : 'Без доп. опций'}
+• Примерный бюджет: ~$${totalPrice}
+• Ориентировочный срок: ~${totalDays} дней
+
+Хочу обсудить детали и зафиксировать слот.`;
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(generatedBrief).then(() => {
-      setCopied(true);
-      sounds.playSuccess();
-      setTimeout(() => setCopied(false), 2500);
-    });
+    sounds.playClick();
+    navigator.clipboard.writeText(briefText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
-  const tgDirectUrl = `https://t.me/moonweb_labs?text=${encodeURIComponent(generatedBrief)}`;
+  const telegramShareUrl = `https://t.me/moonweb_labs?text=${encodeURIComponent(briefText)}`;
 
   return (
-    <section id="configurator" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
-      <div className="text-center space-y-3 mb-12">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold">
-          <Calculator className="w-3.5 h-3.5" />
-          <span>Интерактивный конфигуратор</span>
+    <section id="configurator" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="max-w-3xl mb-12">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-studio-surface border border-white/[0.08] text-xs text-studio-muted mb-4">
+          <span className="font-mono uppercase text-[11px] text-white">Калькулятор проекта</span>
+          <span className="text-studio-subtle">•</span>
+          <span>Прозрачные цены</span>
         </div>
-        <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-          Соберите проект за 1 минуту
+        <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-editorial leading-tight">
+          Соберите комплектацию проекта за 1 минуту
         </h2>
-        <p className="text-sm sm:text-base text-slate-400 max-w-xl mx-auto">
-          Выберите параметры, рассчитайте предварительную смету и сразу отправьте готовое ТЗ в диалог студии.
+        <p className="mt-3 text-studio-muted text-base leading-relaxed">
+          Выберите формат, вашу сферу и нужные модули. Калькулятор сформирует понятную смету и готовое ТЗ для запуска.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: Interactive Selectors */}
-        <div className="lg:col-span-7 space-y-8 p-6 sm:p-8 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl shadow-2xl">
-          {/* Step 1: Service Type */}
+        {/* Left: Options Chooser (8 cols) */}
+        <div className="lg:col-span-7 space-y-8">
+          {/* Step 1: Format selection */}
           <div className="space-y-3">
-            <label className="text-xs font-mono font-bold uppercase tracking-wider text-sky-400 flex items-center gap-1.5">
-              <span>01.</span>
-              <span>Что разрабатываем?</span>
+            <label className="block text-xs font-mono uppercase text-studio-muted">
+              Шаг 1. Формат решения
             </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {SERVICES.map(s => {
-                const isSelected = selectedService === s.id;
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {FORMATS.map((fmt) => {
+                const isSelected = selectedFormat.id === fmt.id;
                 return (
                   <button
-                    key={s.id}
+                    key={fmt.id}
                     onClick={() => {
-                      setSelectedService(s.id);
-                      sounds.playClick();
+                      sounds.playToggle();
+                      setSelectedFormat(fmt);
                     }}
-                    onMouseEnter={() => sounds.playHover()}
-                    className={`p-3.5 rounded-xl text-left border transition-all ${
+                    className={`relative p-4 rounded-xl text-left transition-all border ${
                       isSelected
-                        ? 'bg-sky-500/15 border-sky-500/80 shadow-neon-cyan text-white'
-                        : 'bg-slate-900/80 border-slate-800 text-slate-300 hover:border-slate-700'
+                        ? 'bg-studio-surface border-white text-white shadow-card'
+                        : 'bg-[#121215] border-white/[0.06] text-studio-muted hover:border-white/15'
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-xs">{s.name}</span>
-                      <span className="text-[11px] font-mono text-emerald-400 font-bold">от ${s.basePrice}</span>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-sm font-bold text-white">{fmt.title}</span>
+                      <span className="text-xs font-mono font-semibold text-emerald-400">
+                        от ${fmt.basePrice}
+                      </span>
                     </div>
-                    <p className="text-[11px] text-slate-400 mt-1">{s.desc}</p>
+                    <p className="text-[11px] text-studio-muted leading-relaxed">{fmt.desc}</p>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Step 2: Niche Selector */}
+          {/* Step 2: Niche selection */}
           <div className="space-y-3">
-            <label className="text-xs font-mono font-bold uppercase tracking-wider text-indigo-400 flex items-center gap-1.5">
-              <span>02.</span>
-              <span>Ниша вашего бизнеса:</span>
+            <label className="block text-xs font-mono uppercase text-studio-muted">
+              Шаг 2. Сфера вашего бизнеса
             </label>
             <div className="flex flex-wrap gap-2">
-              {NICHES.map(n => {
-                const isSelected = selectedNiche === n.name;
+              {NICHES.map((niche) => {
+                const isSelected = selectedNiche === niche;
                 return (
                   <button
-                    key={n.id}
+                    key={niche}
                     onClick={() => {
-                      setSelectedNiche(n.name);
-                      sounds.playClick();
+                      sounds.playToggle();
+                      setSelectedNiche(niche);
                     }}
-                    onMouseEnter={() => sounds.playHover()}
-                    className={`px-3 py-2 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 ${
+                    className={`px-3.5 py-2 rounded-lg text-xs font-medium transition-all ${
                       isSelected
-                        ? 'bg-gradient-to-r from-indigo-500 to-violet-600 border-indigo-400 text-white shadow-md'
-                        : 'bg-slate-900/70 border-slate-800 text-slate-300 hover:text-white'
+                        ? 'bg-white text-black font-semibold'
+                        : 'bg-studio-surface border border-white/[0.08] text-studio-muted hover:text-white'
                     }`}
                   >
-                    <span>{n.name}</span>
+                    {niche}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Step 3: Add-on options */}
+          {/* Step 3: Add-on modules */}
           <div className="space-y-3">
-            <label className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
-              <span>03.</span>
-              <span>Дополнительные опции:</span>
+            <label className="block text-xs font-mono uppercase text-studio-muted">
+              Шаг 3. Дополнительные опции
             </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {ADDONS.map(a => {
-                const isChecked = selectedAddons.includes(a.id);
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {ADDONS.map((addon) => {
+                const isChecked = selectedAddons.includes(addon.id);
                 return (
-                  <div
-                    key={a.id}
-                    onClick={() => toggleAddon(a.id)}
-                    className={`p-3 rounded-xl border cursor-pointer select-none transition-all flex items-start gap-3 ${
+                  <button
+                    key={addon.id}
+                    onClick={() => toggleAddon(addon.id)}
+                    className={`flex items-center justify-between p-3 rounded-lg border text-xs transition-all ${
                       isChecked
-                        ? 'bg-emerald-500/10 border-emerald-500/50 text-white'
-                        : 'bg-slate-900/40 border-slate-800/80 text-slate-400 hover:border-slate-700'
+                        ? 'bg-studio-surface border-white/40 text-white'
+                        : 'bg-[#121215] border-white/[0.06] text-studio-muted hover:border-white/15'
                     }`}
                   >
-                    <div className={`w-4 h-4 mt-0.5 rounded flex items-center justify-center border text-[10px] ${
-                      isChecked ? 'bg-emerald-500 border-emerald-400 text-space-950 font-bold' : 'border-slate-700'
-                    }`}>
-                      {isChecked && '✓'}
-                    </div>
-                    <div>
-                      <div className="flex items-center justify-between text-xs font-semibold text-slate-200">
-                        <span>{a.name}</span>
-                        <span className="font-mono text-emerald-400 text-[11px]">+${a.price}</span>
+                    <div className="flex items-center gap-2.5">
+                      <div
+                        className={`w-4 h-4 rounded flex items-center justify-center transition-colors ${
+                          isChecked ? 'bg-white text-black' : 'border border-white/20'
+                        }`}
+                      >
+                        {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
                       </div>
-                      <p className="text-[10px] text-slate-400 mt-0.5">{a.desc}</p>
+                      <span className="font-medium text-left">{addon.name}</span>
                     </div>
-                  </div>
+                    <span className="font-mono text-studio-subtle text-[11px]">
+                      +${addon.price}
+                    </span>
+                  </button>
                 );
               })}
-            </div>
-          </div>
-
-          {/* Optional Inputs */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-            <div>
-              <label className="block text-[11px] text-slate-400 mb-1">Название заведения / компании:</label>
-              <input
-                type="text"
-                value={businessName}
-                onChange={e => setBusinessName(e.target.value)}
-                placeholder="например: Кофейня «Stories»"
-                className="w-full px-3 py-2 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-sky-500"
-              />
-            </div>
-            <div>
-              <label className="block text-[11px] text-slate-400 mb-1">Пожелания / Ссылки на референсы:</label>
-              <input
-                type="text"
-                value={notes}
-                onChange={e => setNotes(e.target.value)}
-                placeholder="например: Темная тема, онлайн-оплата"
-                className="w-full px-3 py-2 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-sky-500"
-              />
             </div>
           </div>
         </div>
 
-        {/* Right Column: Live Summary & Direct Telegram Export */}
-        <div className="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
-          <div className="p-6 rounded-3xl bg-gradient-to-b from-slate-900/90 to-[#0B1222] border border-sky-500/30 backdrop-blur-xl shadow-neon-cyan space-y-5">
-            {/* Price & Timeline Banner */}
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
+        {/* Right: Live Calculation & Brief Card (5 cols) */}
+        <div className="lg:col-span-5 p-6 rounded-2xl bg-studio-surface border border-white/[0.08] shadow-card space-y-6">
+          <div className="pb-4 border-b border-white/[0.08]">
+            <span className="text-[11px] font-mono uppercase text-studio-subtle">
+              Расчётная смета
+            </span>
+            <div className="mt-2 flex items-baseline justify-between">
               <div>
-                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Предварительный расчет:</span>
-                <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-sky-400 font-mono">
-                  ~${totalBudget}
-                </div>
+                <span className="text-4xl font-extrabold text-white font-mono tracking-tight">
+                  ~${totalPrice}
+                </span>
+                <span className="text-xs text-studio-muted ml-2">под ключ</span>
               </div>
-              <div className="text-right">
-                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Срок запуска:</span>
-                <div className="flex items-center gap-1 text-sm font-bold text-sky-300">
-                  <Clock className="w-3.5 h-3.5 text-sky-400" />
-                  <span>{currentServiceObj.days}</span>
-                </div>
+              <div className="flex items-center gap-1.5 text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/20">
+                <Clock className="w-3.5 h-3.5" />
+                <span>~{totalDays} дней</span>
               </div>
-            </div>
-
-            {/* Live Generated Telegram Brief Box */}
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between text-xs text-slate-400">
-                <span className="font-semibold text-slate-300">Сгенерированное ТЗ для студии:</span>
-                <span className="text-[10px] font-mono text-sky-400">Готово к отправке</span>
-              </div>
-              <textarea
-                readOnly
-                value={generatedBrief}
-                rows={8}
-                className="w-full p-3 rounded-2xl bg-[#060A13] border border-slate-800 text-slate-300 text-xs font-sans leading-relaxed focus:outline-none resize-none"
-              />
-            </div>
-
-            {/* Action Buttons */}
-            <div className="space-y-2 pt-1">
-              {/* Direct Telegram Open */}
-              <a
-                href={tgDirectUrl}
-                target="_blank"
-                rel="noreferrer"
-                onMouseEnter={() => sounds.playHover()}
-                onClick={() => sounds.playClick()}
-                className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-violet-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-neon-cyan transition-all transform hover:-translate-y-0.5"
-              >
-                <Send className="w-4 h-4" />
-                <span>Отправить ТЗ в Telegram @moonweb_labs</span>
-              </a>
-
-              {/* Copy Brief to Clipboard */}
-              <button
-                onClick={handleCopy}
-                className={`w-full py-2.5 px-4 rounded-xl text-xs font-semibold border flex items-center justify-center gap-2 transition-all ${
-                  copied
-                    ? 'bg-emerald-600/20 border-emerald-500 text-emerald-300'
-                    : 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white hover:border-slate-700'
-                }`}
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Текст скопирован в буфер!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5 text-slate-400" />
-                    <span>Скопировать текст сообщения</span>
-                  </>
-                )}
-              </button>
             </div>
           </div>
+
+          {/* Form summary */}
+          <div className="space-y-2 text-xs text-studio-muted">
+            <div className="flex justify-between py-1 border-b border-white/[0.04]">
+              <span>Формат:</span>
+              <span className="text-white font-medium">{selectedFormat.title}</span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-white/[0.04]">
+              <span>Сфера бизнеса:</span>
+              <span className="text-white font-medium">{selectedNiche}</span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-white/[0.04]">
+              <span>Дополнительные опции:</span>
+              <span className="text-white font-medium text-right max-w-[180px] truncate">
+                {selectedAddons.length > 0
+                  ? selectedAddons.map((id) => ADDONS.find((a) => a.id === id)?.name).join(', ')
+                  : 'Без доп. опций'}
+              </span>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="space-y-2.5 pt-2">
+            <a
+              href={telegramShareUrl}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => sounds.playClick()}
+              className="w-full flex items-center justify-center gap-2 py-3.5 rounded-lg bg-white hover:bg-neutral-200 text-black font-bold text-xs transition-colors shadow-sm"
+            >
+              <Send className="w-4 h-4" />
+              <span>Отправить ТЗ в Telegram @moonweb_labs</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+
+            <button
+              onClick={handleCopy}
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#0E0E10] border border-white/[0.08] hover:border-white/20 text-studio-muted hover:text-white text-xs font-medium transition-all"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-emerald-400">ТЗ скопировано в буфер!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>Скопировать текст ТЗ</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          <p className="text-[11px] text-center text-studio-subtle leading-relaxed">
+            Цена включает адаптив, настройку хостинга, SSL-сертификат и 14 дней гарантийной поддержки.
+          </p>
         </div>
       </div>
     </section>

@@ -1,94 +1,155 @@
 import React from 'react';
-import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Zap, Layers } from 'lucide-react';
+import { motion, useReducedMotion, Variants } from 'framer-motion';
+import { ArrowRight, ArrowUpRight, Zap, CheckCircle2, ShieldCheck, Clock } from 'lucide-react';
 import { sounds } from '../audio/soundEngine';
-import { TiltCard } from './TiltCard';
+import { MagneticButton } from './MagneticButton';
 
 export const HeroSection: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion();
+
+  const lineVariants: Variants = {
+    hidden: { y: '110%', opacity: 0 },
+    visible: (custom: number) => ({
+      y: '0%',
+      opacity: 1,
+      transition: {
+        duration: 0.85,
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+        delay: shouldReduceMotion ? 0 : 0.12 * custom,
+      },
+    }),
+  };
+
   return (
-    <section className="relative pt-16 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
-      {/* Background ambient glow orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-tr from-sky-500/15 via-indigo-500/10 to-violet-500/15 blur-[120px] pointer-events-none -z-10 rounded-full" />
-
-      <div className="text-center space-y-6 max-w-4xl mx-auto">
-        {/* Animated Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-sky-500/30 text-xs text-sky-300 shadow-neon-cyan">
-          <Sparkles className="w-3.5 h-3.5 text-sky-400 animate-spin" style={{ animationDuration: '6s' }} />
-          <span className="font-semibold tracking-wide uppercase text-[11px]">Digital Production 2026</span>
-          <span className="w-1 h-1 rounded-full bg-sky-400" />
-          <span className="text-slate-300">Сайты • Mini Apps • CRM</span>
-        </div>
-
-        {/* Hero Headline with Gradient Text */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.12]">
-          Создаём сайты и{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-indigo-300 to-emerald-400">
-            Telegram Mini Apps
+    <section className="relative pt-20 pb-20 md:pt-28 md:pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="max-w-5xl">
+        {/* Editorial Sub-badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.05 }}
+          className="inline-flex items-center gap-2.5 px-3 py-1 rounded-md bg-studio-surface border border-white/[0.08] text-xs text-studio-muted mb-8"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+          <span className="font-mono uppercase tracking-wider text-[11px] text-studio-text">
+            Boutique Digital Production
           </span>
-          , которые приносят продажи
+          <span className="text-studio-subtle">•</span>
+          <span>Минск & дистанционно</span>
+        </motion.div>
+
+        {/* Masked Headline Lines */}
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-editorial leading-[1.08] mb-8">
+          <div className="overflow-hidden">
+            <motion.div
+              custom={0}
+              initial="hidden"
+              animate="visible"
+              variants={lineVariants}
+            >
+              Разрабатываем сайты
+            </motion.div>
+          </div>
+          <div className="overflow-hidden">
+            <motion.div
+              custom={1}
+              initial="hidden"
+              animate="visible"
+              variants={lineVariants}
+              className="text-neutral-400"
+            >
+              и Telegram Mini Apps,
+            </motion.div>
+          </div>
+          <div className="overflow-hidden">
+            <motion.div
+              custom={2}
+              initial="hidden"
+              animate="visible"
+              variants={lineVariants}
+            >
+              которые приносят продажи.
+            </motion.div>
+          </div>
         </h1>
 
-        {/* Subtitle */}
-        <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-          Превращаем ваш бизнес в дорогой, технологичный бренд. Чистый код, 3D-микроинтеракции, загрузка за 0.4 секунды и прямая связка с Telegram.
-        </p>
+        {/* Sharp Business Copywriting */}
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-lg sm:text-xl text-studio-muted max-w-2xl leading-relaxed mb-10"
+        >
+          Превращаем случайных посетителей в реальных клиентов без потери заявок в Direct. Онлайн-запись 24/7, квиз-калькуляторы сметы и мгновенные уведомления в Telegram за 1 секунду.
+        </motion.p>
 
-        {/* CTA Buttons Row */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3">
-          <a
+        {/* Dual Actions with Magnetic Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-16"
+        >
+          <MagneticButton
             href="#configurator"
-            onMouseEnter={() => sounds.playHover()}
-            onClick={() => sounds.playClick()}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-violet-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-sm shadow-neon-cyan transition-all transform hover:-translate-y-0.5"
+            className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-white text-black font-bold text-sm hover:bg-neutral-200 transition-colors shadow-sm"
           >
-            <span>Рассчитать стоимость проекта</span>
+            <span>Рассчитать стоимость за 1 минуту</span>
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </MagneticButton>
 
-          <a
-            href="#portfolio"
-            onMouseEnter={() => sounds.playHover()}
-            onClick={() => sounds.playClick()}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 font-semibold text-sm border border-slate-700/80 transition-all"
+          <MagneticButton
+            href="#cases"
+            className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-studio-surface border border-white/[0.08] text-white font-medium text-sm hover:border-white/20 transition-all"
           >
-            <Layers className="w-4 h-4 text-sky-400" />
             <span>Смотреть живые кейсы</span>
-          </a>
-        </div>
+            <ArrowUpRight className="w-4 h-4 text-studio-muted" />
+          </MagneticButton>
+        </motion.div>
 
-        {/* Trust & Metric Pills */}
-        <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto text-left">
-          <div className="p-3 rounded-xl bg-slate-900/40 border border-white/5 space-y-1">
-            <div className="flex items-center gap-1.5 text-emerald-400 text-xs font-bold">
-              <Zap className="w-3.5 h-3.5" />
-              <span>0.3–0.5 сек</span>
+        {/* Tangible Business Metrics Bar */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 border-t border-white/[0.08]"
+        >
+          <div className="space-y-1">
+            <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight">
+              0.4s
             </div>
-            <p className="text-[11px] text-slate-400">Скорость загрузки (PageSpeed 95+)</p>
+            <p className="text-xs text-studio-muted">
+              Открытие на мобильном (PageSpeed 98+)
+            </p>
           </div>
 
-          <div className="p-3 rounded-xl bg-slate-900/40 border border-white/5 space-y-1">
-            <div className="flex items-center gap-1.5 text-sky-400 text-xs font-bold">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>От 4 до 7 дней</span>
+          <div className="space-y-1">
+            <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight">
+              0 потерь
             </div>
-            <p className="text-[11px] text-slate-400">Реальный запуск под ключ</p>
+            <p className="text-xs text-studio-muted">
+              Заявок из Instagram и карт без оператора
+            </p>
           </div>
 
-          <div className="p-3 rounded-xl bg-slate-900/40 border border-white/5 space-y-1">
-            <div className="flex items-center gap-1.5 text-indigo-400 text-xs font-bold">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>3D & Web Audio</span>
+          <div className="space-y-1">
+            <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight">
+              5–7 дней
             </div>
-            <p className="text-[11px] text-slate-400">Тактильные микро-интеракции</p>
+            <p className="text-xs text-studio-muted">
+              Средний срок релиза с договором
+            </p>
           </div>
 
-          <div className="p-3 rounded-xl bg-slate-900/40 border border-white/5 space-y-1">
-            <div className="flex items-center gap-1.5 text-violet-400 text-xs font-bold">
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>100% адаптив</span>
+          <div className="space-y-1">
+            <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight">
+              100%
             </div>
-            <p className="text-[11px] text-slate-400">Смартфоны, планшеты, десктоп</p>
+            <p className="text-xs text-studio-muted">
+              Передача исходного кода на GitHub
+            </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

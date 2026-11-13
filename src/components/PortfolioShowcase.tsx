@@ -1,214 +1,245 @@
 import React, { useState } from 'react';
-import { ExternalLink, Sparkles, Smartphone, Globe, Layers } from 'lucide-react';
-import { TiltCard } from './TiltCard';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { ExternalLink, ArrowUpRight, TrendingUp, Sparkles, Smartphone, Globe } from 'lucide-react';
 import { sounds } from '../audio/soundEngine';
 
-interface PortfolioItem {
+interface CaseStudy {
   id: string;
   title: string;
-  category: 'sites' | 'miniapps';
-  categoryLabel: string;
+  category: 'websites' | 'miniapps';
+  niche: string;
+  outcome: string;
+  tag: string;
+  url: string;
+  isExternal: boolean;
+  image: string;
   description: string;
-  tags: string[];
-  metrics: string;
-  liveUrl: string;
-  gradient: string;
+  stack: string[];
 }
 
-const PROJECTS: PortfolioItem[] = [
-  {
-    id: 'leadgen',
-    title: 'MoonWeb LeadGen • Telegram Mini App',
-    category: 'miniapps',
-    categoryLabel: 'Telegram Mini App & CRM',
-    description: 'Интерактивная система лидогенерации бизнеса без сайтов по 22 городам Беларуси и России. Встроенная CRM, автогенератор коммерческих офферов и экспорт в Excel.',
-    tags: ['Telegram Mini App', 'React 18', 'Tailwind', 'LeadGen', 'CRM'],
-    metrics: '370+ лидов • 0.3s отклик',
-    liveUrl: 'https://moonweb-lab.github.io/moonweb-leadgen/',
-    gradient: 'from-sky-500/20 via-indigo-500/10 to-emerald-500/10'
-  },
+const CASES: CaseStudy[] = [
   {
     id: 'botanica',
-    title: 'Botanica Bistro • Ресторан & Бистро',
-    category: 'sites',
-    categoryLabel: 'HoReCa & Гастрономия',
-    description: 'Премиальный сайт заведения европейской кухни: интерактивное QR-меню со смартфона, система бронирования столиков и фильтрация блюд по аллергенам.',
-    tags: ['Рестораны', 'QR-меню', 'Онлайн-бронь', 'Aesthetic UI'],
-    metrics: 'PageSpeed 99 • Конверсия +34%',
-    liveUrl: 'https://moonweb-lab.github.io/botanica-bistro/',
-    gradient: 'from-emerald-500/20 via-teal-500/10 to-amber-500/10'
+    title: 'Botanica Bistro & Wine Bar',
+    category: 'websites',
+    niche: 'Ресторанный бизнес • Минск',
+    outcome: '+34% броней столов в первый месяц',
+    tag: 'Сайт + QR-Меню',
+    url: 'https://moonweb-lab.github.io/botanica-bistro/',
+    isExternal: true,
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&auto=format&fit=crop&q=80',
+    description: 'Интерактивное меню с фильтрацией по аллергенам, бронирование столов без звонков и стильная эстетика живых растений.',
+    stack: ['React', 'TypeScript', 'Tailwind', 'Web Audio']
   },
   {
-    id: 'blade_timber',
-    title: 'Blade & Timber • Барбершоп & Мужской клуб',
-    category: 'sites',
-    categoryLabel: 'Бьюти & Сфера услуг',
-    description: 'Атмосферный тёмный сайт барбершопа: прозрачный прайс по категориям, портфолио мастеров и быстрая онлайн-запись в 2 клика без переписок в директе.',
-    tags: ['Барбершоп', 'Тёмная тема', 'Онлайн-запись', '3D карточки'],
-    metrics: 'Запись 24/7 • 0 потерянных лидов',
-    liveUrl: 'https://moonweb-lab.github.io/blade-and-timber/',
-    gradient: 'from-amber-600/20 via-orange-500/10 to-stone-700/20'
+    id: 'blade',
+    title: 'Blade & Timber Barbershop',
+    category: 'miniapps',
+    niche: 'Мужской салон • Могилёв',
+    outcome: '0 звонков для записи: клиенты выбирают слот сами',
+    tag: 'Telegram Mini App',
+    url: 'https://moonweb-lab.github.io/blade-and-timber/',
+    isExternal: true,
+    image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=900&auto=format&fit=crop&q=80',
+    description: 'Telegram Mini App для записи на стрижку 24/7. Выбор мастера, слота и каталог премиальной мужской косметики.',
+    stack: ['Telegram SDK', 'React 18', 'Web Audio']
   },
   {
     id: 'lumina',
-    title: 'Lumina Clinic • Клиника эстетической медицины',
-    category: 'sites',
-    categoryLabel: 'Медицина & Косметология',
-    description: 'Строгий, вызывающий доверие сайт медицинской клиники: направления процедур, карточки врачей с подтвержденным стажем и форма предварительной консультации.',
-    tags: ['Медицина', 'Стоматология', 'Запись на прием', 'Доверие'],
-    metrics: 'Чистый UI • Стандарты Минздрава',
-    liveUrl: 'https://moonweb-lab.github.io/lumina-clinic/',
-    gradient: 'from-cyan-500/20 via-blue-500/10 to-indigo-500/10'
+    title: 'Lumina Clinic Aesthetic Medicine',
+    category: 'websites',
+    niche: 'Эстетическая медицина • Минск',
+    outcome: 'Рост доверия и предварительной записи на 42%',
+    tag: 'Медицинский портал',
+    url: 'https://moonweb-lab.github.io/lumina-clinic/',
+    isExternal: true,
+    image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=900&auto=format&fit=crop&q=80',
+    description: 'Швейцарская эстетика чистоты: карточки врачей с подтвержденным стажем, калькулятор процедур и онлайн-консультация.',
+    stack: ['Next.js / React', 'Tailwind', 'Калькулятор сметы']
   },
   {
-    id: 'smazhenka',
-    title: 'Смаженка Могилев • Стритфуд бренд',
-    category: 'sites',
-    categoryLabel: 'Локальный фуд-бренд',
-    description: 'Яркий, сочный лендинг популярного регионального гастрономического бренда с предзаказом выпечки и интерактивной картой точек обслуживания.',
-    tags: ['Стритфуд', 'Каталог', 'Карта локаций', 'Высокий трафик'],
-    metrics: 'Запуск за 4 дня • 100% мобильный',
-    liveUrl: 'https://moonweb-lab.github.io/smazhenka-mogilev/',
-    gradient: 'from-rose-500/20 via-amber-500/10 to-red-500/10'
+    id: 'furniture',
+    title: 'Студия Лофт-Мебели & Кухонь',
+    category: 'websites',
+    niche: 'Производство мебели • Минск & РФ',
+    outcome: 'Отсекает нецелевые заявки и выдает готовую смету',
+    tag: 'Квиз-калькулятор',
+    url: '#configurator',
+    isExternal: false,
+    image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=900&auto=format&fit=crop&q=80',
+    description: 'Интерактивный 5-шаговый квиз: выбор формы кухни, фасадов и фурнитуры с моментальной передачей комплектации в Telegram замерщику.',
+    stack: ['Квиз-движок', 'React', 'Telegram API']
   },
   {
-    id: 'tracker',
-    title: 'Work Shift Tracker • TMA Сервис смен',
+    id: 'leadgen',
+    title: 'MoonWeb LeadGen CRM',
     category: 'miniapps',
-    categoryLabel: 'Telegram Mini App Tool',
-    description: 'Удобное приложение внутри Telegram для учета рабочих графиков, смен, подсчета почасовой оплаты и расчета месячного дохода сотрудников.',
-    tags: ['Telegram Mini App', 'Календарь', 'Калькулятор дохода'],
-    metrics: 'Работает в Telegram • Быстрый расчет',
-    liveUrl: 'https://moonweb-lab.github.io/work-shift-tracker/',
-    gradient: 'from-violet-500/20 via-indigo-500/10 to-sky-500/10'
+    niche: 'B2B Автоматизация продаж',
+    outcome: '374 целевые организации без сайтов под ключ',
+    tag: 'Telegram CRM App',
+    url: 'https://moonweb-lab.github.io/moonweb-leadgen/',
+    isExternal: true,
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&auto=format&fit=crop&q=80',
+    description: 'Автономный инструмент с картами, оффер-генератором и Excel-экспортом для холодных коммерческих предложений.',
+    stack: ['Telegram Mini App', 'SQLite', 'XLSX Service']
   }
 ];
 
 export const PortfolioShowcase: React.FC = () => {
-  const [filter, setFilter] = useState<'all' | 'sites' | 'miniapps'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'websites' | 'miniapps'>('all');
+  const shouldReduceMotion = useReducedMotion();
 
-  const filteredProjects = PROJECTS.filter(p => filter === 'all' || p.category === filter);
+  const filtered = activeTab === 'all'
+    ? CASES
+    : CASES.filter((c) => c.category === activeTab);
 
   return (
-    <section id="portfolio" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
+    <section id="cases" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-        <div className="space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-semibold">
-            <Layers className="w-3.5 h-3.5" />
-            <span>Портфолио MoonWeb Lab</span>
+        <div className="max-w-2xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-studio-surface border border-white/[0.08] text-xs text-studio-muted mb-4">
+            <span className="font-mono uppercase text-[11px] text-white">Портфолио проектов</span>
+            <span className="text-studio-subtle">•</span>
+            <span>Живой продакшн</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Живые проекты в проде
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-editorial leading-tight">
+            Кейсы, решающие реальные задачи бизнеса
           </h2>
-          <p className="text-sm text-slate-400 max-w-lg">
-            Каждый сайт оптимизирован под смартфоны, скомпилирован на современный стек и открывается моментально.
+          <p className="mt-3 text-studio-muted text-base leading-relaxed">
+            Каждый сайт и Mini App спроектирован под целевое действие: снять нагрузку с менеджера, поднять чек или принести заявки без участия персонала.
           </p>
         </div>
 
-        {/* Category filter buttons */}
-        <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-slate-900 border border-slate-800 self-start md:self-auto">
-          <button
-            onClick={() => {
-              setFilter('all');
-              sounds.playClick();
-            }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-              filter === 'all'
-                ? 'bg-sky-500 text-slate-950 shadow-sm shadow-sky-500/30'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            Все кейсы ({PROJECTS.length})
-          </button>
-          <button
-            onClick={() => {
-              setFilter('sites');
-              sounds.playClick();
-            }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 ${
-              filter === 'sites'
-                ? 'bg-sky-500 text-slate-950 shadow-sm shadow-sky-500/30'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Globe className="w-3.5 h-3.5" />
-            <span>Сайты</span>
-          </button>
-          <button
-            onClick={() => {
-              setFilter('miniapps');
-              sounds.playClick();
-            }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 ${
-              filter === 'miniapps'
-                ? 'bg-sky-500 text-slate-950 shadow-sm shadow-sky-500/30'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Smartphone className="w-3.5 h-3.5" />
-            <span>Telegram Mini Apps</span>
-          </button>
+        {/* Tab Filters with layoutId */}
+        <div className="flex items-center gap-1.5 p-1 rounded-lg bg-studio-surface border border-white/[0.08] self-start md:self-auto">
+          {[
+            { id: 'all', label: 'Все проекты' },
+            { id: 'websites', label: 'Сайты & Лендинги' },
+            { id: 'miniapps', label: 'Telegram Mini Apps' }
+          ].map((tab) => {
+            const isSelected = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  sounds.playToggle();
+                  setActiveTab(tab.id as any);
+                }}
+                className={`relative px-3.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                  isSelected ? 'text-black font-semibold' : 'text-studio-muted hover:text-white'
+                }`}
+              >
+                {isSelected && (
+                  <motion.div
+                    layoutId="activeFilterPill"
+                    className="absolute inset-0 bg-white rounded-md z-0"
+                    transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{tab.label}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Projects Grid with 3D Tilt */}
+      {/* Staggered Grid of Bento Cases */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProjects.map((item) => (
-          <TiltCard
-            key={item.id}
-            glowColor="rgba(56, 189, 248, 0.3)"
-            className="flex flex-col justify-between p-6 sm:p-7 group"
-          >
-            <div className="space-y-4">
-              {/* Category & Metric Pill */}
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/20">
-                  {item.categoryLabel}
-                </span>
-                <span className="text-[11px] font-mono text-emerald-400 font-semibold">
-                  {item.metrics}
-                </span>
-              </div>
-
-              {/* Title & Description */}
+        <AnimatePresence mode="popLayout">
+          {filtered.map((item, idx) => (
+            <motion.div
+              key={item.id}
+              layout
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{
+                duration: 0.5,
+                delay: shouldReduceMotion ? 0 : 0.07 * idx,
+                ease: [0.16, 1, 0.3, 1]
+              }}
+              className="group rounded-2xl bg-studio-surface border border-white/[0.08] hover:border-white/20 transition-colors flex flex-col justify-between overflow-hidden shadow-card"
+            >
               <div>
-                <h3 className="text-xl font-bold text-white group-hover:text-sky-300 transition-colors tracking-tight">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-slate-400 leading-relaxed mt-2.5">
-                  {item.description}
-                </p>
+                {/* Media Container with Image Zoom on Hover */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900 border-b border-white/[0.06]">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                  />
+                  
+                  {/* Subtle top tag */}
+                  <div className="absolute top-3 left-3 flex items-center gap-2">
+                    <span className="px-2.5 py-1 rounded bg-black/75 backdrop-blur-md border border-white/10 text-[11px] font-mono text-white">
+                      {item.tag}
+                    </span>
+                  </div>
+
+                  {/* Hover Floating Action Pill */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/40 backdrop-blur-[2px]">
+                    <a
+                      href={item.url}
+                      target={item.isExternal ? '_blank' : undefined}
+                      rel={item.isExternal ? 'noreferrer' : undefined}
+                      onClick={() => sounds.playClick()}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white text-black font-semibold text-xs shadow-lg hover:bg-neutral-200 transition-all transform translate-y-2 group-hover:translate-y-0"
+                    >
+                      <span>Открыть живое демо</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-5 space-y-3">
+                  <div className="flex items-center justify-between text-xs font-mono text-studio-subtle">
+                    <span>{item.niche}</span>
+                  </div>
+
+                  <h3 className="text-lg font-bold text-white group-hover:text-neutral-200 transition-colors leading-snug">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-xs text-studio-muted leading-relaxed">
+                    {item.description}
+                  </p>
+
+                  {/* Outcome Highlight */}
+                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-[#0E0E10] border border-white/[0.05] text-xs font-medium text-emerald-400">
+                    <TrendingUp className="w-3.5 h-3.5 shrink-0" />
+                    <span>{item.outcome}</span>
+                  </div>
+                </div>
               </div>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                {item.tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-800/80 text-slate-300 border border-slate-700/60"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
+              {/* Bottom Stack Chips */}
+              <div className="px-5 py-3 border-t border-white/[0.05] bg-[#121215] flex items-center justify-between">
+                <div className="flex flex-wrap gap-1.5">
+                  {item.stack.map((s, sIdx) => (
+                    <span
+                      key={sIdx}
+                      className="text-[10px] font-mono text-studio-subtle bg-white/[0.03] px-2 py-0.5 rounded border border-white/[0.05]"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
 
-            {/* Bottom Live Link Button */}
-            <div className="pt-6 border-t border-white/5 mt-6">
-              <a
-                href={item.liveUrl}
-                target="_blank"
-                rel="noreferrer"
-                onMouseEnter={() => sounds.playHover()}
-                onClick={() => sounds.playClick()}
-                className="w-full flex items-center justify-between py-2.5 px-4 rounded-xl bg-slate-800/80 hover:bg-sky-500 hover:text-slate-950 text-slate-200 text-xs font-bold border border-slate-700/70 transition-all group-hover:border-sky-500/40"
-              >
-                <span>Открыть живой сайт</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          </TiltCard>
-        ))}
+                <a
+                  href={item.url}
+                  target={item.isExternal ? '_blank' : undefined}
+                  rel={item.isExternal ? 'noreferrer' : undefined}
+                  onClick={() => sounds.playClick()}
+                  className="text-xs text-white hover:text-neutral-300 font-medium inline-flex items-center gap-1 shrink-0"
+                >
+                  <ArrowUpRight className="w-4 h-4 text-studio-muted group-hover:text-white transition-colors" />
+                </a>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </section>
   );

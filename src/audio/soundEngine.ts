@@ -87,7 +87,7 @@ class SoundEngine {
   }
 
   // Toggle switch sound
-  public playToggle(active: boolean) {
+  public playToggle(active: boolean = true) {
     if (this.muted) return;
     this.initCtx();
     if (!this.ctx) return;

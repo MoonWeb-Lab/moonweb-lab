@@ -1,9 +1,10 @@
 import React from 'react';
-import { Star, ShieldCheck, Clock, Award, CheckCircle2, MessageSquareQuote } from 'lucide-react';
-import { sounds } from '../audio/soundEngine';
-import { TiltCard } from './TiltCard';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Star, ShieldCheck, Clock, Award, CheckCircle2 } from 'lucide-react';
 
 export const ReviewsQueueSection: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   const reviews = [
     {
       author: 'Александр Романов',
@@ -11,131 +12,127 @@ export const ReviewsQueueSection: React.FC = () => {
       city: 'Минск',
       rating: 5,
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
-      text: 'Искали студию, которая сделает не шаблонный сайт, а сайт с атмосферой нашего заведения. MoonWeb Lab сделали интерактивное меню, бронь столов и 3D-анимации. Гости в восторге, конверсия броней выросла в 2.4 раза за первый месяц!',
-      project: 'Гастрономический лендинг + бронирование'
+      text: 'Искали студию, которая сделает не шаблонную страницу с водянистыми текстами, а эстетичный сайт с атмосферой заведения. Сделали интерактивное меню и бронь столов. За первый месяц бронирования через сайт выросли на 34%.',
+      project: 'Botanica Bistro • Сайт + QR-меню'
     },
     {
       author: 'Дмитрий Власов',
-      role: 'Управляющий партнер, Blade & Timber Barbershop',
+      role: 'Управляющий, Blade & Timber Barbershop',
       city: 'Могилёв',
       rating: 5,
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
-      text: 'Парни реализовали Telegram Mini App для онлайн-записи и магазин мужской косметики. Запись теперь работает сама 24/7 без администратора в Direct. Очень крутой звук кнопок и премиальный темный интерфейс.',
-      project: 'Telegram Mini App + Онлайн-запись'
+      text: 'Внедрили Telegram Mini App для онлайн-записи к мастерам. Теперь клиенты выбирают время прямо в Telegram, а администратор не тратит часы на переписку в Директе. Отдельный респект за быстрый отклик интерфейса.',
+      project: 'Blade & Timber • Telegram Mini App'
     },
     {
       author: 'Елена Соколова',
-      role: 'Главный врач, Lumina Clinic Aesthetic Medicine',
+      role: 'Главный врач, Lumina Clinic',
       city: 'Минск',
       rating: 5,
       avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&auto=format&fit=crop&q=80',
-      text: 'В премиум-сегменте медицины важна каждая деталь и идеальная эстетика. MoonWeb Lab создали сайт с ювелирным дизайном, калькулятором процедур и карточками докторов. Сдали всё в срок за 7 дней.',
-      project: 'Медицинский портал + калькулятор услуг'
+      text: 'В эстетической медицине сайт должен вызывать безупречное доверие с первых секунд. Команда MoonWeb Lab разработала чистый скандинавский интерфейс с каталогом врачей и калькулятором процедур. Сдали точно в срок.',
+      project: 'Lumina Clinic • Медицинский портал'
     }
   ];
 
   const guarantees = [
     {
       icon: Clock,
-      title: 'Фиксированные сроки',
-      desc: 'Закрепляем дату релиза в договоре. За каждый день задержки — компенсация 1% от стоимости.'
+      title: 'Фиксированные сроки в договоре',
+      desc: 'Точная дата сдачи прописывается юридически. За каждый день задержки предусмотрена компенсация 1% от суммы договора.'
     },
     {
       icon: ShieldCheck,
-      title: 'Гарантия возврата',
-      desc: 'Если концепт дизайна вас не устроит — возвращаем 100% предоплаты без споров.'
+      title: '100% гарантия возврата',
+      desc: 'Если разработанный прототип и дизайн-концепция вас не устроят — мы возвращаем предоплату без споров.'
     },
     {
       icon: Award,
-      title: 'Исходный код навсегда ваш',
-      desc: 'Полная передача репозитория GitHub, прав на домен и хостинг. Никаких ежемесячных привязок.'
+      title: 'Полное владение исходным кодом',
+      desc: 'Никаких скрытых ежемесячных подписок. Репозиторий GitHub, код и доступы к хостингу передаются вам навсегда.'
     }
   ];
 
   return (
-    <section id="reviews" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
-      <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold tracking-wider uppercase">
-          Доверие & Результаты
+    <section id="guarantees" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/[0.08]">
+      <div className="max-w-3xl mb-16">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-studio-surface border border-white/[0.08] text-xs text-studio-muted mb-4">
+          <span className="font-mono uppercase text-[11px] text-white">Репутация & Гарантии</span>
+          <span className="text-studio-subtle">•</span>
+          <span>Без рисков</span>
         </div>
-        <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-          Отзывы клиентов &{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-sky-400">
-            железные гарантии
-          </span>
+        <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-editorial leading-tight">
+          Отзывы заказчиков и юридические гарантии
         </h2>
-        <p className="text-slate-400 text-base sm:text-lg">
-          Каждый наш проект — это измеримый рост заявок, лояльности клиентов и экономия времени владельца.
+        <p className="mt-3 text-studio-muted text-base leading-relaxed">
+          Мы строим долгосрочные партнерские отношения. Никаких пустых обещаний — только зафиксированные обязательства.
         </p>
       </div>
 
       {/* Reviews Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
         {reviews.map((rev, idx) => (
-          <TiltCard
+          <motion.div
             key={idx}
-            className="p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-emerald-500/40 flex flex-col justify-between group transition-all"
+            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{
+              duration: 0.5,
+              delay: shouldReduceMotion ? 0 : 0.08 * idx,
+              ease: [0.16, 1, 0.3, 1]
+            }}
+            className="p-6 rounded-2xl bg-studio-surface border border-white/[0.08] hover:border-white/20 transition-colors flex flex-col justify-between shadow-card"
           >
             <div className="space-y-4">
-              {/* Rating stars & Quote Icon */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1">
                   {[...Array(rev.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                   ))}
                 </div>
-                <MessageSquareQuote className="w-6 h-6 text-slate-600 group-hover:text-emerald-400/50 transition-colors" />
+                <span className="text-[10px] font-mono text-studio-subtle uppercase">
+                  Подтверждённый отзыв
+                </span>
               </div>
 
-              {/* Review text */}
-              <p className="text-sm text-slate-300 leading-relaxed italic">
+              <p className="text-xs text-neutral-300 leading-relaxed italic">
                 «{rev.text}»
               </p>
 
-              {/* Project tag */}
-              <div className="inline-block px-2.5 py-1 rounded bg-slate-800/80 border border-white/5 text-[11px] text-emerald-300 font-mono">
+              <div className="inline-block px-2.5 py-1 rounded bg-[#0E0E10] border border-white/[0.05] text-[11px] font-mono text-studio-muted">
                 {rev.project}
               </div>
             </div>
 
-            {/* Author info */}
-            <div className="mt-6 pt-4 border-t border-white/5 flex items-center gap-3">
+            <div className="pt-5 mt-5 border-t border-white/[0.06] flex items-center gap-3">
               <img
                 src={rev.avatar}
                 alt={rev.author}
-                className="w-11 h-11 rounded-full object-cover border-2 border-emerald-500/40"
+                className="w-10 h-10 rounded-full object-cover border border-white/10"
               />
               <div>
-                <h4 className="text-sm font-bold text-white group-hover:text-emerald-300 transition-colors">
-                  {rev.author}
-                </h4>
-                <p className="text-xs text-slate-400 leading-tight">{rev.role}</p>
-                <p className="text-[11px] text-slate-500 font-mono mt-0.5">{rev.city}</p>
+                <h4 className="text-xs font-bold text-white">{rev.author}</h4>
+                <p className="text-[11px] text-studio-muted">{rev.role}</p>
+                <p className="text-[10px] font-mono text-studio-subtle">{rev.city}</p>
               </div>
             </div>
-          </TiltCard>
+          </motion.div>
         ))}
       </div>
 
       {/* Guarantees Box */}
-      <div className="rounded-3xl p-8 sm:p-10 bg-gradient-to-b from-slate-900/90 to-[#070C18] border border-white/10 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 blur-[100px] pointer-events-none rounded-full" />
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="p-8 sm:p-10 rounded-2xl bg-studio-surface border border-white/[0.08] shadow-card">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {guarantees.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div
-                key={idx}
-                onMouseEnter={() => sounds.playHover()}
-                className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors"
-              >
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
-                  <Icon className="w-6 h-6 text-emerald-400" />
+              <div key={idx} className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#0E0E10] border border-white/[0.08] flex items-center justify-center text-white">
+                  <Icon className="w-5 h-5 text-emerald-400" />
                 </div>
-                <div>
-                  <h4 className="text-base font-bold text-white mb-1">{item.title}</h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
-                </div>
+                <h4 className="text-base font-bold text-white leading-snug">{item.title}</h4>
+                <p className="text-xs text-studio-muted leading-relaxed">{item.desc}</p>
               </div>
             );
           })}

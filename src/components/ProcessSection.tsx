@@ -1,144 +1,120 @@
 import React from 'react';
-import { Compass, Palette, Code2, Rocket, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { sounds } from '../audio/soundEngine';
-import { TiltCard } from './TiltCard';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Check, ArrowRight, Compass, Palette, Code2, Rocket } from 'lucide-react';
 
 export const ProcessSection: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   const steps = [
     {
       number: '01',
-      title: 'Анализ & Архитектура смыслов',
+      title: 'Анализ & Смысловой прототип',
       timeframe: '1–2 дня',
       icon: Compass,
-      color: 'from-sky-500 to-cyan-400',
-      description:
-        'Изучаем ваш продукт, сильные стороны и конкурентов. Формируем логику первого экрана и путь клиента (CJM) к целевому действию.',
-      deliverables: [
-        'Позиционирование оффера без воды',
-        'Интерактивная карта сценариев (User Flow)',
-        'Смысловой прототип с готовыми текстами'
-      ]
+      desc: 'Изучаем ваши сильные стороны, средний чек и сценарий клиента (CJM). Формируем оффер без воды и клише.',
+      deliverables: ['Карта пользовательских сценариев', 'Смысловой прототип первого экрана', 'Тексты без абстракций']
     },
     {
       number: '02',
-      title: 'High-End UI/UX & Анимации',
-      timeframe: '2–4 дня',
+      title: 'UI/UX Дизайн & Микроанимации',
+      timeframe: '2–3 дня',
       icon: Palette,
-      color: 'from-indigo-500 to-purple-400',
-      description:
-        'Создаём премиальную эстетику: глубокий темный режим, неоновые акценты, 3D-карточки, кастомную типографику и физику скролла.',
-      deliverables: [
-        'Дизайн-система (токены, сетка, компоненты)',
-        '3D микроинтеракции и эффекты курсора',
-        'Адаптив под мобильные устройства и десктоп'
-      ]
+      desc: 'Создаём выверенный визуальный стиль: плотный темный матовый режим, чистая типографика и адаптив под мобильные.',
+      deliverables: ['Дизайн-макет в 60 FPS', 'Микро-интеракции и тактильный отклик', 'Полный мобильный адаптив']
     },
     {
       number: '03',
-      title: 'Разработка & Web Audio',
-      timeframe: '3–5 дней',
+      title: 'Разработка & Интеграции',
+      timeframe: '2–4 дня',
       icon: Code2,
-      color: 'from-cyan-400 to-emerald-400',
-      description:
-        'Пишем чистый, отказоустойчивый код на React 18 / TypeScript / Tailwind. Подключаем физику звука через Web Audio API и Telegram Mini App SDK.',
-      deliverables: [
-        'Мгновенный отклик 60 FPS на любых экранах',
-        'Интерактивный синтезатор звуковых эффектов',
-        'Интеграция с Telegram Bot API и CRM'
-      ]
+      desc: 'Пишем чистый код на React 18 / TypeScript. Подключаем Telegram Bot API, онлайн-оплату и звуковой движок Web Audio.',
+      deliverables: ['Мгновенная загрузка за 0.4 сек', 'Telegram Bot с пуш-уведомлениями', 'Интеграция CRM / Эквайринга']
     },
     {
       number: '04',
-      title: 'QA-тесты, Релиз & Обучение',
+      title: 'Тесты, Релиз & Передача прав',
       timeframe: '1–2 дня',
       icon: Rocket,
-      color: 'from-emerald-400 to-teal-300',
-      description:
-        'Финальный стресс-тест скорости загрузки (Lighthouse 95+), деплой на быстрый CDN / GitHub Pages и передача исходного кода клиенту.',
-      deliverables: [
-        'Бесплатный SSL-сертификат и подключение домена',
-        'Видеоинструкция по управлению заявками',
-        '14 дней гарантийной поддержки'
-      ]
+      desc: 'Финальный аудит PageSpeed 95+, привязка домена, SSL и полная передача репозитория GitHub в вашу собственность.',
+      deliverables: ['100% передача исходного кода', 'Видеоинструкция для администратора', '14 дней гарантийной поддержки']
     }
   ];
 
   return (
-    <section id="process" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
-      <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wider uppercase">
-          Прозрачность на 100%
+    <section id="process" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/[0.08]">
+      <div className="max-w-3xl mb-16">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-studio-surface border border-white/[0.08] text-xs text-studio-muted mb-4">
+          <span className="font-mono uppercase text-[11px] text-white">Пайплайн работы</span>
+          <span className="text-studio-subtle">•</span>
+          <span>Без затягивания</span>
         </div>
-        <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-          Как мы создаём проект:{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">
-            от идеи до первых продаж
-          </span>
+        <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-editorial leading-tight">
+          Как мы ведём проект: 4 понятных шага
         </h2>
-        <p className="text-slate-400 text-base sm:text-lg">
-          Никакой бюрократии и затянутых сроков. Вы в реальном времени наблюдаете за каждым этапом на тестовом стенде.
+        <p className="mt-3 text-studio-muted text-base leading-relaxed">
+          Вы наблюдаете за каждым этапом на тестовом стенде. Никаких «мы пропали на месяц» — статус каждые 24 часа.
         </p>
       </div>
 
-      {/* Grid of 4 steps */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {steps.map((step, idx) => {
           const Icon = step.icon;
           return (
-            <TiltCard
+            <motion.div
               key={step.number}
-              className="p-6 rounded-2xl bg-slate-900/70 border border-white/10 hover:border-sky-500/40 flex flex-col justify-between group transition-all"
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{
+                duration: 0.5,
+                delay: shouldReduceMotion ? 0 : 0.08 * idx,
+                ease: [0.16, 1, 0.3, 1]
+              }}
+              className="p-6 rounded-2xl bg-studio-surface border border-white/[0.08] hover:border-white/20 transition-colors flex flex-col justify-between shadow-card"
             >
               <div className="space-y-4">
-                {/* Header: step number & icon */}
                 <div className="flex items-center justify-between">
-                  <span className="text-4xl font-black font-mono tracking-tighter text-slate-700 group-hover:text-sky-400/40 transition-colors">
+                  <span className="text-3xl font-extrabold font-mono text-studio-subtle">
                     {step.number}
                   </span>
-                  <div
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-tr ${step.color} p-0.5 shadow-md`}
-                  >
-                    <div className="w-full h-full bg-[#0B1222] rounded-[10px] flex items-center justify-center">
-                      <Icon className="w-6 h-6 text-sky-300 group-hover:scale-110 transition-transform" />
-                    </div>
+                  <div className="w-10 h-10 rounded-xl bg-[#0E0E10] border border-white/[0.08] flex items-center justify-center text-white">
+                    <Icon className="w-5 h-5 text-neutral-300" />
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs font-mono text-sky-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+                <div className="flex items-center gap-1.5 text-xs font-mono text-emerald-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                   <span>Срок: {step.timeframe}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-white group-hover:text-sky-200 transition-colors leading-snug">
+                <h3 className="text-lg font-bold text-white leading-snug">
                   {step.title}
                 </h3>
 
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  {step.description}
+                <p className="text-xs text-studio-muted leading-relaxed">
+                  {step.desc}
                 </p>
 
-                {/* Deliverables checklist */}
-                <div className="pt-2 border-t border-white/5 space-y-2">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-300">
-                    Что вы получаете:
-                  </p>
+                <div className="pt-3 border-t border-white/[0.06] space-y-2">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-studio-subtle">
+                    Результат:
+                  </span>
                   <ul className="space-y-1.5">
-                    {step.deliverables.map((item, dIdx) => (
-                      <li key={dIdx} className="flex items-start gap-2 text-xs text-slate-300">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                        <span>{item}</span>
+                    {step.deliverables.map((deliv, dIdx) => (
+                      <li key={dIdx} className="flex items-start gap-2 text-xs text-neutral-300">
+                        <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                        <span>{deliv}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
 
-              {/* Progress marker */}
-              <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-500 font-mono">
+              <div className="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono text-studio-subtle">
                 <span>Шаг {idx + 1} из 4</span>
-                <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-sky-400 group-hover:translate-x-1 transition-all" />
+                <ArrowRight className="w-3.5 h-3.5 text-studio-muted" />
               </div>
-            </TiltCard>
+            </motion.div>
           );
         })}
       </div>
