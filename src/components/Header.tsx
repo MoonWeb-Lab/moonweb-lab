@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
     { name: 'Как это работает', href: '#flow' },
     { name: 'Калькулятор сметы', href: '#configurator' },
     { name: 'Этапы', href: '#process' },
-    { name: 'Гарантии', href: '#guarantees' },
+    { name: 'Гарантии & FAQ', href: '#guarantees' },
   ];
 
   return (

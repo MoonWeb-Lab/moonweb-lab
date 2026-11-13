@@ -38,7 +38,7 @@ const PRESETS: LeadPreset[] = [
     client: 'Ольга Васильева',
     phone: '+375 (44) 710-88-34',
     service: 'Квиз: П-образная кухня с островом',
-    detail: 'Фасады: Fenix NTM • Фурнитура: Blum • Минск',
+    detail: 'Фасады: Fenix NTM • Фурнитура: Blum • Доставка и монтаж',
     amount: 'Расчёт сметы: ~4 800 $'
   }
 ];
@@ -68,24 +68,26 @@ export const LeadFlowDemo: React.FC = () => {
   };
 
   return (
-    <section id="flow" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="max-w-3xl mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-studio-surface border border-white/[0.08] text-xs text-studio-muted mb-4">
-          <span className="font-mono uppercase text-[11px] text-white">Интерактивная связка</span>
+    <section id="flow" className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/[0.08]">
+      <div className="max-w-3xl mb-16">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-studio-surface border border-white/[0.08] text-xs text-studio-muted mb-4">
+          <span className="font-mono uppercase text-[11px] text-white font-semibold">Интерактивная связка</span>
           <span className="text-studio-subtle">•</span>
-          <span>Без потерянных заявок</span>
+          <span className="text-neutral-300">0 потерь лидов в Директе</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-editorial leading-tight">
           Как это работает: путь клиента от клика до вашего смартфона
         </h2>
-        <p className="mt-4 text-studio-muted text-base sm:text-lg leading-relaxed">
-          Вместо того чтобы вручную переписываться в Директе и терять до 40% лидов, сайт моментально передает заявку прямо в закрытый Telegram-чат вашей компании.
+        <p className="mt-4 text-neutral-300 text-base sm:text-lg leading-relaxed">
+          Вместо того чтобы вручную переписываться в Директе и терять до 40% лидов, сайт моментально передает структурированную заявку прямо в закрытый Telegram-чат вашей компании.
         </p>
       </div>
 
-      {/* Preset Selector Chips */}
-      <div className="flex flex-wrap items-center gap-2 mb-8">
-        <span className="text-xs text-studio-subtle font-mono mr-2">Выберите нишу для теста:</span>
+      {/* Preset Selector Chips with sound */}
+      <div className="flex flex-wrap items-center gap-2.5 mb-10">
+        <span className="text-xs text-neutral-400 font-mono font-medium mr-2">
+          Выберите сферу бизнеса:
+        </span>
         {PRESETS.map((p) => {
           const isSelected = activePreset.id === p.id;
           return (
@@ -96,10 +98,10 @@ export const LeadFlowDemo: React.FC = () => {
                 setActivePreset(p);
                 setNotificationReceived(true);
               }}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
                 isSelected
-                  ? 'bg-white text-black font-semibold'
-                  : 'bg-studio-surface border border-white/[0.08] text-studio-muted hover:text-white'
+                  ? 'bg-white text-black shadow-sm'
+                  : 'bg-studio-surface border border-white/[0.08] text-neutral-300 hover:text-white hover:border-white/20'
               }`}
             >
               {p.name}
@@ -109,52 +111,52 @@ export const LeadFlowDemo: React.FC = () => {
       </div>
 
       {/* Interactive Two-Pane Demo */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         {/* Left: Mock Website Form on Customer's Phone/Browser */}
-        <div className="lg:col-span-5 p-6 rounded-2xl bg-studio-surface border border-white/[0.08] shadow-card">
-          <div className="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-5">
+        <div className="lg:col-span-5 p-7 rounded-2xl bg-studio-surface border border-white/[0.08] shadow-card">
+          <div className="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-6">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
-              <span className="text-xs font-mono text-studio-muted">Ваш сайт / Mini App</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+              <span className="text-xs font-mono text-neutral-300 font-medium">Ваш сайт / Mini App</span>
             </div>
-            <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-              Live форма
+            <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded border border-emerald-500/20 font-semibold">
+              Live форма заявки
             </span>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-[11px] font-mono uppercase text-studio-subtle mb-1">
+              <label className="block text-xs font-mono uppercase text-neutral-400 mb-1.5 font-medium">
                 Имя клиента
               </label>
-              <div className="p-2.5 rounded-lg bg-[#0E0E10] border border-white/[0.06] text-sm text-white font-medium">
+              <div className="p-3 rounded-lg bg-[#0E0E10] border border-white/[0.08] text-sm text-white font-medium">
                 {activePreset.client}
               </div>
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono uppercase text-studio-subtle mb-1">
-                Телефон
+              <label className="block text-xs font-mono uppercase text-neutral-400 mb-1.5 font-medium">
+                Номер телефона
               </label>
-              <div className="p-2.5 rounded-lg bg-[#0E0E10] border border-white/[0.06] text-sm text-neutral-300 font-mono">
+              <div className="p-3 rounded-lg bg-[#0E0E10] border border-white/[0.08] text-sm text-neutral-200 font-mono">
                 {activePreset.phone}
               </div>
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono uppercase text-studio-subtle mb-1">
-                Выбранная услуга / Параметры
+              <label className="block text-xs font-mono uppercase text-neutral-400 mb-1.5 font-medium">
+                Выбранная услуга / Комплектация
               </label>
-              <div className="p-2.5 rounded-lg bg-[#0E0E10] border border-white/[0.06] text-xs text-neutral-300">
-                <p className="font-semibold text-white mb-0.5">{activePreset.service}</p>
-                <p className="text-studio-muted text-[11px]">{activePreset.detail}</p>
+              <div className="p-3 rounded-lg bg-[#0E0E10] border border-white/[0.08] text-xs text-neutral-200 space-y-1">
+                <p className="font-bold text-white text-sm">{activePreset.service}</p>
+                <p className="text-neutral-400 text-xs">{activePreset.detail}</p>
               </div>
             </div>
 
             <button
               onClick={handleTestSubmit}
               disabled={isSubmitting}
-              className="w-full mt-4 flex items-center justify-center gap-2 py-3 rounded-lg bg-white hover:bg-neutral-200 text-black font-bold text-xs transition-colors shadow-sm disabled:opacity-50"
+              className="w-full mt-4 flex items-center justify-center gap-2 py-3.5 rounded-lg bg-white hover:bg-neutral-200 text-black font-bold text-xs transition-colors shadow-sm disabled:opacity-50"
             >
               {isSubmitting ? (
                 <>
@@ -168,7 +170,7 @@ export const LeadFlowDemo: React.FC = () => {
                 </>
               )}
             </button>
-            <p className="text-[11px] text-center text-studio-subtle">
+            <p className="text-xs text-center text-neutral-400 pt-1">
               Нажмите кнопку, чтобы отправить эмуляцию в Telegram
             </p>
           </div>
@@ -176,35 +178,35 @@ export const LeadFlowDemo: React.FC = () => {
 
         {/* Center: Interactive Pulse Pipeline */}
         <div className="lg:col-span-2 flex flex-col items-center justify-center py-4">
-          <div className="hidden lg:flex items-center gap-1 w-full justify-center">
-            <span className="w-12 h-px bg-white/10" />
+          <div className="hidden lg:flex items-center gap-1.5 w-full justify-center">
+            <span className="w-12 h-px bg-white/15" />
             <motion.div
               animate={isSubmitting ? { scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] } : {}}
               transition={{ repeat: isSubmitting ? Infinity : 0, duration: 0.5 }}
-              className="w-8 h-8 rounded-full bg-studio-surface border border-white/[0.1] flex items-center justify-center"
+              className="w-9 h-9 rounded-full bg-studio-surface border border-white/[0.15] flex items-center justify-center shadow-md"
             >
               <Zap className="w-4 h-4 text-emerald-400" />
             </motion.div>
-            <span className="w-12 h-px bg-white/10" />
+            <span className="w-12 h-px bg-white/15" />
           </div>
-          <span className="text-[10px] font-mono text-studio-subtle mt-2 uppercase">
+          <span className="text-[11px] font-mono text-neutral-400 mt-2 uppercase font-medium">
             {isSubmitting ? 'Передача: 0.4 сек' : 'Мгновенный пуш'}
           </span>
         </div>
 
         {/* Right: Realistic Telegram Bot Window */}
-        <div className="lg:col-span-5 p-6 rounded-2xl bg-[#17212B] border border-white/[0.08] shadow-card text-white">
-          <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+        <div className="lg:col-span-5 p-7 rounded-2xl bg-[#17212B] border border-white/[0.1] shadow-card text-white">
+          <div className="flex items-center justify-between pb-4 border-b border-white/15 mb-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-sky-500/20 border border-sky-400/30 flex items-center justify-center text-sky-400 font-bold text-xs">
+              <div className="w-9 h-9 rounded-full bg-sky-500/25 border border-sky-400/40 flex items-center justify-center text-sky-400 font-bold text-sm">
                 M
               </div>
               <div>
-                <h4 className="text-xs font-bold leading-tight">MoonWeb Bot • CRM</h4>
-                <p className="text-[10px] text-sky-300/80 font-mono">бот студии</p>
+                <h4 className="text-sm font-bold leading-tight">MoonWeb Bot • CRM</h4>
+                <p className="text-[11px] text-sky-300 font-mono">бот уведомлений</p>
               </div>
             </div>
-            <div className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400">
+            <div className="flex items-center gap-1.5 text-xs font-mono text-emerald-400 font-semibold">
               <Bell className="w-3.5 h-3.5" />
               <span>{lastSubmittedAt}</span>
             </div>
@@ -220,29 +222,29 @@ export const LeadFlowDemo: React.FC = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="p-4 rounded-xl bg-[#242F3D] border border-white/5 space-y-2 text-xs shadow-md"
+                  className="p-4 rounded-xl bg-[#242F3D] border border-white/10 space-y-2.5 text-xs shadow-md"
                 >
-                  <div className="flex items-center justify-between font-mono text-[11px] text-emerald-400 border-b border-white/5 pb-1.5">
+                  <div className="flex items-center justify-between font-mono text-xs text-emerald-400 border-b border-white/10 pb-2">
                     <span className="flex items-center gap-1 font-bold">
                       🔥 НОВАЯ ЗАЯВКА С САЙТА
                     </span>
                     <span className="text-neutral-400">{lastSubmittedAt}</span>
                   </div>
 
-                  <div className="space-y-1 pt-1 text-neutral-200">
+                  <div className="space-y-1.5 pt-1 text-neutral-200">
                     <p>
-                      👤 <strong className="text-white">{activePreset.client}</strong>
+                      👤 <strong className="text-white text-sm">{activePreset.client}</strong>
                     </p>
                     <p>
-                      📞 <span className="font-mono text-sky-300">{activePreset.phone}</span>
+                      📞 <span className="font-mono text-sky-300 font-semibold">{activePreset.phone}</span>
                     </p>
                     <p>
                       🎯 <strong>Услуга:</strong> {activePreset.service}
                     </p>
-                    <p className="text-neutral-300 text-[11px]">
+                    <p className="text-neutral-300 text-xs">
                       📝 <strong>Детали:</strong> {activePreset.detail}
                     </p>
-                    <p className="font-mono text-emerald-300 text-[11px] pt-1">
+                    <p className="font-mono text-emerald-300 text-xs font-semibold pt-1">
                       💰 {activePreset.amount}
                     </p>
                   </div>
@@ -250,15 +252,15 @@ export const LeadFlowDemo: React.FC = () => {
                   <div className="pt-2 flex items-center gap-2">
                     <a
                       href={`tel:${activePreset.phone}`}
-                      className="flex-1 py-1.5 text-center rounded bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 text-[11px] font-semibold transition-colors"
+                      className="flex-1 py-2 text-center rounded-lg bg-sky-500/25 hover:bg-sky-500/35 text-sky-200 text-xs font-semibold transition-colors"
                     >
                       Позвонить клиенту
                     </a>
                     <a
-                      href={`https://t.me/moonweb_labs`}
+                      href="https://t.me/moonweb_labs"
                       target="_blank"
                       rel="noreferrer"
-                      className="flex-1 py-1.5 text-center rounded bg-white/10 hover:bg-white/15 text-white text-[11px] font-semibold transition-colors"
+                      className="flex-1 py-2 text-center rounded-lg bg-white/15 hover:bg-white/20 text-white text-xs font-semibold transition-colors"
                     >
                       Открыть в CRM
                     </a>
