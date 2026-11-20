@@ -38,7 +38,7 @@ const DEMO_STEPS: DemoMessage[] = [
   },
 ];
 
-const MESSAGE_DELAYS = [0.1, 1.0, 1.9];
+const MESSAGE_DELAYS = [0.05, 0.55, 1.05];
 
 export const ConversionFlowSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -206,17 +206,17 @@ export const ConversionFlowSection: React.FC = () => {
         </motion.div>
       </motion.div>
 
-      {/* Spring Message Pop-in Widget (Pure transform & opacity, 60 FPS) */}
+      {/* Message Demonstration Feed (Clean background, zero card-in-card wrapper) */}
       <motion.div
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="rounded-3xl bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 lg:p-10 relative overflow-hidden"
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        className="relative pt-4"
       >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-white/10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-purple-300 mb-1">
+            <div className="flex items-center gap-2 text-xs font-semibold text-purple-300 mb-1.5">
               <Bell className="w-4 h-4 text-purple-400" />
               <span>Наглядный пример связки «Сайт → Telegram»</span>
             </div>
@@ -227,14 +227,14 @@ export const ConversionFlowSection: React.FC = () => {
 
           <button
             onClick={handleReplay}
-            className="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.06] hover:bg-white/15 border border-white/10 text-xs font-semibold text-white transition-colors cursor-pointer"
+            className="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] hover:bg-white/10 border border-white/10 text-xs font-semibold text-white transition-colors cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Повторить демо заявки</span>
           </button>
         </div>
 
-        {/* Message Feed with Calm Messenger Pacing (0.1s -> 1.0s -> 1.9s) */}
+        {/* Message Feed with 0.5s intervals (0.05s -> 0.55s -> 1.05s, duration 0.45s) */}
         <div key={replayKey} className="space-y-4 max-w-3xl mx-auto">
           {DEMO_STEPS.map((step, idx) => {
             const isTelegram = step.type === 'telegram';
@@ -245,14 +245,14 @@ export const ConversionFlowSection: React.FC = () => {
                 key={step.id}
                 initial={{
                   opacity: 0,
-                  y: shouldReduceMotion ? 0 : 16,
+                  y: shouldReduceMotion ? 0 : 14,
                 }}
                 animate={{
                   opacity: 1,
                   y: 0,
                 }}
                 transition={{
-                  duration: shouldReduceMotion ? 0 : 0.65,
+                  duration: shouldReduceMotion ? 0 : 0.45,
                   delay: shouldReduceMotion ? 0 : MESSAGE_DELAYS[idx],
                   ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
                 }}

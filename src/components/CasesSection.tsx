@@ -17,6 +17,7 @@ interface CaseStudy {
   url: string;
   glowColor: string;
   badgeColor: string;
+  accentBorder: string;
   mobileImage: string;
   tags: string[];
 }
@@ -33,6 +34,7 @@ const CASES_DATA: CaseStudy[] = [
     url: 'https://moonweb-lab.github.io/djezva-grodno/',
     glowColor: 'from-amber-600/15 via-orange-600/5 to-transparent',
     badgeColor: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+    accentBorder: 'border-l-amber-400',
     mobileImage: djezvaImg,
     tags: ['Меню блюд', 'Корзина заказа', 'Интеграция с Telegram', 'Быстрая мобильная версия'],
   },
@@ -47,6 +49,7 @@ const CASES_DATA: CaseStudy[] = [
     url: 'https://moonweb-lab.github.io/blade-and-timber/',
     glowColor: 'from-orange-600/15 via-amber-700/5 to-transparent',
     badgeColor: 'bg-orange-500/15 text-orange-300 border-orange-500/30',
+    accentBorder: 'border-l-orange-400',
     mobileImage: bladeTimberImg,
     tags: ['Выбор мастера', 'Календарь слотов', 'Каталог косметики', 'Без телефонных звонков'],
   },
@@ -61,6 +64,7 @@ const CASES_DATA: CaseStudy[] = [
     url: 'https://moonweb-lab.github.io/lumina-clinic/',
     glowColor: 'from-emerald-600/15 via-teal-600/5 to-transparent',
     badgeColor: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+    accentBorder: 'border-l-emerald-400',
     mobileImage: luminaImg,
     tags: ['Карточки врачей', 'Прайс процедур', 'Запись на консультацию', 'Доверие пациентов'],
   },
@@ -75,6 +79,7 @@ const CASES_DATA: CaseStudy[] = [
     url: 'https://moonweb-lab.github.io/botanica-bistro/',
     glowColor: 'from-green-600/15 via-emerald-600/5 to-transparent',
     badgeColor: 'bg-green-500/15 text-green-300 border-green-500/30',
+    accentBorder: 'border-l-emerald-400',
     mobileImage: botanicaImg,
     tags: ['Бронь столов', 'Барная карта', 'Галерея интерьера', 'Telegram-оповещения'],
   },
@@ -112,12 +117,12 @@ const CasePreviewFrame = memo<{
   const iframeHeight = scale > 0 ? dimensions.height / scale : 750;
 
   return (
-    <div className="w-full flex items-center justify-center bg-[#0E0E14] rounded-2xl p-4 sm:p-6 border border-white/[0.06] relative select-none overflow-hidden">
+    <div className="w-full flex items-center justify-center relative select-none py-2">
       
-      {/* Ambient Radial Color Accent matching niche */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${caseItem.glowColor} rounded-2xl pointer-events-none z-0`} />
+      {/* Ambient Radial Color Glow directly behind the phone frame (no intermediate box) */}
+      <div className={`absolute w-[320px] h-[480px] bg-gradient-to-br ${caseItem.glowColor} rounded-full blur-[70px] pointer-events-none z-0`} />
 
-      {/* Realistic Mobile Mockup Frame */}
+      {/* Realistic Mobile Mockup Frame standing directly inside the card */}
       <div className="relative z-10 w-[270px] sm:w-[290px] h-[540px] sm:h-[580px] rounded-[38px] bg-[#121217] border-[5px] border-neutral-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.12)] flex flex-col overflow-hidden">
         
         {/* Dynamic Island / Speaker notch */}
@@ -260,8 +265,8 @@ export const CasesSection: React.FC = () => {
                         <strong className="text-white font-semibold">Задача: </strong>
                         {item.problemSolution}
                       </p>
-                      <p className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06] text-neutral-200">
-                        <strong className="text-emerald-400 font-semibold">Результат: </strong>
+                      <p className={`py-3 px-4 rounded-r-xl bg-white/[0.03] border-l-2 ${item.accentBorder} text-neutral-200`}>
+                        <strong className="text-white font-semibold">Результат: </strong>
                         {item.result}
                       </p>
                     </div>
