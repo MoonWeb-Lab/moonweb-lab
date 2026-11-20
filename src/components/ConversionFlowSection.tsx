@@ -76,7 +76,7 @@ export const ConversionFlowSection: React.FC = () => {
           <span>Понятная логика</span>
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-4">
-          Как сайт превращает посетителей в заявки
+          Как посетитель сайта становится вашим клиентом
         </h2>
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
           Человек переходит со смартфона, сразу видит цены, выбирает услугу и отправляет контакты. Вы получаете готовую заявку в Telegram без лишних звонков и долгих переписок.
@@ -226,8 +226,10 @@ export const ConversionFlowSection: React.FC = () => {
           </div>
 
           <button
+            type="button"
             onClick={handleReplay}
-            className="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] hover:bg-white/10 border border-white/10 text-xs font-semibold text-white transition-colors cursor-pointer"
+            aria-label="Запустить анимацию заявки заново"
+            className="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] hover:bg-white/10 border border-white/10 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Повторить демо заявки</span>

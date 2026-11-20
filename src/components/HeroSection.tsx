@@ -58,6 +58,8 @@ export const HeroSection: React.FC = () => {
             <img
               src={avatarImg}
               alt="MoonWeb Lab"
+              width="16"
+              height="16"
               className="w-4 h-4 rounded-full object-cover"
             />
             <span className="font-medium text-white">Веб-студия MoonWeb Lab</span>
@@ -129,7 +131,7 @@ export const HeroSection: React.FC = () => {
               whileHover={{ y: -2 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
               href="#cases"
-              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 transition-colors shadow-lg shadow-white/5"
+              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-lg shadow-white/5"
             >
               <span>Смотреть живые кейсы</span>
               <ArrowDown className="w-4 h-4" />
@@ -140,8 +142,8 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
               href="https://t.me/moonweb_lab"
               target="_blank"
-              rel="noreferrer"
-              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#14141C] border border-white/10 text-white font-medium text-sm hover:bg-white/10 hover:border-white/20 transition-colors shadow-sm"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#14141C] border border-white/10 text-white font-medium text-sm hover:bg-white/10 hover:border-white/20 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-sm"
             >
               <Send className="w-4 h-4 text-purple-400" />
               <span>Обсудить проект в Telegram</span>
@@ -196,7 +198,7 @@ export const HeroSection: React.FC = () => {
               3–7 дней
             </div>
             <p className="text-xs text-neutral-400 leading-relaxed">
-              Быстрый запуск под ключ без затягивания и лишней бюрократии
+              Быстрый запуск от первого созвона до готового сайта без затягивания сроков
             </p>
           </motion.div>
         </motion.div>

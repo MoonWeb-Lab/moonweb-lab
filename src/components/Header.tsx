@@ -29,12 +29,15 @@ export const Header: React.FC = () => {
           whileHover={{ y: -1 }}
           whileTap={{ scale: 0.98 }}
           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center gap-3 shrink-0 focus:outline-none group"
+          className="flex items-center gap-3 shrink-0 rounded-xl focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none group"
+          aria-label="MoonWeb Lab — главная страница"
         >
           <div className="w-9 h-9 rounded-xl overflow-hidden border border-purple-500/30 shrink-0 shadow-[0_0_14px_rgba(168,85,247,0.25)] group-hover:border-purple-400/60 transition-colors">
             <img
               src={avatarImg}
-              alt="MoonWeb Lab Avatar"
+              alt="MoonWeb Lab Логотип"
+              width="36"
+              height="36"
               className="w-full h-full object-cover"
               loading="eager"
             />
@@ -45,14 +48,14 @@ export const Header: React.FC = () => {
         </motion.a>
 
         {/* Center: Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8" aria-label="Основная навигация">
           {navLinks.map((item) => (
             <motion.a
               key={item.name}
               href={item.href}
               whileHover={{ y: -1 }}
               transition={{ duration: 0.2 }}
-              className="text-sm font-medium text-neutral-300 hover:text-white transition-colors whitespace-nowrap"
+              className="text-sm font-medium text-neutral-300 hover:text-white transition-colors whitespace-nowrap rounded-md focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none py-1 px-2"
             >
               {item.name}
             </motion.a>
@@ -62,7 +65,7 @@ export const Header: React.FC = () => {
         {/* Right: Status Pill + CTA Button */}
         <div className="flex items-center gap-4 shrink-0">
           {/* Status Indicator */}
-          <div className="hidden xl:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs shrink-0">
+          <div className="hidden xl:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs shrink-0 select-none">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -78,8 +81,8 @@ export const Header: React.FC = () => {
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             href="https://t.me/moonweb_lab"
             target="_blank"
-            rel="noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-colors whitespace-nowrap shadow-sm"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors whitespace-nowrap shadow-sm"
           >
             <span>Обсудить проект</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -88,8 +91,9 @@ export const Header: React.FC = () => {
           {/* Mobile Menu Button (< 1024px) */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Меню навигации"
-            className="lg:hidden p-2 rounded-xl bg-[#14141C] border border-white/10 text-neutral-300 hover:text-white focus:outline-none"
+            aria-label={mobileMenuOpen ? 'Закрыть меню' : 'Открыть меню навигации'}
+            aria-expanded={mobileMenuOpen}
+            className="lg:hidden p-2 rounded-xl bg-[#14141C] border border-white/10 text-neutral-300 hover:text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -106,13 +110,13 @@ export const Header: React.FC = () => {
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="lg:hidden absolute top-[68px] left-0 w-full bg-[#0E0E14] border-b border-white/10 px-6 py-6 flex flex-col gap-4 shadow-2xl"
           >
-            <nav className="flex flex-col gap-3">
+            <nav className="flex flex-col gap-3" aria-label="Мобильная навигация">
               {navLinks.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-base font-medium text-neutral-200 hover:text-white py-2 px-3 rounded-lg hover:bg-white/[0.05] transition-colors"
+                  className="text-base font-medium text-neutral-200 hover:text-white py-2 px-3 rounded-lg hover:bg-white/[0.05] focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors"
                 >
                   {item.name}
                 </a>
@@ -128,9 +132,9 @@ export const Header: React.FC = () => {
               <a
                 href="https://t.me/moonweb_lab"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-semibold text-sm hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors"
               >
                 <span>Обсудить проект в Telegram</span>
                 <ArrowUpRight className="w-4 h-4" />

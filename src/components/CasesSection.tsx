@@ -165,20 +165,24 @@ const CasePreviewFrame = memo<{
               <img
                 src={caseItem.mobileImage}
                 alt={`${caseItem.name} превью`}
+                width="390"
+                height="844"
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover object-top select-none"
               />
               {/* Play live preview overlay with pure contrast button */}
-              <div
+              <button
+                type="button"
                 onClick={onActivate}
-                className="absolute inset-0 bg-black/35 hover:bg-black/20 cursor-pointer flex items-center justify-center transition-colors group"
+                aria-label={`Включить интерактивное демо ${caseItem.name}`}
+                className="absolute inset-0 w-full h-full bg-black/35 hover:bg-black/20 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none cursor-pointer flex items-center justify-center transition-colors group"
               >
-                <div className="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold shadow-2xl flex items-center gap-2">
+                <div className="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold shadow-2xl flex items-center gap-2 group-hover:scale-105 transition-transform">
                   <Play className="w-3.5 h-3.5 fill-black text-black" />
                   <span>Включить живой сайт</span>
                 </div>
-              </div>
+              </button>
             </div>
           )}
         </div>
@@ -289,16 +293,18 @@ export const CasesSection: React.FC = () => {
                   <div className="flex flex-wrap items-center gap-3 pt-4 mt-auto">
                     {!isActiveIframe ? (
                       <button
+                        type="button"
                         onClick={() => setActiveIframeId(item.id)}
-                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm transition-colors shadow-sm cursor-pointer"
+                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-sm cursor-pointer"
                       >
                         <Play className="w-4 h-4 fill-white" />
                         <span>Включить живой сайт</span>
                       </button>
                     ) : (
                       <button
+                        type="button"
                         onClick={() => setActiveIframeId(null)}
-                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.08] hover:bg-white/15 border border-white/15 text-white font-medium text-sm transition-colors cursor-pointer"
+                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.08] hover:bg-white/15 border border-white/15 text-white font-medium text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors cursor-pointer"
                       >
                         <EyeOff className="w-4 h-4" />
                         <span>Выключить живой сайт</span>
@@ -308,8 +314,8 @@ export const CasesSection: React.FC = () => {
                     <a
                       href={item.url}
                       target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 transition-colors shadow-sm"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-sm"
                     >
                       <span>В новой вкладке</span>
                       <ExternalLink className="w-4 h-4" />

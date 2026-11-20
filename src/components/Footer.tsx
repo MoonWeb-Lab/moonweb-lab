@@ -46,8 +46,8 @@ export const Footer: React.FC = () => {
                 transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 href="https://t.me/moonweb_lab"
                 target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 transition-colors shadow-lg shadow-white/5"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-lg shadow-white/5"
               >
                 <Send className="w-4 h-4 text-purple-600" />
                 <span>Написать в Telegram (@moonweb_lab)</span>
@@ -60,8 +60,8 @@ export const Footer: React.FC = () => {
                 transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 href={INSTAGRAM_URL}
                 target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#181824] border border-white/10 hover:bg-[#20202E] text-white font-medium text-sm transition-colors"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#181824] border border-white/10 hover:bg-[#20202E] text-white font-medium text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors"
               >
                 <Instagram className="w-4 h-4 text-pink-400" />
                 <span>Instagram: @moonweb_labs</span>
@@ -80,6 +80,8 @@ export const Footer: React.FC = () => {
               <img
                 src={avatarImg}
                 alt="MoonWeb Lab Avatar"
+                width="36"
+                height="36"
                 className="w-9 h-9 rounded-xl object-cover border border-purple-500/30"
               />
               <span className="font-extrabold text-2xl tracking-tight text-white">
@@ -98,8 +100,8 @@ export const Footer: React.FC = () => {
                 transition={{ duration: 0.2 }}
                 href="https://t.me/moonweb_lab"
                 target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-xs font-semibold text-white transition-colors shadow-sm"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-sm"
               >
                 <Send className="w-3.5 h-3.5 text-purple-400" />
                 <span>Telegram: @moonweb_lab</span>
@@ -112,8 +114,8 @@ export const Footer: React.FC = () => {
                 transition={{ duration: 0.2 }}
                 href={INSTAGRAM_URL}
                 target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-xs font-semibold text-white transition-colors shadow-sm"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-sm"
               >
                 <Instagram className="w-3.5 h-3.5 text-pink-400" />
                 <span>Instagram: @moonweb_labs</span>
@@ -129,17 +131,17 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-sm text-neutral-300">
               <li>
-                <a href="#cases" className="hover:text-white transition-colors">
+                <a href="#cases" className="hover:text-white rounded-md focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors">
                   Кейсы и живые демо
                 </a>
               </li>
               <li>
-                <a href="#formats" className="hover:text-white transition-colors">
+                <a href="#formats" className="hover:text-white rounded-md focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors">
                   Форматы работы
                 </a>
               </li>
               <li>
-                <a href="#how-it-works" className="hover:text-white transition-colors">
+                <a href="#how-it-works" className="hover:text-white rounded-md focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors">
                   Как это работает
                 </a>
               </li>
@@ -162,7 +164,7 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span>Без ежемесячной абонентской платы</span>
+                <span>Без абонентской платы</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
@@ -179,11 +181,13 @@ export const Footer: React.FC = () => {
           </div>
 
           <motion.button
+            type="button"
+            aria-label="Вернуться к началу страницы"
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.96 }}
             transition={{ duration: 0.2 }}
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-neutral-300 hover:text-white transition-colors text-xs"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-neutral-300 hover:text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors text-xs cursor-pointer"
           >
             <span>Наверх</span>
             <ArrowUp className="w-3.5 h-3.5" />

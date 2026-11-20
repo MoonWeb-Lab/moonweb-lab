@@ -88,10 +88,10 @@ export const LaunchFormatsSection: React.FC = () => {
           <span>Форматы работы</span>
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-4">
-          Сделаем практически любую работу
+          Форматы разработки под ваши задачи
         </h2>
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
-          От быстрого запуска сайта-визитки и онлайн-меню до сложных сервисов, ботов и интеграций под ключ. Если у вас специфическая задача — реализуем её аккуратно и в срок.
+          От быстрого сайта-визитки и онлайн-меню до индивидуальных сервисов и Telegram-ботов. Если у вас нестандартная задача — всё обсудим и сделаем в срок.
         </p>
       </motion.div>
 
@@ -173,8 +173,8 @@ export const LaunchFormatsSection: React.FC = () => {
               <a
                 href="https://t.me/moonweb_lab"
                 target="_blank"
-                rel="noreferrer"
-                className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm transition-colors shadow-sm ${
+                rel="noopener noreferrer"
+                className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-sm ${
                   format.isPopular
                     ? 'bg-white text-black hover:bg-neutral-200'
                     : 'bg-white/[0.08] text-white hover:bg-white/15 border border-white/10'
@@ -205,15 +205,15 @@ export const LaunchFormatsSection: React.FC = () => {
             Нужно доработать текущий сайт или внедрить автоматизацию?
           </h4>
           <p className="text-sm text-neutral-300 max-w-2xl leading-relaxed">
-            Берёмся за задачи любой сложности: ускорение страниц, редизайн, онлайн-оплата, базы данных, перенос на надежный хостинг или Telegram Mini Apps.
+            Берёмся за задачи любой сложности: ускорение страниц, редизайн, онлайн-оплата, базы данных, перенос на быстрый хостинг или Telegram Mini Apps.
           </p>
         </div>
 
         <a
           href="https://t.me/moonweb_lab"
           target="_blank"
-          rel="noreferrer"
-          className="shrink-0 px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm transition-colors shadow-lg shadow-purple-600/20 flex items-center gap-2"
+          rel="noopener noreferrer"
+          className="shrink-0 px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-lg shadow-purple-600/20 flex items-center gap-2"
         >
           <span>Обсудить задачу</span>
           <ArrowUpRight className="w-4 h-4" />
