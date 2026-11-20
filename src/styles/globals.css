@@ -10,24 +10,22 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #0E0E10;
+    background-color: #0B0B0F;
     color: #F4F4F6;
   }
 
   body {
     overflow-x: hidden;
-    background-color: #0E0E10;
+    background-color: #0B0B0F;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* Subtle micro-grain background */
-.bg-studio-grid {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+/* Crisp pure-CSS dot grid (zero JS, 60 FPS) */
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* Custom Minimalist Studio Scrollbar */
@@ -36,7 +34,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0E0E10;
+  background: #0B0B0F;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -46,9 +44,4 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #33333C;
-}
-
-/* Clip-path utility for masked text reveals */
-.clip-text-mask {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }

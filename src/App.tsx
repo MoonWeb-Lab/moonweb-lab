@@ -6,15 +6,14 @@ import { CasesSection } from './components/CasesSection';
 import { ConversionFlowSection } from './components/ConversionFlowSection';
 import { LaunchFormatsSection } from './components/LaunchFormatsSection';
 import { Footer } from './components/Footer';
-import { CursorSpotlight } from './components/CursorSpotlight';
 
 export const App: React.FC = () => {
   return (
     <div className="relative min-h-screen bg-[#0B0B0F] text-[#F4F4F6] selection:bg-purple-500/30 selection:text-white">
-      {/* Interactive mouse spotlight glow (lightweight GPU only) */}
-      <CursorSpotlight />
+      {/* Pure CSS dot grid background (zero JS calculations, locked 60 FPS) */}
+      <div className="fixed inset-0 bg-dot-grid pointer-events-none opacity-45 z-0" />
 
-      {/* Foreground Content */}
+      {/* Main Content Layout */}
       <div className="relative z-10 flex flex-col min-h-screen">
         <Header />
         

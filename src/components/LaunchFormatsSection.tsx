@@ -44,7 +44,7 @@ const FORMATS: FormatCard[] = [
   },
   {
     id: 'custom',
-    name: 'Индивидуальный проект под ключ',
+    name: 'Индивидуальный проект с Telegram-ботом',
     audience: 'Компании со сложным ассортиментом, сетью заведений или нестандартной задачей',
     timeline: 'от 7–10 дней',
     description: 'Разработка под специфические процессы бизнеса: несколько филиалов, личный кабинет клиента или связка с Telegram-ботом.',
@@ -63,7 +63,7 @@ export const LaunchFormatsSection: React.FC = () => {
   return (
     <section id="formats" className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
-      {/* Section Header (Smooth slide-up entrance) */}
+      {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 18 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -71,7 +71,7 @@ export const LaunchFormatsSection: React.FC = () => {
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-3xl mb-16"
       >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-neutral-300 mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
           <span>Форматы работы</span>
         </div>
@@ -83,7 +83,7 @@ export const LaunchFormatsSection: React.FC = () => {
         </p>
       </motion.div>
 
-      {/* Cards Grid (Cascading 90ms delay between siblings) */}
+      {/* Cards Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-12">
         {FORMATS.map((format, index) => {
           return (
@@ -99,13 +99,13 @@ export const LaunchFormatsSection: React.FC = () => {
               }}
               className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative ${
                 format.isPopular
-                  ? 'bg-[#12121A] border-2 border-purple-500/50 shadow-[0_0_40px_rgba(168,85,247,0.12)]'
-                  : 'bg-[#0F0F14] border border-white/10 hover:border-white/20'
+                  ? 'bg-[#14141F] border-2 border-purple-500/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_0_30px_rgba(168,85,247,0.1)]'
+                  : 'bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] hover:border-white/20'
               }`}
             >
               {/* Popular Badge */}
               {format.isPopular && (
-                <div className="absolute -top-3.5 left-8 px-3.5 py-1 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold text-xs flex items-center gap-1.5 shadow-md">
+                <div className="absolute -top-3.5 left-8 px-3.5 py-1 rounded-full bg-purple-600 text-white font-semibold text-xs flex items-center gap-1.5 shadow-md">
                   <Star className="w-3.5 h-3.5 fill-current" />
                   <span>{format.badge}</span>
                 </div>
@@ -151,10 +151,12 @@ export const LaunchFormatsSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* CTA Button */}
+              {/* CTA Button -> Direct to https://t.me/moonweb_lab */}
               <div>
                 <a
-                  href="#contacts"
+                  href="https://t.me/moonweb_lab"
+                  target="_blank"
+                  rel="noreferrer"
                   className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm transition-all shadow-sm ${
                     format.isPopular
                       ? 'bg-white text-black hover:bg-neutral-200'
@@ -170,13 +172,13 @@ export const LaunchFormatsSection: React.FC = () => {
         })}
       </div>
 
-      {/* Universal Flexibility Banner (Fade-up entrance) */}
+      {/* Universal Flexibility Banner */}
       <motion.div
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-        className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#12121A] to-blue-900/20 border border-purple-500/30 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+        className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#121218] to-blue-900/20 border border-purple-500/30 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
       >
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 text-xs font-semibold text-purple-300">
@@ -187,13 +189,15 @@ export const LaunchFormatsSection: React.FC = () => {
             Нужно доработать текущий сайт или внедрить автоматизацию?
           </h4>
           <p className="text-sm text-neutral-300 max-w-2xl leading-relaxed">
-            Берёмся за задачи любой сложности: ускорение существующих страниц, редизайн, интеграция с онлайн-оплатой, базы данных, перенос на надежный хостинг или Telegram Mini Apps.
+            Берёмся за задачи любой сложности: ускорение страниц, редизайн, онлайн-оплата, базы данных, перенос на надежный хостинг или Telegram Mini Apps.
           </p>
         </div>
 
         <a
-          href="#contacts"
-          className="shrink-0 px-6 py-3.5 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold text-sm transition-colors shadow-lg shadow-purple-500/25 flex items-center gap-2"
+          href="https://t.me/moonweb_lab"
+          target="_blank"
+          rel="noreferrer"
+          className="shrink-0 px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm transition-colors shadow-lg shadow-purple-600/20 flex items-center gap-2"
         >
           <span>Обсудить задачу</span>
           <ArrowUpRight className="w-4 h-4" />

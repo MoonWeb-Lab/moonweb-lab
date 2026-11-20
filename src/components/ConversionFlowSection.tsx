@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Smartphone, Clock, Send, RotateCcw, CheckCircle2, MessageSquare, Bell, User, Check } from 'lucide-react';
+import { Smartphone, Clock, Send, RotateCcw, CheckCircle2, MessageSquare, Bell } from 'lucide-react';
 
 interface DemoMessage {
   id: number;
-  type: 'action' | 'telegram' | 'status' | 'confirmation';
+  type: 'action' | 'telegram' | 'status';
   time: string;
   badge: string;
   text: string;
@@ -17,32 +17,24 @@ const DEMO_STEPS: DemoMessage[] = [
     type: 'action',
     time: '14:28',
     badge: '1. Действие клиента на сайте',
-    text: 'Клиент выбрал со смартфона: Стрижка + оформление бороды, завтра в 15:00',
-    subtext: 'Услуга и время выбраны за 30 секунд без звонков',
+    text: 'Клиент выбрал услугу на сайте: Стрижка + оформление бороды, завтра в 15:00',
+    subtext: 'Услуга и удобное время выбраны за 30 секунд без звонков',
   },
   {
     id: 2,
     type: 'telegram',
     time: '14:28',
-    badge: '2. Мгновенно в Telegram / WhatsApp',
-    text: '🔔 Новая заявка с сайта!\nИмя: Алексей Смирнов\nТелефон: +375 (29) 555-12-34\nУслуга: Стрижка + борода (мастер: Дмитрий)\nВремя: Завтра, 15:00',
-    subtext: 'Уведомление пришло через 1 секунду после клика',
+    badge: '2. Мгновенно в Telegram',
+    text: '🔔 Новая заявка за 1 секунду прилетела в Telegram!\nИмя: Алексей Смирнов\nТелефон: +375 (29) 555-12-34\nУслуга: Стрижка + борода (мастер: Дмитрий)\nВремя: Завтра, 15:00',
+    subtext: 'Уведомление со всеми деталями приходит прямо на ваш смартфон',
   },
   {
     id: 3,
     type: 'status',
     time: '14:28',
-    badge: '3. Фиксация в расписании',
-    text: 'Слот забронирован автоматически без участия администратора',
-    subtext: 'Клиент и мастер видят одно и то же время',
-  },
-  {
-    id: 4,
-    type: 'confirmation',
-    time: '14:29',
-    badge: '4. Подтверждение клиенту',
-    text: 'Клиенту отправлено напоминание с адресом и ссылкой на карту',
-    subtext: 'Человек точно знает, куда и во сколько приходить',
+    badge: '3. Запись подтверждена',
+    text: 'Запись подтверждена без звонков и долгих переписок в мессенджерах',
+    subtext: 'Клиент спокоен, а администратор экономит рабочее время',
   },
 ];
 
@@ -65,7 +57,7 @@ export const ConversionFlowSection: React.FC = () => {
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-3xl mb-16"
       >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-neutral-300 mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
           <span>Понятная логика</span>
         </div>
@@ -73,11 +65,11 @@ export const ConversionFlowSection: React.FC = () => {
           Как сайт превращает посетителей в заявки
         </h2>
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
-          Вместо долгих переписок в директе и пропущенных звонков: простая цепочка из трёх шагов, которая работает круглосуточно.
+          Вместо долгих переписок в директе и пропущенных звонков: прозрачный путь от перехода клиента до подтверждённой брони.
         </p>
       </motion.div>
 
-      {/* 3 Step Cards Grid (Cascading 90ms delay) */}
+      {/* 3 Step Cards Grid (Cascading 90ms delay, solid volumetric surfaces) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
         
         {/* Step 1 */}
@@ -86,7 +78,7 @@ export const ConversionFlowSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, delay: shouldReduceMotion ? 0 : 0, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-3xl bg-[#0F0F14] border border-white/10 p-6 sm:p-8 flex flex-col justify-between hover:border-white/20 transition-all duration-300"
+          className="rounded-3xl bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 flex flex-col justify-between hover:border-white/20 transition-all duration-300"
         >
           <div>
             <div className="flex items-center justify-between mb-6">
@@ -101,20 +93,20 @@ export const ConversionFlowSection: React.FC = () => {
             </h3>
             
             <p className="text-sm text-neutral-300 leading-relaxed mb-6">
-              Потенциальный клиент нажимает на ссылку в профиле или на Яндекс Картах. Страница открывается со смартфона моментально, без подвисаний и долгой загрузки.
+              Потенциальный клиент нажимает на ссылку в профиле или на Яндекс Картах. Страница открывается со смартфона моментально, без долгого ожидания.
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] text-xs space-y-2">
+          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] text-xs space-y-2">
             <div className="flex items-center justify-between text-neutral-400">
               <span>Источник: Яндекс Карты</span>
-              <span className="text-emerald-400 font-medium">Загрузка 0.8с</span>
+              <span className="text-emerald-400 font-medium">Загрузка ~1 сек</span>
             </div>
             <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
               <div className="bg-emerald-400 h-full w-full rounded-full" />
             </div>
             <p className="text-[11px] text-neutral-400">
-              Посетитель не закрывает вкладку и сразу видит ваш каталог
+              Человек не закрывает страницу и сразу видит ваши услуги
             </p>
           </div>
         </motion.div>
@@ -125,7 +117,7 @@ export const ConversionFlowSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, delay: shouldReduceMotion ? 0 : 0.09, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-3xl bg-[#0F0F14] border border-white/10 p-6 sm:p-8 flex flex-col justify-between hover:border-white/20 transition-all duration-300"
+          className="rounded-3xl bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 flex flex-col justify-between hover:border-white/20 transition-all duration-300"
         >
           <div>
             <div className="flex items-center justify-between mb-6">
@@ -144,7 +136,7 @@ export const ConversionFlowSection: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] text-xs space-y-2">
+          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] text-xs space-y-2">
             <div className="flex items-center justify-between text-white font-medium">
               <span>Выбранная услуга</span>
               <span className="text-purple-300">45 ₽</span>
@@ -164,7 +156,7 @@ export const ConversionFlowSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, delay: shouldReduceMotion ? 0 : 0.18, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-3xl bg-[#0F0F14] border border-white/10 p-6 sm:p-8 flex flex-col justify-between hover:border-purple-500/30 transition-all duration-300"
+          className="rounded-3xl bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 flex flex-col justify-between hover:border-purple-500/30 transition-all duration-300"
         >
           <div>
             <div className="flex items-center justify-between mb-6">
@@ -179,7 +171,7 @@ export const ConversionFlowSection: React.FC = () => {
             </h3>
             
             <p className="text-sm text-neutral-300 leading-relaxed mb-6">
-              Никаких потерь контактов: настроим получение уведомлений в любой удобный для вас канал: личный Telegram, чат сотрудников, WhatsApp, на почту или в CRM.
+              Никаких потерь контактов: настроим получение уведомлений в любой удобный для вас канал: личный Telegram, чат сотрудников, WhatsApp или CRM.
             </p>
           </div>
 
@@ -191,29 +183,26 @@ export const ConversionFlowSection: React.FC = () => {
               WhatsApp
             </span>
             <span className="px-2.5 py-1 rounded-md bg-purple-500/15 text-purple-300 border border-purple-500/30 font-medium">
-              CRM / Таблица
-            </span>
-            <span className="px-2.5 py-1 rounded-md bg-white/[0.05] text-neutral-300 border border-white/10 font-medium">
-              Email
+              CRM
             </span>
           </div>
         </motion.div>
 
       </div>
 
-      {/* Interactive Spring Message Pop-in Widget */}
+      {/* Spring Message Pop-in Widget (Pure transform & opacity, 60 FPS) */}
       <motion.div
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-        className="rounded-3xl bg-[#0C0C11] border border-white/10 p-6 sm:p-8 lg:p-10 shadow-2xl relative overflow-hidden"
+        className="rounded-3xl bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 lg:p-10 relative overflow-hidden"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-white/10">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold text-purple-300 mb-1">
               <Bell className="w-4 h-4 text-purple-400" />
-              <span>Живой пример связки «Сайт → Telegram»</span>
+              <span>Наглядный пример связки «Сайт → Telegram»</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
               Как проходит заявка от клика до подтверждения
@@ -229,7 +218,7 @@ export const ConversionFlowSection: React.FC = () => {
           </button>
         </div>
 
-        {/* Message Feed with Spring Physics */}
+        {/* Message Feed with Spring Physics: translate3d(0, 16px, 0) scale(0.96) -> translate3d(0, 0, 0) scale(1) */}
         <div key={replayKey} className="space-y-4 max-w-3xl mx-auto">
           {DEMO_STEPS.map((step, idx) => {
             const isTelegram = step.type === 'telegram';
@@ -240,8 +229,8 @@ export const ConversionFlowSection: React.FC = () => {
                 key={step.id}
                 initial={{
                   opacity: 0,
-                  y: shouldReduceMotion ? 0 : 20,
-                  scale: shouldReduceMotion ? 1 : 0.95,
+                  y: shouldReduceMotion ? 0 : 16,
+                  scale: shouldReduceMotion ? 1 : 0.96,
                 }}
                 animate={{
                   opacity: 1,
@@ -250,7 +239,7 @@ export const ConversionFlowSection: React.FC = () => {
                 }}
                 transition={{
                   duration: shouldReduceMotion ? 0 : 0.5,
-                  delay: shouldReduceMotion ? 0 : idx * 0.2,
+                  delay: shouldReduceMotion ? 0 : idx * 0.18,
                   ease: [0.34, 1.56, 0.64, 1] as [number, number, number, number],
                 }}
                 style={{
@@ -258,26 +247,24 @@ export const ConversionFlowSection: React.FC = () => {
                 }}
                 className={`p-4 sm:p-5 rounded-2xl border transition-all ${
                   isTelegram
-                    ? 'bg-[#151C2C] border-blue-500/30 ml-4 sm:ml-12 shadow-lg shadow-blue-500/5'
+                    ? 'bg-[#151C2C] border-blue-500/30 ml-4 sm:ml-10 shadow-lg shadow-blue-500/5'
                     : isStatus
-                    ? 'bg-emerald-950/20 border-emerald-500/30'
-                    : 'bg-white/[0.03] border-white/[0.08] mr-4 sm:mr-12'
+                    ? 'bg-[#101F18] border-emerald-500/30'
+                    : 'bg-[#161620] border-white/10 mr-4 sm:mr-10'
                 }`}
               >
                 <div className="flex items-center justify-between gap-3 mb-2">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${
-                        isTelegram
-                          ? 'bg-blue-500/20 text-blue-300'
-                          : isStatus
-                          ? 'bg-emerald-500/20 text-emerald-300'
-                          : 'bg-purple-500/20 text-purple-300'
-                      }`}
-                    >
-                      {step.badge}
-                    </span>
-                  </div>
+                  <span
+                    className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${
+                      isTelegram
+                        ? 'bg-blue-500/20 text-blue-300'
+                        : isStatus
+                        ? 'bg-emerald-500/20 text-emerald-300'
+                        : 'bg-purple-500/20 text-purple-300'
+                    }`}
+                  >
+                    {step.badge}
+                  </span>
                   <span className="text-[11px] font-mono text-neutral-400">
                     {step.time}
                   </span>

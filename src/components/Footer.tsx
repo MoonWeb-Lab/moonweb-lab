@@ -1,36 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowUp, ArrowUpRight, Send, Mail, Copy, Check, MessageSquare } from 'lucide-react';
+import { ArrowUp, ArrowUpRight, Send, Instagram } from 'lucide-react';
 import avatarImg from '../assets/avatar.jpg';
 
 export const Footer: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
-  const [copied, setCopied] = useState(false);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const copyEmail = () => {
-    navigator.clipboard.writeText('vladgaluhin260@gmail.com');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
     <footer id="contacts" className="w-full bg-[#08080B] border-t border-white/10 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
         
-        {/* Main Contact Action Card */}
+        {/* Main Contact Action Card (Volumetric, zero backdrop-blur) */}
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-3xl bg-gradient-to-br from-[#12121A] via-[#0E0E14] to-[#161224] border border-purple-500/30 p-8 sm:p-12 mb-16 shadow-2xl relative overflow-hidden"
+          className="rounded-3xl bg-[#121218] border border-purple-500/30 p-8 sm:p-12 mb-16 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_0_40px_rgba(168,85,247,0.08)] relative overflow-hidden"
         >
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-xs text-purple-300">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#181824] border border-purple-500/30 text-xs text-purple-300">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>Открыты к новым проектам</span>
             </div>
@@ -40,33 +33,31 @@ export const Footer: React.FC = () => {
             </h3>
 
             <p className="text-base sm:text-lg text-neutral-300 leading-relaxed max-w-2xl">
-              Расскажите о вашей задаче: подберём подходящий формат, сориентируем по точным срокам и покажем живые примеры под вашу нишу.
+              Расскажите о вашей задаче в Telegram или Instagram: подберём формат решения, сориентируем по срокам и стоимости.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <a
-                href="https://t.me/MoonWebLeadGenBot"
+                href="https://t.me/moonweb_lab"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 transition-colors shadow-lg shadow-white/5"
               >
                 <Send className="w-4 h-4 text-purple-600" />
-                <span>Написать в Telegram</span>
+                <span>Написать в Telegram (@moonweb_lab)</span>
                 <ArrowUpRight className="w-4 h-4" />
               </a>
 
-              <button
-                onClick={copyEmail}
-                className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-white/[0.05] border border-white/10 hover:bg-white/10 hover:border-white/20 text-white font-medium text-sm transition-all"
+              <a
+                href="https://instagram.com/moonweb_lab"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-[#181824] border border-white/10 hover:bg-[#20202E] text-white font-medium text-sm transition-all"
               >
-                <Mail className="w-4 h-4 text-neutral-400" />
-                <span>vladgaluhin260@gmail.com</span>
-                {copied ? (
-                  <Check className="w-4 h-4 text-emerald-400" />
-                ) : (
-                  <Copy className="w-4 h-4 text-neutral-400" />
-                )}
-              </button>
+                <Instagram className="w-4 h-4 text-pink-400" />
+                <span>Instagram: @moonweb_lab</span>
+                <ArrowUpRight className="w-4 h-4 text-neutral-400" />
+              </a>
             </div>
           </div>
         </motion.div>
@@ -90,6 +81,30 @@ export const Footer: React.FC = () => {
             <p className="text-sm text-neutral-300 max-w-md leading-relaxed">
               Разрабатываем быстрые сайты, онлайн-меню, системы онлайн-записи и Telegram-решения для локального бизнеса.
             </p>
+
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <a
+                href="https://t.me/moonweb_lab"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-xs font-semibold text-white transition-all shadow-sm"
+              >
+                <Send className="w-3.5 h-3.5 text-purple-400" />
+                <span>Telegram: @moonweb_lab</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400" />
+              </a>
+
+              <a
+                href="https://instagram.com/moonweb_lab"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-xs font-semibold text-white transition-all shadow-sm"
+              >
+                <Instagram className="w-3.5 h-3.5 text-pink-400" />
+                <span>Instagram: @moonweb_lab</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400" />
+              </a>
+            </div>
           </div>
 
           {/* Navigation Links */}
@@ -128,7 +143,7 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span>Заявки туда, куда вам удобно</span>
+                <span>Заявки прямо в Telegram</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
@@ -150,7 +165,7 @@ export const Footer: React.FC = () => {
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/[0.05] border border-white/10 hover:border-white/20 text-neutral-300 hover:text-white transition-all text-xs"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-neutral-300 hover:text-white transition-all text-xs"
           >
             <span>Наверх</span>
             <ArrowUp className="w-3.5 h-3.5" />

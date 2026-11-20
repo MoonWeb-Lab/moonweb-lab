@@ -6,10 +6,10 @@ import avatarImg from '../assets/avatar.jpg';
 export const HeroSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
-  // Masked reveal variants for text lines (cubic-bezier(0.16, 1, 0.3, 1))
+  // Pure GPU masked reveal (cubic-bezier(0.16, 1, 0.3, 1))
   const maskLineVariants: Variants = {
     hidden: {
-      y: shouldReduceMotion ? 0 : '105%',
+      y: shouldReduceMotion ? 0 : '100%',
       opacity: shouldReduceMotion ? 1 : 0,
     },
     visible: (delay: number) => ({
@@ -25,7 +25,11 @@ export const HeroSection: React.FC = () => {
 
   return (
     <section className="relative py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
-      <div className="max-w-4xl">
+      
+      {/* Soft Ambient Radial Glow Behind Headline (Pure static CSS, zero GPU overhead) */}
+      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] rounded-full pointer-events-none bg-purple-600/[0.12] blur-[100px] z-0" />
+
+      <div className="relative z-10 max-w-4xl">
         
         {/* Status Badge with Avatar Glow (stagger 0ms) */}
         <div className="overflow-hidden pb-1 mb-6">
@@ -34,7 +38,7 @@ export const HeroSection: React.FC = () => {
             initial="hidden"
             animate="visible"
             variants={maskLineVariants}
-            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-neutral-300"
+            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300"
           >
             <img
               src={avatarImg}
@@ -47,7 +51,7 @@ export const HeroSection: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Masked Headline Lines (staggers: 80ms, 160ms, 240ms) */}
+        {/* Masked Headline Lines (stagger: 80ms, 160ms, 240ms) */}
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-8">
           <div className="overflow-hidden pb-1 pt-0.5">
             <motion.div
@@ -68,7 +72,7 @@ export const HeroSection: React.FC = () => {
               variants={maskLineVariants}
               className="text-neutral-400"
             >
-              которые приводят клиентов,
+              онлайн-меню и запись для клиентов,
             </motion.div>
           </div>
 
@@ -79,7 +83,7 @@ export const HeroSection: React.FC = () => {
               animate="visible"
               variants={maskLineVariants}
             >
-              а не просто висят в сети.
+              с интеграцией в Telegram.
             </motion.div>
           </div>
         </h1>
@@ -93,11 +97,11 @@ export const HeroSection: React.FC = () => {
             variants={maskLineVariants}
             className="text-base sm:text-lg lg:text-xl text-neutral-300 leading-relaxed"
           >
-            Создаём удобные сайты-визитки, онлайн-меню и системы записи для ресторанов, бьюти-сферы, автосервисов и локальных компаний. Клиенты за 30 секунд находят цены и услуги со смартфона, а вы получаете готовые заявки прямо в Telegram.
+            Разрабатываем удобные решения для общепита, бьюти-студий, клиник и сферы услуг. Клиенты за 30 секунд находят цены и оформляют заказы со смартфона, а вы получаете готовые заявки прямо в Telegram.
           </motion.p>
         </div>
 
-        {/* CTA Buttons with Masked Container (stagger 400ms) */}
+        {/* CTA Buttons (stagger 400ms) */}
         <div className="overflow-hidden pb-2 mb-16">
           <motion.div
             custom={0.4}
@@ -115,16 +119,18 @@ export const HeroSection: React.FC = () => {
             </a>
 
             <a
-              href="#contacts"
-              className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white/[0.05] border border-white/10 text-white font-medium text-sm hover:bg-white/10 hover:border-white/20 transition-all"
+              href="https://t.me/moonweb_lab"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-[#14141C] border border-white/10 text-white font-medium text-sm hover:bg-white/10 hover:border-white/20 transition-all shadow-sm"
             >
               <Send className="w-4 h-4 text-purple-400" />
-              <span>Обсудить задачу</span>
+              <span>Обсудить проект в Telegram</span>
             </a>
           </motion.div>
         </div>
 
-        {/* 4 Tangible Business Metrics (Cascading pop-in stagger 500ms) */}
+        {/* 3 Clear Business Metrics (Zero overflow, solid volumetric cards) */}
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -133,18 +139,18 @@ export const HeroSection: React.FC = () => {
             delay: shouldReduceMotion ? 0 : 0.48,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-10 border-t border-white/10"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 pt-10 border-t border-white/10"
         >
-          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+          <div className="p-5 rounded-2xl bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
             <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1">
               ~1 сек
             </div>
             <p className="text-xs text-neutral-400 leading-relaxed">
-              Открытие сайта на любом смартфоне и мобильном интернете
+              Мгновенное открытие на смартфонах и слабом мобильном интернете
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+          <div className="p-5 rounded-2xl bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
             <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1 text-emerald-400">
               В Telegram
             </div>
@@ -153,21 +159,12 @@ export const HeroSection: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
-            <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1">
+          <div className="p-5 rounded-2xl bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
+            <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1 text-purple-300">
               3–7 дней
             </div>
             <p className="text-xs text-neutral-400 leading-relaxed">
-              Быстрый запуск под ключ без затягивания сроков
-            </p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
-            <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1 text-purple-300">
-              0 ₽ / мес
-            </div>
-            <p className="text-xs text-neutral-400 leading-relaxed">
-              Сайт принадлежит вам, без скрытых оплат и платных платформ
+              Быстрый запуск под ключ без затягивания и лишней бюрократии
             </p>
           </div>
         </motion.div>
