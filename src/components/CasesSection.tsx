@@ -117,7 +117,7 @@ const CasePreviewFrame = memo<{
       {/* Ambient Radial Color Accent matching niche */}
       <div className={`absolute inset-0 bg-gradient-to-br ${caseItem.glowColor} rounded-2xl pointer-events-none z-0`} />
 
-      {/* Realistic Mobile Mockup Frame (Symmetrically sized to avoid overflow) */}
+      {/* Realistic Mobile Mockup Frame */}
       <div className="relative z-10 w-[270px] sm:w-[290px] h-[540px] sm:h-[580px] rounded-[38px] bg-[#121217] border-[5px] border-neutral-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.12)] flex flex-col overflow-hidden">
         
         {/* Dynamic Island / Speaker notch */}
@@ -164,12 +164,12 @@ const CasePreviewFrame = memo<{
                 decoding="async"
                 className="w-full h-full object-cover object-top select-none"
               />
-              {/* Play live preview overlay with pure contrast button (no extra explanatory text) */}
+              {/* Play live preview overlay with pure contrast button */}
               <div
                 onClick={onActivate}
                 className="absolute inset-0 bg-black/35 hover:bg-black/20 cursor-pointer flex items-center justify-center transition-colors group"
               >
-                <div className="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold shadow-2xl flex items-center gap-2 group-hover:scale-105 transition-transform">
+                <div className="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold shadow-2xl flex items-center gap-2">
                   <Play className="w-3.5 h-3.5 fill-black text-black" />
                   <span>Включить живой сайт</span>
                 </div>
@@ -191,15 +191,15 @@ export const CasesSection: React.FC = () => {
   const [activeIframeId, setActiveIframeId] = useState<string | null>(null);
 
   return (
-    <section id="cases" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="cases" className="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
-      {/* Section Header (Smooth slide-up entrance) */}
+      {/* Section Header */}
       <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-12"
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-3xl mb-10"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
@@ -214,22 +214,21 @@ export const CasesSection: React.FC = () => {
       </motion.div>
 
       {/* Projects List (12 columns: 7 cols info + 5 cols centered phone mockup) */}
-      <div className="space-y-10 sm:space-y-12">
+      <div className="space-y-8 sm:space-y-10">
         {CASES_DATA.map((item, index) => {
           const isActiveIframe = activeIframeId === item.id;
 
           return (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{
-                duration: shouldReduceMotion ? 0 : 0.7,
-                delay: shouldReduceMotion ? 0 : (index % 2) * 0.1,
+                duration: shouldReduceMotion ? 0 : 0.65,
+                delay: shouldReduceMotion ? 0 : (index % 2) * 0.08,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              whileHover={{ y: -3, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
               className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden p-6 lg:p-8 transition-colors"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
@@ -284,33 +283,24 @@ export const CasesSection: React.FC = () => {
                   {/* Actions: Live Demo & External Link (Aligns cleanly to bottom of right column) */}
                   <div className="flex flex-wrap items-center gap-3 pt-4 mt-auto">
                     {!isActiveIframe ? (
-                      <motion.button
-                        whileHover={{ scale: 1.02, y: -1 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                      <button
                         onClick={() => setActiveIframeId(item.id)}
-                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm transition-colors shadow-sm"
+                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm transition-colors shadow-sm cursor-pointer"
                       >
                         <Play className="w-4 h-4 fill-white" />
                         <span>Включить живой сайт</span>
-                      </motion.button>
+                      </button>
                     ) : (
-                      <motion.button
-                        whileHover={{ scale: 1.02, y: -1 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                      <button
                         onClick={() => setActiveIframeId(null)}
-                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.08] hover:bg-white/15 border border-white/15 text-white font-medium text-sm transition-colors"
+                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.08] hover:bg-white/15 border border-white/15 text-white font-medium text-sm transition-colors cursor-pointer"
                       >
                         <EyeOff className="w-4 h-4" />
                         <span>Выключить живой сайт</span>
-                      </motion.button>
+                      </button>
                     )}
 
-                    <motion.a
-                      whileHover={{ scale: 1.02, y: -1 }}
-                      whileTap={{ scale: 0.98 }}
-                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                    <a
                       href={item.url}
                       target="_blank"
                       rel="noreferrer"
@@ -318,7 +308,7 @@ export const CasesSection: React.FC = () => {
                     >
                       <span>В новой вкладке</span>
                       <ExternalLink className="w-4 h-4" />
-                    </motion.a>
+                    </a>
                   </div>
                 </div>
 

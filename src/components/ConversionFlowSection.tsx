@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Smartphone, Clock, Send, RotateCcw, CheckCircle2, MessageSquare, Bell } from 'lucide-react';
+import { Smartphone, Clock, Send, RotateCcw, CheckCircle2, Bell } from 'lucide-react';
 
 interface DemoMessage {
   id: number;
@@ -38,6 +38,8 @@ const DEMO_STEPS: DemoMessage[] = [
   },
 ];
 
+const MESSAGE_DELAYS = [0.1, 1.0, 1.9];
+
 export const ConversionFlowSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
   const [replayKey, setReplayKey] = useState(0);
@@ -46,16 +48,28 @@ export const ConversionFlowSection: React.FC = () => {
     setReplayKey((prev) => prev + 1);
   };
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.65,
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+      },
+    },
+  };
+
   return (
-    <section id="how-it-works" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="how-it-works" className="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header (Smooth Entrance) */}
       <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-12"
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-3xl mb-10"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
@@ -69,17 +83,25 @@ export const ConversionFlowSection: React.FC = () => {
         </p>
       </motion.div>
 
-      {/* 3 Step Cards Grid (Cascading delay, solid volumetric surfaces with soft hover lift) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
-        
+      {/* 3 Step Cards Grid (Single parent trigger with staggerChildren, zero independent observers) */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{
+          hidden: {},
+          visible: {
+            transition: {
+              staggerChildren: 0.1,
+            },
+          },
+        }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-10"
+      >
         {/* Step 1 */}
         <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: shouldReduceMotion ? 0 : 0, ease: [0.22, 1, 0.36, 1] }}
-          whileHover={{ y: -4, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
-          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 flex flex-col justify-between transition-colors duration-300"
+          variants={cardVariants}
+          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 flex flex-col justify-between transition-colors duration-200"
         >
           <div>
             <div className="flex items-center justify-between mb-6">
@@ -114,12 +136,8 @@ export const ConversionFlowSection: React.FC = () => {
 
         {/* Step 2 */}
         <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: shouldReduceMotion ? 0 : 0.12, ease: [0.22, 1, 0.36, 1] }}
-          whileHover={{ y: -4, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
-          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 flex flex-col justify-between transition-colors duration-300"
+          variants={cardVariants}
+          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 flex flex-col justify-between transition-colors duration-200"
         >
           <div>
             <div className="flex items-center justify-between mb-6">
@@ -154,12 +172,8 @@ export const ConversionFlowSection: React.FC = () => {
 
         {/* Step 3 */}
         <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: shouldReduceMotion ? 0 : 0.24, ease: [0.22, 1, 0.36, 1] }}
-          whileHover={{ y: -4, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
-          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-purple-500/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 flex flex-col justify-between transition-colors duration-300"
+          variants={cardVariants}
+          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-purple-500/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 flex flex-col justify-between transition-colors duration-200"
         >
           <div>
             <div className="flex items-center justify-between mb-6">
@@ -190,15 +204,14 @@ export const ConversionFlowSection: React.FC = () => {
             </span>
           </div>
         </motion.div>
-
-      </div>
+      </motion.div>
 
       {/* Spring Message Pop-in Widget (Pure transform & opacity, 60 FPS) */}
       <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         className="rounded-3xl bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 lg:p-10 relative overflow-hidden"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-white/10">
@@ -212,19 +225,16 @@ export const ConversionFlowSection: React.FC = () => {
             </h3>
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.02, y: -1 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          <button
             onClick={handleReplay}
-            className="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.06] hover:bg-white/15 border border-white/10 text-xs font-semibold text-white transition-colors"
+            className="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.06] hover:bg-white/15 border border-white/10 text-xs font-semibold text-white transition-colors cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Повторить демо заявки</span>
-          </motion.button>
+          </button>
         </div>
 
-        {/* Message Feed with Soft Damped Physics */}
+        {/* Message Feed with Calm Messenger Pacing (0.1s -> 1.0s -> 1.9s) */}
         <div key={replayKey} className="space-y-4 max-w-3xl mx-auto">
           {DEMO_STEPS.map((step, idx) => {
             const isTelegram = step.type === 'telegram';
@@ -236,23 +246,20 @@ export const ConversionFlowSection: React.FC = () => {
                 initial={{
                   opacity: 0,
                   y: shouldReduceMotion ? 0 : 16,
-                  scale: shouldReduceMotion ? 1 : 0.97,
                 }}
                 animate={{
                   opacity: 1,
                   y: 0,
-                  scale: 1,
                 }}
                 transition={{
                   duration: shouldReduceMotion ? 0 : 0.65,
-                  delay: shouldReduceMotion ? 0 : idx * 0.2,
+                  delay: shouldReduceMotion ? 0 : MESSAGE_DELAYS[idx],
                   ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
                 }}
-                whileHover={{ scale: 1.008, transition: { duration: 0.2 } }}
                 style={{
-                  transformOrigin: isTelegram ? 'bottom right' : 'bottom left',
+                  willChange: 'transform, opacity',
                 }}
-                className={`p-4 sm:p-5 rounded-2xl border transition-all ${
+                className={`p-4 sm:p-5 rounded-2xl border transition-colors ${
                   isTelegram
                     ? 'bg-[#151C2C] border-blue-500/30 ml-4 sm:ml-10 shadow-lg shadow-blue-500/5'
                     : isStatus

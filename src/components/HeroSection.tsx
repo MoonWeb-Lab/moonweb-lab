@@ -6,7 +6,7 @@ import avatarImg from '../assets/avatar.jpg';
 export const HeroSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
-  // Pure GPU masked reveal with luxurious, soft deceleration ([0.22, 1, 0.36, 1])
+  // Pure GPU masked reveal with soft deceleration
   const maskLineVariants: Variants = {
     hidden: {
       y: shouldReduceMotion ? 0 : '105%',
@@ -16,7 +16,7 @@ export const HeroSection: React.FC = () => {
       y: '0%',
       opacity: 1,
       transition: {
-        duration: shouldReduceMotion ? 0 : 0.85,
+        duration: shouldReduceMotion ? 0 : 0.75,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
         delay: shouldReduceMotion ? 0 : delay,
       },
@@ -25,22 +25,21 @@ export const HeroSection: React.FC = () => {
 
   const metricCardVariants: Variants = {
     hidden: {
-      opacity: shouldReduceMotion ? 1 : 0,
-      y: shouldReduceMotion ? 0 : 20,
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : 16,
     },
-    visible: (customDelay: number) => ({
+    visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: shouldReduceMotion ? 0 : 0.7,
-        delay: shouldReduceMotion ? 0 : customDelay,
+        duration: shouldReduceMotion ? 0 : 0.6,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       },
-    }),
+    },
   };
 
   return (
-    <section className="relative py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+    <section className="relative py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       
       {/* Soft Ambient Radial Glow Behind Headline (Pure static CSS, zero GPU overhead) */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[360px] rounded-full pointer-events-none bg-purple-600/[0.12] blur-[110px] z-0" />
@@ -48,7 +47,7 @@ export const HeroSection: React.FC = () => {
       <div className="relative z-10 max-w-4xl">
         
         {/* Status Badge with Avatar Glow (stagger 0ms) */}
-        <div className="overflow-hidden pb-1 mb-6">
+        <div className="overflow-hidden pb-1 mb-5">
           <motion.div
             custom={0}
             initial="hidden"
@@ -67,11 +66,11 @@ export const HeroSection: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Masked Headline Lines (stagger: 100ms, 220ms, 340ms) */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-8">
+        {/* Masked Headline Lines (stagger: 80ms, 180ms, 280ms) */}
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
           <div className="overflow-hidden pb-1 pt-0.5">
             <motion.div
-              custom={0.1}
+              custom={0.08}
               initial="hidden"
               animate="visible"
               variants={maskLineVariants}
@@ -82,7 +81,7 @@ export const HeroSection: React.FC = () => {
           
           <div className="overflow-hidden pb-1 pt-0.5">
             <motion.div
-              custom={0.22}
+              custom={0.18}
               initial="hidden"
               animate="visible"
               variants={maskLineVariants}
@@ -94,7 +93,7 @@ export const HeroSection: React.FC = () => {
 
           <div className="overflow-hidden pb-1 pt-0.5">
             <motion.div
-              custom={0.34}
+              custom={0.28}
               initial="hidden"
               animate="visible"
               variants={maskLineVariants}
@@ -104,10 +103,10 @@ export const HeroSection: React.FC = () => {
           </div>
         </h1>
 
-        {/* Subtitle with Masked Container (stagger 480ms) */}
-        <div className="overflow-hidden pb-1 mb-10 max-w-2xl">
+        {/* Subtitle with Masked Container (stagger 380ms) */}
+        <div className="overflow-hidden pb-1 mb-8 max-w-2xl">
           <motion.p
-            custom={0.48}
+            custom={0.38}
             initial="hidden"
             animate="visible"
             variants={maskLineVariants}
@@ -117,34 +116,32 @@ export const HeroSection: React.FC = () => {
           </motion.p>
         </div>
 
-        {/* CTA Buttons (stagger 600ms) */}
-        <div className="overflow-hidden pb-2 mb-16">
+        {/* CTA Buttons (stagger 480ms) */}
+        <div className="overflow-hidden pb-2 mb-10">
           <motion.div
-            custom={0.6}
+            custom={0.48}
             initial="hidden"
             animate="visible"
             variants={maskLineVariants}
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
           >
             <motion.a
-              whileHover={{ y: -2, scale: 1.01 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ y: -2 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
               href="#cases"
-              className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 transition-colors shadow-lg shadow-white/5"
+              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 transition-colors shadow-lg shadow-white/5"
             >
               <span>Смотреть живые кейсы</span>
               <ArrowDown className="w-4 h-4" />
             </motion.a>
 
             <motion.a
-              whileHover={{ y: -2, scale: 1.01 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ y: -2 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
               href="https://t.me/moonweb_lab"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-[#14141C] border border-white/10 text-white font-medium text-sm hover:bg-white/10 hover:border-white/20 transition-all shadow-sm"
+              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#14141C] border border-white/10 text-white font-medium text-sm hover:bg-white/10 hover:border-white/20 transition-colors shadow-sm"
             >
               <Send className="w-4 h-4 text-purple-400" />
               <span>Обсудить проект в Telegram</span>
@@ -152,14 +149,23 @@ export const HeroSection: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* 3 Clear Business Metrics (Zero overflow, solid volumetric cards with smooth hover) */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 pt-10 border-t border-white/10">
+        {/* 3 Clear Business Metrics (Single parent stagger, strictly opacity & y, zero layout thrashing) */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.08,
+                delayChildren: 0.55,
+              },
+            },
+          }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 pt-8 border-t border-white/10"
+        >
           <motion.div
-            custom={0.72}
-            initial="hidden"
-            animate="visible"
             variants={metricCardVariants}
-            whileHover={{ y: -3, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
             className="p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors"
           >
             <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1">
@@ -171,11 +177,7 @@ export const HeroSection: React.FC = () => {
           </motion.div>
 
           <motion.div
-            custom={0.82}
-            initial="hidden"
-            animate="visible"
             variants={metricCardVariants}
-            whileHover={{ y: -3, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
             className="p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors"
           >
             <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1 text-emerald-400">
@@ -187,11 +189,7 @@ export const HeroSection: React.FC = () => {
           </motion.div>
 
           <motion.div
-            custom={0.92}
-            initial="hidden"
-            animate="visible"
             variants={metricCardVariants}
-            whileHover={{ y: -3, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
             className="p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors"
           >
             <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1 text-purple-300">
@@ -201,7 +199,7 @@ export const HeroSection: React.FC = () => {
               Быстрый запуск под ключ без затягивания и лишней бюрократии
             </p>
           </motion.div>
-        </div>
+        </motion.div>
 
       </div>
     </section>

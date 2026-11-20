@@ -26,7 +26,7 @@ export const Header: React.FC = () => {
         {/* Left: Brand Logo + Avatar */}
         <motion.a
           href="#"
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ y: -1 }}
           whileTap={{ scale: 0.98 }}
           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="flex items-center gap-3 shrink-0 focus:outline-none group"
@@ -73,8 +73,8 @@ export const Header: React.FC = () => {
 
           {/* CTA Button -> Direct to https://t.me/moonweb_lab */}
           <motion.a
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             href="https://t.me/moonweb_lab"
             target="_blank"

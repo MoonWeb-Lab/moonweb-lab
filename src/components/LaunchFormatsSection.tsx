@@ -60,16 +60,28 @@ const FORMATS: FormatCard[] = [
 export const LaunchFormatsSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.65,
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+      },
+    },
+  };
+
   return (
-    <section id="formats" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="formats" className="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
       <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-12"
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-3xl mb-10"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
@@ -83,105 +95,105 @@ export const LaunchFormatsSection: React.FC = () => {
         </p>
       </motion.div>
 
-      {/* Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-12">
-        {FORMATS.map((format, index) => {
-          return (
-            <motion.div
-              key={format.id}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{
-                duration: shouldReduceMotion ? 0 : 0.7,
-                delay: shouldReduceMotion ? 0 : index * 0.12,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              whileHover={{ y: -6, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
-              className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-colors duration-300 relative ${
-                format.isPopular
-                  ? 'bg-[#14141F] border-2 border-purple-500/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_0_30px_rgba(168,85,247,0.1)]'
-                  : 'bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] hover:border-white/20'
-              }`}
-            >
-              {/* Popular Badge */}
-              {format.isPopular && (
-                <div className="absolute -top-3.5 left-8 px-3.5 py-1 rounded-full bg-purple-600 text-white font-semibold text-xs flex items-center gap-1.5 shadow-md">
-                  <Star className="w-3.5 h-3.5 fill-current" />
-                  <span>{format.badge}</span>
-                </div>
-              )}
+      {/* Cards Grid (Parent viewport trigger with staggerChildren) */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{
+          hidden: {},
+          visible: {
+            transition: {
+              staggerChildren: 0.1,
+            },
+          },
+        }}
+        className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-10"
+      >
+        {FORMATS.map((format) => (
+          <motion.div
+            key={format.id}
+            variants={cardVariants}
+            className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-colors duration-200 relative ${
+              format.isPopular
+                ? 'bg-[#14141F] border-2 border-purple-500/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_0_30px_rgba(168,85,247,0.1)]'
+                : 'bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] hover:border-white/20'
+            }`}
+          >
+            {/* Popular Badge */}
+            {format.isPopular && (
+              <div className="absolute -top-3.5 left-8 px-3.5 py-1 rounded-full bg-purple-600 text-white font-semibold text-xs flex items-center gap-1.5 shadow-md">
+                <Star className="w-3.5 h-3.5 fill-current" />
+                <span>{format.badge}</span>
+              </div>
+            )}
 
-              <div>
-                {/* Timeline Pill */}
-                <div className="flex items-center gap-2 text-xs font-medium text-neutral-400 mb-4">
-                  <Clock className="w-3.5 h-3.5 text-purple-400" />
-                  <span>Срок запуска: </span>
-                  <strong className="text-white font-semibold">{format.timeline}</strong>
-                </div>
+            <div>
+              {/* Timeline Pill */}
+              <div className="flex items-center gap-2 text-xs font-medium text-neutral-400 mb-4">
+                <Clock className="w-3.5 h-3.5 text-purple-400" />
+                <span>Срок запуска: </span>
+                <strong className="text-white font-semibold">{format.timeline}</strong>
+              </div>
 
-                {/* Title */}
-                <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">
-                  {format.name}
-                </h3>
+              {/* Title */}
+              <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">
+                {format.name}
+              </h3>
 
-                {/* For whom */}
-                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs text-neutral-300 mb-6">
-                  <span className="text-neutral-400 block mb-0.5">Для кого:</span>
-                  <span className="text-white font-medium">{format.audience}</span>
-                </div>
+              {/* For whom */}
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs text-neutral-300 mb-6">
+                <span className="text-neutral-400 block mb-0.5">Для кого:</span>
+                <span className="text-white font-medium">{format.audience}</span>
+              </div>
 
-                {/* Description */}
-                <p className="text-sm text-neutral-300 leading-relaxed mb-6">
-                  {format.description}
-                </p>
+              {/* Description */}
+              <p className="text-sm text-neutral-300 leading-relaxed mb-6">
+                {format.description}
+              </p>
 
-                {/* Included items */}
-                <div className="space-y-3 pt-4 border-t border-white/10 mb-8">
-                  <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider block mb-2">
-                    Что входит:
-                  </span>
-                  {format.features.map((feat, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs text-neutral-300">
-                      <div className="w-4 h-4 rounded-full bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
-                        <Check className="w-3 h-3" />
-                      </div>
-                      <span className="leading-relaxed">{feat}</span>
+              {/* Included items */}
+              <div className="space-y-3 pt-4 border-t border-white/10 mb-8">
+                <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider block mb-2">
+                  Что входит:
+                </span>
+                {format.features.map((feat, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                    <div className="w-4 h-4 rounded-full bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3 h-3" />
                     </div>
-                  ))}
-                </div>
+                    <span className="leading-relaxed">{feat}</span>
+                  </div>
+                ))}
               </div>
+            </div>
 
-              {/* CTA Button -> Direct to https://t.me/moonweb_lab */}
-              <div>
-                <motion.a
-                  whileHover={{ y: -2, scale: 1.01 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                  href="https://t.me/moonweb_lab"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm transition-all shadow-sm ${
-                    format.isPopular
-                      ? 'bg-white text-black hover:bg-neutral-200'
-                      : 'bg-white/[0.08] text-white hover:bg-white/15 border border-white/10'
-                  }`}
-                >
-                  <span>Выбрать этот формат</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </motion.a>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
+            {/* CTA Button -> Direct to https://t.me/moonweb_lab */}
+            <div>
+              <a
+                href="https://t.me/moonweb_lab"
+                target="_blank"
+                rel="noreferrer"
+                className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm transition-colors shadow-sm ${
+                  format.isPopular
+                    ? 'bg-white text-black hover:bg-neutral-200'
+                    : 'bg-white/[0.08] text-white hover:bg-white/15 border border-white/10'
+                }`}
+              >
+                <span>Выбрать этот формат</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
 
       {/* Universal Flexibility Banner */}
       <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#121218] to-blue-900/20 border border-purple-500/30 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
       >
         <div className="space-y-2">
@@ -197,10 +209,7 @@ export const LaunchFormatsSection: React.FC = () => {
           </p>
         </div>
 
-        <motion.a
-          whileHover={{ scale: 1.02, y: -2 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        <a
           href="https://t.me/moonweb_lab"
           target="_blank"
           rel="noreferrer"
@@ -208,7 +217,7 @@ export const LaunchFormatsSection: React.FC = () => {
         >
           <span>Обсудить задачу</span>
           <ArrowUpRight className="w-4 h-4" />
-        </motion.a>
+        </a>
       </motion.div>
     </section>
   );
