@@ -61,7 +61,7 @@ export const LaunchFormatsSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="formats" className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="formats" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
       <motion.div
@@ -69,7 +69,7 @@ export const LaunchFormatsSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-16"
+        className="max-w-3xl mb-12"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-purple-400" />

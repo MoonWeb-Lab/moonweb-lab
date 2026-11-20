@@ -47,7 +47,7 @@ export const ConversionFlowSection: React.FC = () => {
   };
 
   return (
-    <section id="how-it-works" className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="how-it-works" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header (Smooth Entrance) */}
       <motion.div
@@ -55,7 +55,7 @@ export const ConversionFlowSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-16"
+        className="max-w-3xl mb-12"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
@@ -65,12 +65,12 @@ export const ConversionFlowSection: React.FC = () => {
           Как сайт превращает посетителей в заявки
         </h2>
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
-          Вместо долгих переписок в директе и пропущенных звонков: прозрачный путь от перехода клиента до подтверждённой брони.
+          Человек переходит со смартфона, сразу видит цены, выбирает услугу и отправляет контакты. Вы получаете готовую заявку в Telegram без лишних звонков и долгих переписок.
         </p>
       </motion.div>
 
       {/* 3 Step Cards Grid (Cascading delay, solid volumetric surfaces with soft hover lift) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
         
         {/* Step 1 */}
         <motion.div
