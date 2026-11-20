@@ -1,4 +1,5 @@
 import React from 'react';
+import { LazyMotion, domAnimation } from 'framer-motion';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { MarqueeTicker } from './components/MarqueeTicker';
@@ -9,24 +10,26 @@ import { Footer } from './components/Footer';
 
 export const App: React.FC = () => {
   return (
-    <div className="relative min-h-screen bg-[#0B0B0F] text-[#F4F4F6] selection:bg-purple-500/30 selection:text-white">
-      {/* Pure CSS dot grid background (zero JS calculations, locked 60 FPS) */}
-      <div className="fixed inset-0 bg-dot-grid pointer-events-none opacity-45 z-0" />
+    <LazyMotion features={domAnimation} strict={false}>
+      <div className="relative min-h-screen bg-[#0B0B0F] text-[#F4F4F6] selection:bg-purple-500/30 selection:text-white">
+        {/* Pure CSS dot grid background (zero JS calculations, locked 60 FPS) */}
+        <div className="fixed inset-0 bg-dot-grid pointer-events-none opacity-45 z-0" />
 
-      {/* Main Content Layout */}
-      <div className="relative z-10 flex flex-col min-h-screen">
-        <Header />
-        
-        <main className="flex-1">
-          <HeroSection />
-          <MarqueeTicker />
-          <CasesSection />
-          <ConversionFlowSection />
-          <LaunchFormatsSection />
-        </main>
+        {/* Main Content Layout */}
+        <div className="relative z-10 flex flex-col min-h-screen">
+          <Header />
+          
+          <main className="flex-1">
+            <HeroSection />
+            <MarqueeTicker />
+            <CasesSection />
+            <ConversionFlowSection />
+            <LaunchFormatsSection />
+          </main>
 
-        <Footer />
+          <Footer />
+        </div>
       </div>
-    </div>
+    </LazyMotion>
   );
 };

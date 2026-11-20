@@ -65,10 +65,10 @@ export const LaunchFormatsSection: React.FC = () => {
       
       {/* Section Header */}
       <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 18 }}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
         className="max-w-3xl mb-16"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
@@ -89,15 +89,16 @@ export const LaunchFormatsSection: React.FC = () => {
           return (
             <motion.div
               key={format.id}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{
-                duration: shouldReduceMotion ? 0 : 0.55,
-                delay: shouldReduceMotion ? 0 : index * 0.09,
-                ease: [0.16, 1, 0.3, 1],
+                duration: shouldReduceMotion ? 0 : 0.7,
+                delay: shouldReduceMotion ? 0 : index * 0.12,
+                ease: [0.22, 1, 0.36, 1],
               }}
-              className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative ${
+              whileHover={{ y: -6, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
+              className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-colors duration-300 relative ${
                 format.isPopular
                   ? 'bg-[#14141F] border-2 border-purple-500/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_0_30px_rgba(168,85,247,0.1)]'
                   : 'bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] hover:border-white/20'
@@ -153,7 +154,10 @@ export const LaunchFormatsSection: React.FC = () => {
 
               {/* CTA Button -> Direct to https://t.me/moonweb_lab */}
               <div>
-                <a
+                <motion.a
+                  whileHover={{ y: -2, scale: 1.01 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                   href="https://t.me/moonweb_lab"
                   target="_blank"
                   rel="noreferrer"
@@ -165,7 +169,7 @@ export const LaunchFormatsSection: React.FC = () => {
                 >
                   <span>Выбрать этот формат</span>
                   <ArrowUpRight className="w-4 h-4" />
-                </a>
+                </motion.a>
               </div>
             </motion.div>
           );
@@ -174,10 +178,10 @@ export const LaunchFormatsSection: React.FC = () => {
 
       {/* Universal Flexibility Banner */}
       <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
         className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#121218] to-blue-900/20 border border-purple-500/30 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
       >
         <div className="space-y-2">
@@ -193,7 +197,10 @@ export const LaunchFormatsSection: React.FC = () => {
           </p>
         </div>
 
-        <a
+        <motion.a
+          whileHover={{ scale: 1.02, y: -2 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           href="https://t.me/moonweb_lab"
           target="_blank"
           rel="noreferrer"
@@ -201,7 +208,7 @@ export const LaunchFormatsSection: React.FC = () => {
         >
           <span>Обсудить задачу</span>
           <ArrowUpRight className="w-4 h-4" />
-        </a>
+        </motion.a>
       </motion.div>
     </section>
   );

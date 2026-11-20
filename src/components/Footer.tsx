@@ -10,16 +10,19 @@ export const Footer: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const INSTAGRAM_URL =
+    'https://www.instagram.com/moonweb_labs?dlrf=MTFzdWh1cWlhMHRmYQ%3D%3D&utm_source=qr';
+
   return (
     <footer id="contacts" className="w-full bg-[#08080B] border-t border-white/10 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
         
-        {/* Main Contact Action Card (Volumetric, zero backdrop-blur) */}
+        {/* Main Contact Action Card */}
         <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           className="rounded-3xl bg-[#121218] border border-purple-500/30 p-8 sm:p-12 mb-16 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_0_40px_rgba(168,85,247,0.08)] relative overflow-hidden"
         >
           <div className="max-w-3xl space-y-6">
@@ -37,7 +40,10 @@ export const Footer: React.FC = () => {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
-              <a
+              <motion.a
+                whileHover={{ y: -2, scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 href="https://t.me/moonweb_lab"
                 target="_blank"
                 rel="noreferrer"
@@ -46,18 +52,21 @@ export const Footer: React.FC = () => {
                 <Send className="w-4 h-4 text-purple-600" />
                 <span>Написать в Telegram (@moonweb_lab)</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </a>
+              </motion.a>
 
-              <a
-                href="https://instagram.com/moonweb_lab"
+              <motion.a
+                whileHover={{ y: -2, scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-[#181824] border border-white/10 hover:bg-[#20202E] text-white font-medium text-sm transition-all"
               >
                 <Instagram className="w-4 h-4 text-pink-400" />
-                <span>Instagram: @moonweb_lab</span>
+                <span>Instagram: @moonweb_labs</span>
                 <ArrowUpRight className="w-4 h-4 text-neutral-400" />
-              </a>
+              </motion.a>
             </div>
           </div>
         </motion.div>
@@ -83,7 +92,10 @@ export const Footer: React.FC = () => {
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              <a
+              <motion.a
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.2 }}
                 href="https://t.me/moonweb_lab"
                 target="_blank"
                 rel="noreferrer"
@@ -92,18 +104,21 @@ export const Footer: React.FC = () => {
                 <Send className="w-3.5 h-3.5 text-purple-400" />
                 <span>Telegram: @moonweb_lab</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400" />
-              </a>
+              </motion.a>
 
-              <a
-                href="https://instagram.com/moonweb_lab"
+              <motion.a
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.2 }}
+                href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-xs font-semibold text-white transition-all shadow-sm"
               >
                 <Instagram className="w-3.5 h-3.5 text-pink-400" />
-                <span>Instagram: @moonweb_lab</span>
+                <span>Instagram: @moonweb_labs</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400" />
-              </a>
+              </motion.a>
             </div>
           </div>
 
@@ -163,13 +178,16 @@ export const Footer: React.FC = () => {
             © 2026 MoonWeb Lab. Разработка сайтов и онлайн-систем для бизнеса.
           </div>
 
-          <button
+          <motion.button
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ duration: 0.2 }}
             onClick={scrollToTop}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-neutral-300 hover:text-white transition-all text-xs"
           >
             <span>Наверх</span>
             <ArrowUp className="w-3.5 h-3.5" />
-          </button>
+          </motion.button>
         </div>
       </div>
     </footer>

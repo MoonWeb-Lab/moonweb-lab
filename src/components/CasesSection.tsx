@@ -244,10 +244,10 @@ export const CasesSection: React.FC = () => {
       
       {/* Section Header (Smooth slide-up entrance) */}
       <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 18 }}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
         className="max-w-3xl mb-16"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
@@ -272,15 +272,16 @@ export const CasesSection: React.FC = () => {
           return (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{
-                duration: shouldReduceMotion ? 0 : 0.55,
-                delay: shouldReduceMotion ? 0 : (index % 2) * 0.08,
-                ease: [0.16, 1, 0.3, 1],
+                duration: shouldReduceMotion ? 0 : 0.7,
+                delay: shouldReduceMotion ? 0 : (index % 2) * 0.1,
+                ease: [0.22, 1, 0.36, 1],
               }}
-              className="rounded-3xl bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden p-6 sm:p-8 lg:p-10"
+              whileHover={{ y: -3, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
+              className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden p-6 sm:p-8 lg:p-10 transition-colors"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 
@@ -334,24 +335,33 @@ export const CasesSection: React.FC = () => {
                   {/* Actions: Live Demo & External Link */}
                   <div className="flex flex-wrap items-center gap-3">
                     {!isActiveIframe ? (
-                      <button
+                      <motion.button
+                        whileHover={{ scale: 1.02, y: -1 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                         onClick={() => setActiveIframeId(item.id)}
                         className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm transition-colors shadow-sm"
                       >
                         <Play className="w-4 h-4 fill-white" />
                         <span>Включить живой сайт</span>
-                      </button>
+                      </motion.button>
                     ) : (
-                      <button
+                      <motion.button
+                        whileHover={{ scale: 1.02, y: -1 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                         onClick={() => setActiveIframeId(null)}
                         className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.08] hover:bg-white/15 border border-white/15 text-white font-medium text-sm transition-colors"
                       >
                         <EyeOff className="w-4 h-4" />
                         <span>Выключить живой сайт</span>
-                      </button>
+                      </motion.button>
                     )}
 
-                    <a
+                    <motion.a
+                      whileHover={{ scale: 1.02, y: -1 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                       href={item.url}
                       target="_blank"
                       rel="noreferrer"
@@ -359,34 +369,48 @@ export const CasesSection: React.FC = () => {
                     >
                       <span>В новой вкладке</span>
                       <ExternalLink className="w-4 h-4" />
-                    </a>
+                    </motion.a>
                   </div>
                 </div>
 
                 {/* Right Column (7 cols): Large, Clear Preview Frame */}
                 <div className="lg:col-span-7 flex flex-col items-center">
                   
-                  {/* Device Switcher Controls */}
-                  <div className="flex items-center gap-2 p-1.5 rounded-xl bg-[#14141C] border border-white/10 mb-4 self-end">
+                  {/* Device Switcher Controls with Smooth Gliding Indicator */}
+                  <div className="flex items-center gap-1 p-1 rounded-xl bg-[#14141C] border border-white/10 mb-4 self-end relative">
                     <button
                       onClick={() => toggleView(item.id, 'mobile')}
-                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                      className={`relative z-10 flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                         isMobile
-                          ? 'bg-white text-black font-semibold shadow-sm'
+                          ? 'text-black font-semibold'
                           : 'text-neutral-400 hover:text-white'
                       }`}
                     >
+                      {isMobile && (
+                        <motion.div
+                          layoutId={`activeDeviceTab-${item.id}`}
+                          className="absolute inset-0 bg-white rounded-lg shadow-sm -z-10"
+                          transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                        />
+                      )}
                       <Smartphone className="w-3.5 h-3.5" />
                       <span>Телефон</span>
                     </button>
                     <button
                       onClick={() => toggleView(item.id, 'desktop')}
-                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                      className={`relative z-10 flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                         !isMobile
-                          ? 'bg-white text-black font-semibold shadow-sm'
+                          ? 'text-black font-semibold'
                           : 'text-neutral-400 hover:text-white'
                       }`}
                     >
+                      {!isMobile && (
+                        <motion.div
+                          layoutId={`activeDeviceTab-${item.id}`}
+                          className="absolute inset-0 bg-white rounded-lg shadow-sm -z-10"
+                          transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                        />
+                      )}
                       <Monitor className="w-3.5 h-3.5" />
                       <span>Компьютер</span>
                     </button>
