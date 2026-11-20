@@ -1,28 +1,32 @@
 import React from 'react';
-import { ArrowUp, ArrowUpRight, Send, Instagram } from 'lucide-react';
-import { sounds } from '../audio/soundEngine';
+import { ArrowUp, ArrowUpRight, Send, Instagram, Mail } from 'lucide-react';
+import avatarImg from '../assets/avatar.jpg';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
-    sounds.playClick();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="w-full bg-[#09090B] border-t border-white/[0.08] text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <footer id="contacts" className="w-full bg-[#08080B] border-t border-white/10 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+          
           {/* Brand Col */}
           <div className="md:col-span-6 space-y-5">
-            <div className="flex items-center gap-2.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-white" />
+            <div className="flex items-center gap-3">
+              <img
+                src={avatarImg}
+                alt="MoonWeb Lab Avatar"
+                className="w-8 h-8 rounded-lg object-cover border border-purple-500/30"
+              />
               <span className="font-extrabold text-2xl tracking-tight text-white">
-                MoonWeb<span className="font-normal text-neutral-400 ml-1 text-base tracking-normal">Lab</span>
+                MoonWeb<span className="text-purple-400 ml-0.5">Lab</span>
               </span>
             </div>
 
             <p className="text-sm text-neutral-300 max-w-md leading-relaxed">
-              Бутиковая digital-студия. Проектируем и запускаем конверсионные веб-сайты, интерактивные Telegram Mini Apps и CRM-автоматизации для бизнеса.
+              Разрабатываем быстрые сайты, онлайн-меню и системы онлайн-записи для локального бизнеса. Помогаем вашим клиентам легко делать заказы со смартфона.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -30,11 +34,9 @@ export const Footer: React.FC = () => {
                 href="https://t.me/moonweb_labs"
                 target="_blank"
                 rel="noreferrer"
-                onMouseEnter={() => sounds.playHover()}
-                onClick={() => sounds.playClick()}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-studio-surface border border-white/[0.08] hover:border-white/20 text-xs font-semibold text-white transition-all shadow-sm"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/10 hover:border-white/20 text-xs font-semibold text-white transition-all shadow-sm"
               >
-                <Send className="w-3.5 h-3.5 text-neutral-300" />
+                <Send className="w-3.5 h-3.5 text-purple-400" />
                 <span>Telegram: @moonweb_labs</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400" />
               </a>
@@ -43,11 +45,9 @@ export const Footer: React.FC = () => {
                 href="https://instagram.com/moonweb_labs"
                 target="_blank"
                 rel="noreferrer"
-                onMouseEnter={() => sounds.playHover()}
-                onClick={() => sounds.playClick()}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-studio-surface border border-white/[0.08] hover:border-white/20 text-xs font-semibold text-white transition-all shadow-sm"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/10 hover:border-white/20 text-xs font-semibold text-white transition-all shadow-sm"
               >
-                <Instagram className="w-3.5 h-3.5 text-neutral-300" />
+                <Instagram className="w-3.5 h-3.5 text-pink-400" />
                 <span>@moonweb_labs</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400" />
               </a>
@@ -57,77 +57,67 @@ export const Footer: React.FC = () => {
           {/* Navigation Links */}
           <div className="md:col-span-3 space-y-3.5">
             <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold">
-              Навигация
+              Разделы сайта
             </h4>
-            <ul className="space-y-2.5 text-xs text-neutral-300">
+            <ul className="space-y-2.5 text-sm text-neutral-300">
               <li>
                 <a href="#cases" className="hover:text-white transition-colors">
-                  Портфолио проектов
+                  Кейсы и живые демо
                 </a>
               </li>
               <li>
-                <a href="#flow" className="hover:text-white transition-colors">
-                  Интерактивная связка (CRM)
+                <a href="#formats" className="hover:text-white transition-colors">
+                  Форматы запуска
                 </a>
               </li>
               <li>
-                <a href="#configurator" className="hover:text-white transition-colors">
-                  Калькулятор сметы
+                <a href="#how-it-works" className="hover:text-white transition-colors">
+                  Как это работает
                 </a>
               </li>
               <li>
-                <a href="#process" className="hover:text-white transition-colors">
-                  Этапы сотрудничества
-                </a>
-              </li>
-              <li>
-                <a href="#guarantees" className="hover:text-white transition-colors">
-                  Гарантии & FAQ
+                <a href="https://t.me/moonweb_labs" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+                  Обсудить задачу в Telegram
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Technical Standards */}
+          {/* Practical Guarantees for Business */}
           <div className="md:col-span-3 space-y-3.5">
             <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold">
-              Стандарты продакшна
+              Принципы работы
             </h4>
             <ul className="space-y-2.5 text-xs text-neutral-300">
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span>60 FPS GPU-анимации</span>
+                <span>Запуск от 3 до 7 дней без затягивания</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                <span>Web Audio API звуковая отдача</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>Заявки прямо в Telegram</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                <span>PageSpeed & Lighthouse 98+</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>Без ежемесячной абонентской платы</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                <span>Telegram WebApp SDK 8.0+</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                <span>TypeScript & Чистый React 18</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>Быстрая загрузка на любом смартфоне</span>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom copyright */}
-        <div className="pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400 font-mono">
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
           <div>
-            © 2026 MoonWeb Lab. Все права защищены.
+            © 2026 MoonWeb Lab. Разработка сайтов и онлайн-систем для бизнеса.
           </div>
 
           <button
             onClick={scrollToTop}
-            onMouseEnter={() => sounds.playHover()}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-studio-surface border border-white/[0.08] hover:border-white/20 text-neutral-300 hover:text-white transition-all text-xs"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/[0.05] border border-white/10 hover:border-white/20 text-neutral-300 hover:text-white transition-all text-xs"
           >
             <span>Наверх</span>
             <ArrowUp className="w-3.5 h-3.5" />

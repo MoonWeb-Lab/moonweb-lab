@@ -1,155 +1,105 @@
 import React from 'react';
-import { motion, useReducedMotion, Variants } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, CheckCircle2, ShieldCheck, Zap } from 'lucide-react';
-import { sounds } from '../audio/soundEngine';
-import { MagneticButton } from './MagneticButton';
+import { motion, useReducedMotion } from 'framer-motion';
+import { ArrowDown, Send } from 'lucide-react';
+import avatarImg from '../assets/avatar.jpg';
 
 export const HeroSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
-  const lineVariants: Variants = {
-    hidden: { y: '115%', opacity: 0 },
-    visible: (custom: number) => ({
-      y: '0%',
-      opacity: 1,
-      transition: {
-        duration: 0.85,
-        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-        delay: shouldReduceMotion ? 0 : 0.1 * custom,
-      },
-    }),
-  };
-
   return (
-    <section className="relative pt-24 pb-20 md:pt-36 md:pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="max-w-5xl">
-        {/* Editorial Sub-badge without geo-restrictions */}
+    <section className="relative py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+      <div className="max-w-4xl">
+        
+        {/* Status Badge with Avatar Glow */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.05 }}
-          className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-md bg-studio-surface border border-white/[0.08] text-xs text-studio-muted mb-8"
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-neutral-300 mb-8"
         >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-mono uppercase tracking-wider text-[11px] text-white font-semibold">
-            Digital Engineering Studio
-          </span>
-          <span className="text-studio-subtle">•</span>
-          <span className="text-neutral-300">Web & Telegram Ecosystems</span>
+          <img
+            src={avatarImg}
+            alt="MoonWeb Lab"
+            className="w-4 h-4 rounded-full object-cover"
+          />
+          <span className="font-medium text-white">Веб-студия MoonWeb Lab</span>
+          <span className="text-neutral-500">•</span>
+          <span className="text-neutral-400">Сайты, меню и запись для бизнеса</span>
         </motion.div>
 
-        {/* Masked Headline Lines with Safe Line-Height & Padding */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-editorial leading-[1.14] mb-8">
-          <div className="overflow-hidden pb-1 pt-0.5">
-            <motion.div
-              custom={0}
-              initial="hidden"
-              animate="visible"
-              variants={lineVariants}
-            >
-              Разрабатываем сайты
-            </motion.div>
-          </div>
-          <div className="overflow-hidden pb-1 pt-0.5">
-            <motion.div
-              custom={1}
-              initial="hidden"
-              animate="visible"
-              variants={lineVariants}
-              className="text-neutral-400"
-            >
-              и Telegram Mini Apps,
-            </motion.div>
-          </div>
-          <div className="overflow-hidden pb-1 pt-0.5">
-            <motion.div
-              custom={2}
-              initial="hidden"
-              animate="visible"
-              variants={lineVariants}
-            >
-              которые приносят продажи.
-            </motion.div>
-          </div>
+        {/* Main Headline (Clean, Punchy, Humanized) */}
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
+          Делаем быстрые сайты, которые приводят клиентов,{' '}
+          <span className="text-neutral-400 block sm:inline">
+            а не просто висят в сети.
+          </span>
         </h1>
 
-        {/* High-Contrast Commercial Copywriting */}
-        <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
-          className="text-lg sm:text-xl text-neutral-300 max-w-2xl leading-relaxed mb-10"
-        >
-          Превращаем случайных посетителей в реальных клиентов без потери заявок в Direct. Онлайн-запись 24/7, квиз-калькуляторы сметы и мгновенные уведомления в Telegram за 1 секунду.
-        </motion.p>
+        {/* Subtitle (Clear, practical, focused on business value) */}
+        <p className="text-base sm:text-lg lg:text-xl text-neutral-300 max-w-2xl leading-relaxed mb-10">
+          Создаём удобные сайты-визитки, онлайн-меню и системы записи для ресторанов, бьюти-сферы, автосервисов и локальных компаний. Клиенты за 30 секунд находят цены и услуги со смартфона, а вы получаете готовые заявки прямо в Telegram.
+        </p>
 
-        {/* Dual Actions with Magnetic Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.45 }}
-          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-16"
-        >
-          <MagneticButton
-            href="#configurator"
-            className="flex items-center justify-center gap-2 px-6 py-4 rounded-lg bg-white text-black font-bold text-sm hover:bg-neutral-200 transition-colors shadow-sm"
-          >
-            <span>Рассчитать стоимость проекта</span>
-            <ArrowRight className="w-4 h-4" />
-          </MagneticButton>
-
-          <MagneticButton
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-16">
+          <a
             href="#cases"
-            className="flex items-center justify-center gap-2 px-6 py-4 rounded-lg bg-studio-surface border border-white/[0.08] text-white font-medium text-sm hover:border-white/20 transition-all"
+            className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 transition-colors shadow-lg shadow-white/5"
           >
             <span>Смотреть живые кейсы</span>
-            <ArrowUpRight className="w-4 h-4 text-studio-muted" />
-          </MagneticButton>
-        </motion.div>
+            <ArrowDown className="w-4 h-4" />
+          </a>
 
-        {/* Tangible Business Metrics Bar with Animated Fade In */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.55 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-white/[0.08]"
-        >
-          <div className="space-y-1.5">
-            <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight flex items-baseline gap-1">
-              <span>0.4s</span>
+          <a
+            href="https://t.me/moonweb_labs"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white/[0.05] border border-white/10 text-white font-medium text-sm hover:bg-white/10 hover:border-white/20 transition-all"
+          >
+            <Send className="w-4 h-4 text-purple-400" />
+            <span>Обсудить задачу в Telegram</span>
+          </a>
+        </div>
+
+        {/* 4 Tangible Business Metrics (Zero jargon, responsive grid) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-10 border-t border-white/10">
+          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1">
+              ~1 сек
             </div>
-            <p className="text-xs text-neutral-400 font-medium leading-relaxed">
-              Мгновенное открытие на мобильных (PageSpeed 98+)
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              Открытие сайта на любом смартфоне и мобильном интернете
             </p>
           </div>
 
-          <div className="space-y-1.5">
-            <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight">
-              0 потерь
+          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1 text-emerald-400">
+              В Telegram
             </div>
-            <p className="text-xs text-neutral-400 font-medium leading-relaxed">
-              Заявок из Instagram и карт без участия оператора
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              Заявки с именем и телефоном сразу приходят вам в мессенджер
             </p>
           </div>
 
-          <div className="space-y-1.5">
-            <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight">
-              5–7 дней
+          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1">
+              3–7 дней
             </div>
-            <p className="text-xs text-neutral-400 font-medium leading-relaxed">
-              Средний срок релиза с гарантией в договоре
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              Быстрый запуск под ключ без затягивания сроков
             </p>
           </div>
 
-          <div className="space-y-1.5">
-            <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight">
-              100%
+          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1 text-purple-300">
+              0 ₽ / мес
             </div>
-            <p className="text-xs text-neutral-400 font-medium leading-relaxed">
-              Передача исходного кода на GitHub и прав клиенту
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              Сайт принадлежит вам, без скрытых оплат и платных платформ
             </p>
           </div>
-        </motion.div>
+        </div>
+
       </div>
     </section>
   );

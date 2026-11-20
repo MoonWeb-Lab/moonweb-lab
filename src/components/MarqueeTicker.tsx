@@ -2,38 +2,38 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 
 const TICKER_ITEMS = [
-  'TELEGRAM MINI APPS',
-  'КОНВЕРСИОННЫЕ ЛЕНДИНГИ',
-  'КВИЗ-КАЛЬКУЛЯТОРЫ СМЕТЫ',
-  'ОНЛАЙН-ЗАПИСЬ 24/7',
-  'УВЕДОМЛЕНИЯ В TELEGRAM ЗА 1 СЕК',
-  'ЗАГРУЗКА ЗА 0.4 СЕК (PAGESPEED 98+)',
-  'ЧИСТЫЙ КОД REACT 18 & TYPESCRIPT',
-  '100% ПЕРЕДАЧА ИСХОДНИКОВ НА GITHUB',
+  'ОНЛАЙН-МЕНЮ ДЛЯ РЕСТОРАНОВ И КОФЕЕН',
+  'ЗАЯВКИ И ЗАКАЗЫ СРАЗУ В TELEGRAM',
+  'ОНЛАЙН-ЗАПИСЬ 24/7 ДЛЯ САЛОНОВ И КЛИНИК',
+  'МГНОВЕННОЕ ОТКРЫТИЕ СО СМАРТФОНА',
+  'ВЫБОР УСЛУГ И ЦЕНЫ БЕЗ ЗВОНКОВ',
+  'ЗАПУСК ПРОЕКТА ЗА 3–7 ДНЕЙ',
+  'ПРЯМАЯ СВЯЗЬ С ВЛАДЕЛЬЦЕМ БИЗНЕСА',
+  'БЕЗ АБОНЕНТСКОЙ ПЛАТЫ',
 ];
 
 export const MarqueeTicker: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <div className="w-full overflow-hidden border-y border-white/[0.08] bg-[#0A0A0C] py-4 select-none relative">
+    <div className="w-full overflow-hidden border-y border-white/10 bg-[#08080B] py-3.5 select-none relative group">
       <div className="flex w-max">
         <motion.div
           animate={shouldReduceMotion ? {} : { x: ['0%', '-50%'] }}
           transition={{
             repeat: Infinity,
             repeatType: 'loop',
-            duration: 35,
+            duration: 30,
             ease: 'linear',
           }}
-          className="flex items-center gap-8 whitespace-nowrap"
+          className="flex items-center gap-8 whitespace-nowrap group-hover:[animation-play-state:paused]"
         >
           {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, idx) => (
             <div key={idx} className="flex items-center gap-8">
-              <span className="text-xs font-mono tracking-widest text-neutral-400 uppercase font-semibold">
+              <span className="text-xs font-mono tracking-wider text-neutral-300 uppercase font-medium">
                 {item}
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-neutral-600" />
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-500/60" />
             </div>
           ))}
         </motion.div>

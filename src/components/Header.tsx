@@ -1,142 +1,127 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Menu, X, ArrowUpRight } from 'lucide-react';
-import { sounds } from '../audio/soundEngine';
-import { MagneticButton } from './MagneticButton';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+import avatarImg from '../assets/avatar.jpg';
 
 export const Header: React.FC = () => {
-  const [muted, setMuted] = useState(sounds.isMuted());
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const toggleSound = () => {
-    const isNowMuted = sounds.toggleMute();
-    setMuted(isNowMuted);
-  };
 
   const navLinks = [
     { name: 'Кейсы', href: '#cases' },
-    { name: 'Как это работает', href: '#flow' },
-    { name: 'Калькулятор сметы', href: '#configurator' },
-    { name: 'Этапы', href: '#process' },
-    { name: 'Гарантии & FAQ', href: '#guarantees' },
+    { name: 'Форматы работы', href: '#formats' },
+    { name: 'Как это работает', href: '#how-it-works' },
+    { name: 'Контакты', href: '#contacts' },
   ];
 
+  const handleNavClick = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#0E0E10]/90 backdrop-blur-md border-b border-white/[0.08] transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-        {/* Brand Logo */}
+    <header className="sticky top-0 z-50 w-full h-[70px] bg-[#0B0B0F]/85 backdrop-blur-md border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between gap-6">
+        
+        {/* Left: Brand Logo + Avatar */}
         <a
           href="#"
-          onMouseEnter={() => sounds.playHover()}
-          className="flex items-center gap-2.5 group"
+          className="flex items-center gap-3 shrink-0 group focus:outline-none"
         >
-          <span className="w-2.5 h-2.5 rounded-full bg-white group-hover:scale-125 transition-transform" />
-          <span className="font-extrabold text-xl tracking-tight text-white group-hover:text-neutral-300 transition-colors">
-            MoonWeb<span className="font-normal text-studio-muted ml-1 text-sm tracking-normal">Lab</span>
-          </span>
+          <div className="relative w-9 h-9 rounded-xl overflow-hidden border border-purple-500/30 shadow-[0_0_15px_rgba(168,85,247,0.25)] shrink-0 transition-transform group-hover:scale-105">
+            <img
+              src={avatarImg}
+              alt="MoonWeb Lab Avatar"
+              className="w-full h-full object-cover"
+              loading="eager"
+            />
+          </div>
+          <div className="flex flex-col">
+            <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white group-hover:text-purple-300 transition-colors">
+              MoonWeb<span className="text-purple-400 ml-0.5">Lab</span>
+            </span>
+          </div>
         </a>
 
-        {/* Live Slot Status Pill */}
-        <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-studio-surface border border-white/[0.08] text-xs">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span className="text-studio-muted">Свободно мест:</span>
-          <span className="font-semibold text-white">2 проекта на ноябрь</span>
-        </div>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-7">
+        {/* Center: Desktop Navigation (max 4 items, single line, no wrap) */}
+        <nav className="hidden lg:flex items-center gap-8">
           {navLinks.map((item) => (
             <a
               key={item.name}
               href={item.href}
-              onMouseEnter={() => sounds.playHover()}
-              className="text-xs uppercase tracking-wider font-medium text-studio-muted hover:text-white transition-colors"
+              className="text-sm font-medium text-neutral-300 hover:text-white transition-colors whitespace-nowrap"
             >
               {item.name}
             </a>
           ))}
         </nav>
 
-        {/* Right Actions: Sound FX + Magnetic CTA */}
-        <div className="hidden sm:flex items-center gap-3">
-          <button
-            onClick={toggleSound}
-            onMouseEnter={() => sounds.playHover()}
-            title={muted ? 'Включить тактильный звук' : 'Выключить звук'}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-studio-surface border border-white/[0.08] hover:border-white/20 text-studio-muted hover:text-white transition-all text-xs font-mono"
-          >
-            {muted ? <VolumeX className="w-3.5 h-3.5 text-studio-subtle" /> : <Volume2 className="w-3.5 h-3.5 text-emerald-400" />}
-            <span>{muted ? 'FX: OFF' : 'FX: ON'}</span>
-          </button>
+        {/* Right: Status Pill + CTA Button */}
+        <div className="flex items-center gap-4 shrink-0">
+          {/* Status Indicator */}
+          <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs shrink-0">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span className="text-neutral-400">Статус:</span>
+            <span className="font-semibold text-emerald-400">Берём проекты</span>
+          </div>
 
-          <MagneticButton
+          {/* CTA Button */}
+          <a
             href="https://t.me/moonweb_labs"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white text-black font-semibold text-xs hover:bg-neutral-200 transition-all shadow-sm"
+            className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-colors whitespace-nowrap shadow-sm"
           >
             <span>Обсудить проект</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </MagneticButton>
-        </div>
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
 
-        {/* Mobile Hamburger */}
-        <div className="flex md:hidden items-center gap-2">
-          <button
-            onClick={toggleSound}
-            className="p-2 rounded-lg bg-studio-surface border border-white/[0.08] text-studio-muted"
-          >
-            {muted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-emerald-400" />}
-          </button>
+          {/* Mobile Menu Button (< 1024px) */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg bg-studio-surface border border-white/[0.08] text-white"
+            aria-label="Меню навигации"
+            className="lg:hidden p-2 rounded-xl bg-white/[0.05] border border-white/10 text-neutral-300 hover:text-white focus:outline-none"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden border-b border-white/[0.08] bg-[#0E0E10] px-4 py-6 space-y-4"
-          >
-            <div className="flex flex-col space-y-3">
-              {navLinks.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm font-medium text-studio-muted hover:text-white py-1"
-                >
-                  {item.name}
-                </a>
-              ))}
+      {/* Mobile Drawer Navigation (Smooth slide-down without layout shift) */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden absolute top-[70px] left-0 w-full bg-[#0B0B0F]/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 flex flex-col gap-4 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+          <nav className="flex flex-col gap-3">
+            {navLinks.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                onClick={handleNavClick}
+                className="text-base font-medium text-neutral-200 hover:text-white py-2 px-3 rounded-lg hover:bg-white/[0.05] transition-colors"
+              >
+                {item.name}
+              </a>
+            ))}
+          </nav>
+
+          <div className="pt-4 border-t border-white/10 flex flex-col gap-3">
+            <div className="flex items-center gap-2 text-xs text-neutral-400 px-3">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              <span>Сейчас открыта запись на проекты</span>
             </div>
 
-            <div className="pt-4 border-t border-white/[0.08]">
-              <a
-                href="https://t.me/moonweb_labs"
-                target="_blank"
-                rel="noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-white text-black font-semibold text-sm"
-              >
-                <span>Написать в Telegram @moonweb_labs</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <a
+              href="https://t.me/moonweb_labs"
+              target="_blank"
+              rel="noreferrer"
+              onClick={handleNavClick}
+              className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-colors"
+            >
+              <span>Обсудить проект в Telegram</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
