@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Clock, ArrowUpRight, Zap, Star } from 'lucide-react';
+import { Check, Clock, ArrowUpRight, Star, Sparkles, Wrench } from 'lucide-react';
 
 interface FormatCard {
   id: string;
@@ -10,7 +10,6 @@ interface FormatCard {
   timeline: string;
   description: string;
   features: string[];
-  ctaUrl: string;
 }
 
 const FORMATS: FormatCard[] = [
@@ -26,7 +25,6 @@ const FORMATS: FormatCard[] = [
       'Кнопки быстрой связи (звонок в один тап, Telegram, WhatsApp)',
       'Базовая настройка для поиска и карточка на Яндекс Картах',
     ],
-    ctaUrl: 'https://t.me/moonweb_labs?text=Здравствуйте!%20Хочу%20обсудить%20формат%20Сайт-визитка',
   },
   {
     id: 'ordering-booking',
@@ -39,10 +37,9 @@ const FORMATS: FormatCard[] = [
     features: [
       'Каталог блюд с фото и составом или календарь свободных окон мастеров',
       'Корзина заказа с расчётом суммы или бронирование времени',
-      'Мгновенные уведомления со всеми деталями прямо в Telegram',
+      'Мгновенные уведомления со всеми деталями прямо в Telegram или WhatsApp',
       'Простое самостоятельное редактирование цен и позиций',
     ],
-    ctaUrl: 'https://t.me/moonweb_labs?text=Здравствуйте!%20Хочу%20обсудить%20формат%20Онлайн-меню%20или%20запись',
   },
   {
     id: 'custom',
@@ -56,7 +53,6 @@ const FORMATS: FormatCard[] = [
       'Интеграция с вашей таблицей заказов, CRM или базой данных',
       'Полная передача файлов и инструкция по управлению',
     ],
-    ctaUrl: 'https://t.me/moonweb_labs?text=Здравствуйте!%20Хочу%20обсудить%20Индивидуальный%20проект',
   },
 ];
 
@@ -70,15 +66,15 @@ export const LaunchFormatsSection: React.FC = () => {
           <span>Форматы работы</span>
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-4">
-          Понятные форматы под ваши задачи
+          Сделаем практически любую работу
         </h2>
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
-          Фиксированные сроки, отсутствие скрытых платежей и чёткий список того, что входит в работу.
+          От быстрого запуска сайта-визитки и онлайн-меню до сложных сервисов, ботов и интеграций под ключ. Если у вас специфическая задача — реализуем её аккуратно и в срок.
         </p>
       </div>
 
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-12">
         {FORMATS.map((format) => {
           return (
             <div
@@ -140,22 +136,44 @@ export const LaunchFormatsSection: React.FC = () => {
               {/* CTA Button */}
               <div>
                 <a
-                  href={format.ctaUrl}
-                  target="_blank"
-                  rel="noreferrer"
+                  href="#contacts"
                   className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm transition-all shadow-sm ${
                     format.isPopular
                       ? 'bg-white text-black hover:bg-neutral-200'
                       : 'bg-white/[0.08] text-white hover:bg-white/15 border border-white/10'
                   }`}
                 >
-                  <span>Обсудить этот формат</span>
+                  <span>Выбрать этот формат</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </a>
               </div>
             </div>
           );
         })}
+      </div>
+
+      {/* Universal Flexibility Banner */}
+      <div className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#12121A] to-blue-900/20 border border-purple-500/30 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="space-y-2">
+          <div className="inline-flex items-center gap-2 text-xs font-semibold text-purple-300">
+            <Wrench className="w-4 h-4" />
+            <span>Любая нестандартная задача</span>
+          </div>
+          <h4 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Нужно доработать текущий сайт или внедрить автоматизацию?
+          </h4>
+          <p className="text-sm text-neutral-300 max-w-2xl leading-relaxed">
+            Берёмся за задачи любой сложности: ускорение существующих страниц, редизайн, интеграция с онлайн-оплатой, базы данных, перенос на надежный хостинг или Telegram Mini Apps.
+          </p>
+        </div>
+
+        <a
+          href="#contacts"
+          className="shrink-0 px-6 py-3.5 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold text-sm transition-colors shadow-lg shadow-purple-500/25 flex items-center gap-2"
+        >
+          <span>Обсудить задачу</span>
+          <ArrowUpRight className="w-4 h-4" />
+        </a>
       </div>
     </section>
   );

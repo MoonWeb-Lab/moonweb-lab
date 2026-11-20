@@ -67,9 +67,7 @@ export const Header: React.FC = () => {
 
           {/* CTA Button */}
           <a
-            href="https://t.me/moonweb_labs"
-            target="_blank"
-            rel="noreferrer"
+            href="#contacts"
             className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-colors whitespace-nowrap shadow-sm"
           >
             <span>Обсудить проект</span>
@@ -110,13 +108,11 @@ export const Header: React.FC = () => {
             </div>
 
             <a
-              href="https://t.me/moonweb_labs"
-              target="_blank"
-              rel="noreferrer"
+              href="#contacts"
               onClick={handleNavClick}
               className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-colors"
             >
-              <span>Обсудить проект в Telegram</span>
+              <span>Обсудить проект</span>
               <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Smartphone, Monitor, ExternalLink, CheckCircle2 } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Smartphone, Monitor, ExternalLink, CheckCircle2, Eye, EyeOff, Loader2 } from 'lucide-react';
 
 interface CaseStudy {
   id: string;
@@ -10,8 +10,6 @@ interface CaseStudy {
   problemSolution: string;
   result: string;
   url: string;
-  desktopImage: string;
-  mobileImage: string;
   tags: string[];
 }
 
@@ -25,8 +23,6 @@ const CASES_DATA: CaseStudy[] = [
     problemSolution: 'Гости не могли быстро посмотреть меню с телефона и путались в ценах из PDF. Мы сделали быстрое меню с фотографиями, составом блюд и кнопкой моментального предзаказа без комиссии агрегаторов.',
     result: 'Гости выбирают десерты и кофе за 30 секунд прямо по ссылке из Яндекс Карт и Instagram.',
     url: 'https://moonweb-lab.github.io/djezva-grodno/',
-    desktopImage: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200&auto=format&fit=crop&q=80',
-    mobileImage: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&auto=format&fit=crop&q=80',
     tags: ['Меню блюд', 'Корзина заказа', 'Интеграция с Telegram', 'Быстрая мобильная версия'],
   },
   {
@@ -38,8 +34,6 @@ const CASES_DATA: CaseStudy[] = [
     problemSolution: 'Мастера и администратор тратили рабочее время на переписки в мессенджерах для согласования свободного времени. Внедрили систему выбора мастера, свободных окон и услуг с подтверждением записи.',
     result: 'Клиенты записываются круглосуточно сами, а администратор получает уведомление со всеми деталями.',
     url: 'https://moonweb-lab.github.io/blade-and-timber/',
-    desktopImage: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1200&auto=format&fit=crop&q=80',
-    mobileImage: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=800&auto=format&fit=crop&q=80',
     tags: ['Выбор мастера', 'Календарь слотов', 'Каталог косметики', 'Без телефонных звонков'],
   },
   {
@@ -51,8 +45,6 @@ const CASES_DATA: CaseStudy[] = [
     problemSolution: 'Пациентам важно заранее понимать квалификацию врачей, точную стоимость процедур и противопоказания. Сделали прозрачные прайсы, карточки специалистов с опытом работы и форму быстрой записи на первичный приём.',
     result: 'Понятный каталог процедур снял барьер первого визита и увеличил поток записей на консультации.',
     url: 'https://moonweb-lab.github.io/lumina-clinic/',
-    desktopImage: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&auto=format&fit=crop&q=80',
-    mobileImage: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&auto=format&fit=crop&q=80',
     tags: ['Карточки врачей', 'Прайс процедур', 'Запись на консультацию', 'Доверие пациентов'],
   },
   {
@@ -64,19 +56,175 @@ const CASES_DATA: CaseStudy[] = [
     problemSolution: 'В пиковые часы гости не дозванивались для бронирования столика и уходили к конкурентам. Реализовали форму бронирования на нужную дату и время с удобным просмотром сезонного меню.',
     result: 'Посадка заполняется заранее через сайт, экономя время менеджера зала.',
     url: 'https://moonweb-lab.github.io/botanica-bistro/',
-    desktopImage: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=80',
-    mobileImage: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&auto=format&fit=crop&q=80',
     tags: ['Бронь столов', 'Барная карта', 'Галерея интерьера', 'Telegram-оповещения'],
   },
 ];
 
+// Subcomponent: Live Interactive Iframe Device Preview
+const LiveCasePreview: React.FC<{
+  url: string;
+  name: string;
+  view: 'mobile' | 'desktop';
+}> = ({ url, name, view }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isInteracting, setIsInteracting] = useState(false);
+  const [shouldMount, setShouldMount] = useState(false);
+  
+  const containerRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 300, height: 580 });
+
+  const isMobile = view === 'mobile';
+
+  // 1. Lazy load with IntersectionObserver (triggerOnce, 200px rootMargin)
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShouldMount(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // 2. Measure actual inner container width and height with ResizeObserver
+  useEffect(() => {
+    if (!viewportRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        if (width > 0 && height > 0) {
+          setDimensions({ width, height });
+        }
+      }
+    });
+    observer.observe(viewportRef.current);
+    return () => observer.disconnect();
+  }, [view]);
+
+  // 3. Compute scale and iframe viewport dimensions
+  // Mobile mode renders an authentic 390px mobile viewport scaled into container
+  // Desktop mode renders an authentic 1280px desktop viewport scaled into container
+  const targetViewportWidth = isMobile ? 390 : 1280;
+  const scale = dimensions.width > 0 ? dimensions.width / targetViewportWidth : (isMobile ? 0.76 : 0.45);
+  const iframeWidth = targetViewportWidth;
+  const iframeHeight = scale > 0 ? dimensions.height / scale : 800;
+
+  return (
+    <div
+      ref={containerRef}
+      onMouseLeave={() => setIsInteracting(false)}
+      className="w-full flex items-center justify-center min-h-[380px] sm:min-h-[480px] lg:min-h-[540px] bg-black/40 rounded-3xl p-3 sm:p-6 border border-white/[0.06] relative select-none"
+    >
+      {/* Dynamic Frame: Changes styling smoothly between Mobile and Desktop WITHOUT recreating the iframe */}
+      <div
+        className={`transition-all duration-300 relative flex flex-col overflow-hidden shadow-2xl ${
+          isMobile
+            ? 'w-[290px] sm:w-[310px] h-[580px] sm:h-[620px] rounded-[36px] bg-[#121217] border-4 border-neutral-700/80'
+            : 'w-full max-w-[640px] aspect-[16/10] rounded-2xl bg-[#141419] border border-white/15'
+        }`}
+      >
+        {/* Top Header: Browser Topbar (Desktop) or Speaker/Dynamic Island (Mobile) */}
+        {!isMobile ? (
+          <div className="h-8 bg-white/[0.05] border-b border-white/[0.08] flex items-center px-3.5 gap-2 shrink-0">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
+            </div>
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="ml-3 text-[11px] text-neutral-400 hover:text-white font-mono truncate max-w-[240px] flex items-center gap-1"
+            >
+              <span>{url.replace('https://', '')}</span>
+              <ExternalLink className="w-3 h-3 shrink-0" />
+            </a>
+          </div>
+        ) : (
+          <div className="h-6 flex items-center justify-center shrink-0 relative bg-black/50">
+            {/* Dynamic Island / Speaker cutout */}
+            <div className="w-20 h-3.5 bg-black rounded-full border border-white/10 flex items-center justify-center">
+              <div className="w-2 h-2 rounded-full bg-neutral-900 border border-white/20" />
+            </div>
+          </div>
+        )}
+
+        {/* Inner Viewport Area */}
+        <div
+          ref={viewportRef}
+          className="relative flex-1 w-full h-full overflow-hidden bg-[#0A0A0E]"
+        >
+          {/* Skeleton Shimmer while loading */}
+          {!isLoaded && (
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#0D0D12] text-neutral-400 gap-3">
+              <Loader2 className="w-6 h-6 animate-spin text-purple-400" />
+              <span className="text-xs font-medium">Загружаем живой сайт...</span>
+            </div>
+          )}
+
+          {/* Real Interactive Iframe (Scaled via GPU transform) */}
+          {shouldMount && (
+            <iframe
+              src={url}
+              title={`${name} живое демо`}
+              loading="lazy"
+              onLoad={() => setIsLoaded(true)}
+              style={{
+                width: `${iframeWidth}px`,
+                height: `${iframeHeight}px`,
+                transform: `scale(${scale})`,
+                transformOrigin: 'top left',
+                pointerEvents: isInteracting ? 'auto' : 'none',
+              }}
+              className={`absolute top-0 left-0 border-0 transition-opacity duration-300 ${
+                isLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          )}
+
+          {/* Scroll Interception Shield (Prevents page scroll trapping) */}
+          {!isInteracting ? (
+            <div
+              onClick={() => setIsInteracting(true)}
+              className="absolute inset-0 z-20 cursor-pointer flex flex-col items-center justify-end p-4 bg-transparent hover:bg-black/20 transition-colors group"
+            >
+              <div className="px-4 py-2 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-white text-xs font-semibold shadow-2xl flex items-center gap-2 group-hover:scale-105 transition-transform">
+                <Eye className="w-3.5 h-3.5 text-purple-400" />
+                <span>Нажмите, чтобы полистать сайт</span>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsInteracting(false);
+              }}
+              className="absolute bottom-3 right-3 z-30 px-3 py-1.5 rounded-xl bg-black/90 backdrop-blur-md border border-white/20 text-white text-xs font-medium hover:bg-neutral-800 transition-colors flex items-center gap-1.5 shadow-xl"
+            >
+              <EyeOff className="w-3.5 h-3.5 text-neutral-400" />
+              <span>Завершить просмотр</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const CasesSection: React.FC = () => {
-  // Device view toggle per case ID
+  // All cases have 'mobile' active by default as requested!
   const [deviceViews, setDeviceViews] = useState<Record<string, 'desktop' | 'mobile'>>({
-    'djezva': 'desktop',
+    'djezva': 'mobile',
     'blade-timber': 'mobile',
-    'lumina': 'desktop',
-    'botanica': 'desktop',
+    'lumina': 'mobile',
+    'botanica': 'mobile',
   });
 
   const toggleView = (id: string, view: 'desktop' | 'mobile') => {
@@ -89,20 +237,20 @@ export const CasesSection: React.FC = () => {
       <div className="max-w-3xl mb-16">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
-          <span>Реальные работы</span>
+          <span>Живые проекты</span>
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-4">
           Кейсы и живые демо-сайты
         </h2>
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
-          Каждый проект решает конкретную проблему владельца: убирает рутину со звонками, показывает честные цены и помогает клиенту сделать заказ со смартфона за минуту.
+          Внутри каждого экрана работает настоящий интерактивный сайт. Вы можете полистать меню, выбрать услугу со смартфона или переключиться на вид для компьютера.
         </p>
       </div>
 
-      {/* Projects Grid */}
+      {/* Projects List */}
       <div className="space-y-16">
-        {CASES_DATA.map((item, index) => {
-          const currentView = deviceViews[item.id] || 'desktop';
+        {CASES_DATA.map((item) => {
+          const currentView = deviceViews[item.id] || 'mobile';
           const isMobile = currentView === 'mobile';
 
           return (
@@ -159,7 +307,7 @@ export const CasesSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Actions: Open Live Demo */}
+                  {/* Actions: Open Live Demo in New Tab */}
                   <div>
                     <a
                       href={item.url}
@@ -167,85 +315,47 @@ export const CasesSection: React.FC = () => {
                       rel="noreferrer"
                       className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 transition-colors shadow-sm"
                     >
-                      <span>Открыть демо-сайт</span>
+                      <span>Открыть сайт в новой вкладке</span>
                       <ExternalLink className="w-4 h-4" />
                     </a>
                   </div>
                 </div>
 
-                {/* Right Column: Interactive Mockup with Phone/Desktop Switcher */}
+                {/* Right Column: Live Interactive Device Preview */}
                 <div className="lg:col-span-7 flex flex-col items-center">
                   
                   {/* Device Switcher Controls */}
-                  <div className="flex items-center gap-2 p-1.5 rounded-xl bg-black/40 border border-white/10 mb-4 self-end">
-                    <button
-                      onClick={() => toggleView(item.id, 'desktop')}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                        !isMobile
-                          ? 'bg-white text-black font-semibold'
-                          : 'text-neutral-400 hover:text-white'
-                      }`}
-                    >
-                      <Monitor className="w-3.5 h-3.5" />
-                      <span>Компьютер</span>
-                    </button>
+                  <div className="flex items-center gap-2 p-1.5 rounded-xl bg-black/50 border border-white/10 mb-4 self-end">
                     <button
                       onClick={() => toggleView(item.id, 'mobile')}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                         isMobile
-                          ? 'bg-white text-black font-semibold'
+                          ? 'bg-white text-black font-semibold shadow-sm'
                           : 'text-neutral-400 hover:text-white'
                       }`}
                     >
                       <Smartphone className="w-3.5 h-3.5" />
                       <span>Телефон</span>
                     </button>
+                    <button
+                      onClick={() => toggleView(item.id, 'desktop')}
+                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                        !isMobile
+                          ? 'bg-white text-black font-semibold shadow-sm'
+                          : 'text-neutral-400 hover:text-white'
+                      }`}
+                    >
+                      <Monitor className="w-3.5 h-3.5" />
+                      <span>Компьютер</span>
+                    </button>
                   </div>
 
-                  {/* Mockup Frame Container (Strict aspect-ratio, zero CLS) */}
-                  <div className="w-full flex items-center justify-center min-h-[320px] sm:min-h-[420px] bg-black/30 rounded-2xl p-4 sm:p-6 border border-white/[0.06]">
-                    {!isMobile ? (
-                      /* Desktop Browser Window Mockup */
-                      <div className="w-full max-w-[620px] rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-[#141419]">
-                        {/* Browser Topbar */}
-                        <div className="h-7 bg-white/[0.04] border-b border-white/[0.06] flex items-center px-3 gap-1.5">
-                          <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
-                          <span className="ml-3 text-[10px] text-neutral-400 font-mono truncate max-w-[200px]">
-                            {item.url.replace('https://', '')}
-                          </span>
-                        </div>
-                        {/* Image Frame with Aspect Ratio */}
-                        <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
-                          <img
-                            src={item.desktopImage}
-                            alt={`${item.name} десктоп вид`}
-                            loading={index === 0 ? 'eager' : 'lazy'}
-                            decoding="async"
-                            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      /* Mobile Smartphone Mockup */
-                      <div className="w-[240px] sm:w-[270px] aspect-[9/18] rounded-[2.2rem] p-2 bg-[#1C1C24] border-2 border-neutral-700 shadow-2xl flex flex-col">
-                        {/* Phone Screen */}
-                        <div className="relative w-full h-full rounded-[1.8rem] overflow-hidden bg-neutral-900 flex flex-col">
-                          {/* Dynamic Island / Camera cutout */}
-                          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-3.5 bg-black rounded-full z-10" />
-                          {/* Screen Image */}
-                          <img
-                            src={item.mobileImage}
-                            alt={`${item.name} мобильный вид`}
-                            loading="lazy"
-                            decoding="async"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  {/* Real Interactive Iframe Mockup Container */}
+                  <LiveCasePreview
+                    url={item.url}
+                    name={item.name}
+                    view={currentView}
+                  />
 
                 </div>
 

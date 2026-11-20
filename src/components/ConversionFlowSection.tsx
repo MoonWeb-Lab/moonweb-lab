@@ -1,5 +1,5 @@
 import React from 'react';
-import { Smartphone, CheckCircle, Send, ArrowRight, Clock, MessageSquare } from 'lucide-react';
+import { Smartphone, CheckCircle, Send, Clock, MessageSquare, Mail, MessageCircle, Database } from 'lucide-react';
 
 export const ConversionFlowSection: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ export const ConversionFlowSection: React.FC = () => {
           Как сайт превращает посетителей в заявки
         </h2>
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
-          Вместо долгих переписок в директе и потерянных звонков: простая цепочка из трёх шагов, которая работает круглосуточно.
+          Вместо долгих переписок в директе и пропущенных звонков: простая цепочка из трёх шагов, которая работает круглосуточно.
         </p>
       </div>
 
@@ -89,7 +89,7 @@ export const ConversionFlowSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Step 3 */}
+        {/* Step 3 - Flexible destination channels */}
         <div className="rounded-3xl bg-[#0F0F14] border border-white/10 p-6 sm:p-8 flex flex-col justify-between hover:border-purple-500/30 transition-all duration-300">
           <div>
             <div className="flex items-center justify-between mb-6">
@@ -100,25 +100,44 @@ export const ConversionFlowSection: React.FC = () => {
             </div>
             
             <h3 className="text-xl font-bold text-white mb-3">
-              Заявка сразу в ваш Telegram
+              Заявки идут туда, куда вам удобно
             </h3>
             
             <p className="text-sm text-neutral-300 leading-relaxed mb-6">
-              Вам или вашему администратору моментально приходит структурированное сообщение: имя клиента, номер телефона, выбранные позиции и удобное время.
+              Никаких потерь контактов: настроим получение уведомлений в любой удобный для вас канал — личный Telegram, общий чат сотрудников, WhatsApp, на почту, в Google Таблицу или в вашу CRM-систему.
             </p>
           </div>
 
-          {/* Micro Visual Card: Telegram Notification Bubble */}
-          <div className="p-3.5 rounded-2xl bg-[#1E232F]/80 border border-blue-500/20 text-xs space-y-1.5 shadow-lg">
-            <div className="flex items-center gap-1.5 text-blue-400 font-semibold text-[11px]">
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span>Бот MoonWeb Lab</span>
+          {/* Micro Visual Card: Channel badges & Telegram message preview */}
+          <div className="space-y-3">
+            {/* Channel Badges */}
+            <div className="flex flex-wrap gap-1.5 text-[11px]">
+              <span className="px-2 py-1 rounded-md bg-blue-500/15 text-blue-300 border border-blue-500/30 font-medium">
+                Telegram
+              </span>
+              <span className="px-2 py-1 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-medium">
+                WhatsApp
+              </span>
+              <span className="px-2 py-1 rounded-md bg-purple-500/15 text-purple-300 border border-purple-500/30 font-medium">
+                CRM / Таблица
+              </span>
+              <span className="px-2 py-1 rounded-md bg-white/[0.05] text-neutral-300 border border-white/10 font-medium">
+                Email
+              </span>
             </div>
-            <div className="text-neutral-200 text-xs font-mono">
-              🔔 <strong>Новая запись с сайта!</strong><br />
-              Имя: Алексей Смирнов<br />
-              Телефон: +375 (29) 555-12-34<br />
-              Услуга: Стрижка + уход
+
+            {/* Notification Bubble */}
+            <div className="p-3.5 rounded-2xl bg-[#1E232F]/80 border border-blue-500/20 text-xs space-y-1 shadow-lg">
+              <div className="flex items-center gap-1.5 text-blue-400 font-semibold text-[11px]">
+                <MessageSquare className="w-3.5 h-3.5" />
+                <span>Оповещение о заказе</span>
+              </div>
+              <div className="text-neutral-200 text-xs font-mono">
+                🔔 <strong>Новая запись с сайта!</strong><br />
+                Имя: Алексей Смирнов<br />
+                Телефон: +375 (29) 555-12-34<br />
+                Услуга: Стрижка + уход
+              </div>
             </div>
           </div>
         </div>

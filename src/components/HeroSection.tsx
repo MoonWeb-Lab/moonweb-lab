@@ -51,13 +51,11 @@ export const HeroSection: React.FC = () => {
           </a>
 
           <a
-            href="https://t.me/moonweb_labs"
-            target="_blank"
-            rel="noreferrer"
+            href="#contacts"
             className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white/[0.05] border border-white/10 text-white font-medium text-sm hover:bg-white/10 hover:border-white/20 transition-all"
           >
             <Send className="w-4 h-4 text-purple-400" />
-            <span>Обсудить задачу в Telegram</span>
+            <span>Обсудить задачу</span>
           </a>
         </div>
 
