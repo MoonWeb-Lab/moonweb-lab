@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUp, ArrowUpRight, Send, Mail, Copy, Check, MessageSquare } from 'lucide-react';
 import avatarImg from '../assets/avatar.jpg';
 
 export const Footer: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion();
   const [copied, setCopied] = useState(false);
 
   const scrollToTop = () => {
@@ -20,7 +22,13 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
         
         {/* Main Contact Action Card */}
-        <div className="rounded-3xl bg-gradient-to-br from-[#12121A] via-[#0E0E14] to-[#161224] border border-purple-500/30 p-8 sm:p-12 mb-16 shadow-2xl relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-3xl bg-gradient-to-br from-[#12121A] via-[#0E0E14] to-[#161224] border border-purple-500/30 p-8 sm:p-12 mb-16 shadow-2xl relative overflow-hidden"
+        >
           <div className="max-w-3xl space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-xs text-purple-300">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -61,7 +69,7 @@ export const Footer: React.FC = () => {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Footer Navigation & Brand Row */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Check, Clock, ArrowUpRight, Star, Sparkles, Wrench } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Check, Clock, ArrowUpRight, Star, Wrench } from 'lucide-react';
 
 interface FormatCard {
   id: string;
@@ -57,10 +58,19 @@ const FORMATS: FormatCard[] = [
 ];
 
 export const LaunchFormatsSection: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section id="formats" className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Section Header */}
-      <div className="max-w-3xl mb-16">
+      
+      {/* Section Header (Smooth slide-up entrance) */}
+      <motion.div
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-3xl mb-16"
+      >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
           <span>Форматы работы</span>
@@ -71,14 +81,22 @@ export const LaunchFormatsSection: React.FC = () => {
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
           От быстрого запуска сайта-визитки и онлайн-меню до сложных сервисов, ботов и интеграций под ключ. Если у вас специфическая задача — реализуем её аккуратно и в срок.
         </p>
-      </div>
+      </motion.div>
 
-      {/* Cards Grid */}
+      {/* Cards Grid (Cascading 90ms delay between siblings) */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-12">
-        {FORMATS.map((format) => {
+        {FORMATS.map((format, index) => {
           return (
-            <div
+            <motion.div
               key={format.id}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.55,
+                delay: shouldReduceMotion ? 0 : index * 0.09,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative ${
                 format.isPopular
                   ? 'bg-[#12121A] border-2 border-purple-500/50 shadow-[0_0_40px_rgba(168,85,247,0.12)]'
@@ -147,13 +165,19 @@ export const LaunchFormatsSection: React.FC = () => {
                   <ArrowUpRight className="w-4 h-4" />
                 </a>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>
 
-      {/* Universal Flexibility Banner */}
-      <div className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#12121A] to-blue-900/20 border border-purple-500/30 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      {/* Universal Flexibility Banner (Fade-up entrance) */}
+      <motion.div
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#12121A] to-blue-900/20 border border-purple-500/30 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+      >
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 text-xs font-semibold text-purple-300">
             <Wrench className="w-4 h-4" />
@@ -174,7 +198,7 @@ export const LaunchFormatsSection: React.FC = () => {
           <span>Обсудить задачу</span>
           <ArrowUpRight className="w-4 h-4" />
         </a>
-      </div>
+      </motion.div>
     </section>
   );
 };

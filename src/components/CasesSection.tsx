@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Smartphone, Monitor, ExternalLink, CheckCircle2, Eye, EyeOff, Loader2 } from 'lucide-react';
 
 interface CaseStudy {
@@ -219,6 +220,8 @@ const LiveCasePreview: React.FC<{
 };
 
 export const CasesSection: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   // All cases have 'mobile' active by default as requested!
   const [deviceViews, setDeviceViews] = useState<Record<string, 'desktop' | 'mobile'>>({
     'djezva': 'mobile',
@@ -233,8 +236,14 @@ export const CasesSection: React.FC = () => {
 
   return (
     <section id="cases" className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Section Header */}
-      <div className="max-w-3xl mb-16">
+      {/* Section Header (Smooth slide-up entrance) */}
+      <motion.div
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-3xl mb-16"
+      >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
           <span>Живые проекты</span>
@@ -245,17 +254,25 @@ export const CasesSection: React.FC = () => {
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
           Внутри каждого экрана работает настоящий интерактивный сайт. Вы можете полистать меню, выбрать услугу со смартфона или переключиться на вид для компьютера.
         </p>
-      </div>
+      </motion.div>
 
       {/* Projects List */}
       <div className="space-y-16">
-        {CASES_DATA.map((item) => {
+        {CASES_DATA.map((item, index) => {
           const currentView = deviceViews[item.id] || 'mobile';
           const isMobile = currentView === 'mobile';
 
           return (
-            <div
+            <motion.div
               key={item.id}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.55,
+                delay: shouldReduceMotion ? 0 : (index % 2) * 0.09,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="rounded-3xl bg-[#0F0F14] border border-white/10 overflow-hidden hover:border-purple-500/30 transition-all duration-300 p-6 sm:p-8 lg:p-10"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -360,7 +377,7 @@ export const CasesSection: React.FC = () => {
                 </div>
 
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>
