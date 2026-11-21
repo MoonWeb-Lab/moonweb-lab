@@ -3,27 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-    <title>MoonWeb Lab • Сайты и системы онлайн-заказов для бизнеса</title>
+    <title>MoonWeb Lab: сайты, онлайн-меню и системы онлайн-заказов для бизнеса</title>
     <meta name="description" content="Разработка быстрых сайтов, онлайн-меню, систем онлайн-записи и интеграций с Telegram для локального бизнеса, общепита, бьюти-студий и клиник." />
     <meta name="theme-color" content="#0B0B0F" />
     <link rel="canonical" href="https://moonweb-lab.github.io/moonweb-lab/" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="avatar.jpg" />
-    <link rel="apple-touch-icon" href="avatar.jpg" />
+    <!-- Preload avatar for fast LCP -->
+    <link rel="preload" as="image" href="./avatar.jpg" type="image/jpeg" fetchpriority="high" />
 
-    <!-- Open Graph -->
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="./avatar.jpg" />
+    <link rel="apple-touch-icon" href="./avatar.jpg" />
+
+    <!-- Open Graph (Telegram, Instagram, WhatsApp) -->
     <meta property="og:site_name" content="MoonWeb Lab" />
-    <meta property="og:title" content="MoonWeb Lab • Сайты и системы онлайн-заказов для бизнеса" />
+    <meta property="og:title" content="MoonWeb Lab: сайты и системы онлайн-заказов для бизнеса" />
     <meta property="og:description" content="Разработка быстрых сайтов, онлайн-меню, систем онлайн-записи и интеграций с Telegram для бизнеса." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://moonweb-lab.github.io/moonweb-lab/" />
     <meta property="og:image" content="https://moonweb-lab.github.io/moonweb-lab/avatar.jpg" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
     <meta property="og:locale" content="ru_RU" />
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="MoonWeb Lab • Сайты и системы онлайн-заказов для бизнеса" />
+    <meta name="twitter:title" content="MoonWeb Lab: сайты и системы онлайн-заказов для бизнеса" />
     <meta name="twitter:description" content="Разработка быстрых сайтов, онлайн-меню, систем онлайн-записи и интеграций с Telegram для бизнеса." />
     <meta name="twitter:image" content="https://moonweb-lab.github.io/moonweb-lab/avatar.jpg" />
 
@@ -35,7 +40,6 @@
       "name": "MoonWeb Lab",
       "image": "https://moonweb-lab.github.io/moonweb-lab/avatar.jpg",
       "url": "https://moonweb-lab.github.io/moonweb-lab/",
-      "telephone": "",
       "priceRange": "$$",
       "description": "Разработка быстрых сайтов, онлайн-меню, систем онлайн-записи и интеграций с Telegram для локального бизнеса, общепита, бьюти-студий и клиник.",
       "address": {

@@ -21,7 +21,7 @@ export const Header: React.FC = () => {
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       className="sticky top-0 z-50 w-full h-[68px] bg-[#0B0B0F]/90 backdrop-blur-sm border-b border-white/10"
     >
-      <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between gap-6">
         
         {/* Left: Brand Logo + Avatar */}
         <motion.a
@@ -29,17 +29,18 @@ export const Header: React.FC = () => {
           whileHover={{ y: -1 }}
           whileTap={{ scale: 0.98 }}
           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center gap-3 shrink-0 rounded-xl focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none group"
-          aria-label="MoonWeb Lab — главная страница"
+          className="flex items-center gap-3 shrink-0 rounded-xl focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] group"
+          aria-label="MoonWeb Lab: главная страница"
         >
           <div className="w-9 h-9 rounded-xl overflow-hidden border border-purple-500/30 shrink-0 shadow-[0_0_14px_rgba(168,85,247,0.25)] group-hover:border-purple-400/60 transition-colors">
             <img
               src={avatarImg}
-              alt="MoonWeb Lab Логотип"
+              alt="Логотип MoonWeb Lab"
               width="36"
               height="36"
-              className="w-full h-full object-cover"
+              fetchPriority="high"
               loading="eager"
+              className="w-full h-full object-cover"
             />
           </div>
           <span className="font-extrabold text-xl tracking-tight text-white group-hover:text-purple-300 transition-colors">
@@ -55,7 +56,7 @@ export const Header: React.FC = () => {
               href={item.href}
               whileHover={{ y: -1 }}
               transition={{ duration: 0.2 }}
-              className="text-sm font-medium text-neutral-300 hover:text-white transition-colors whitespace-nowrap rounded-md focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none py-1 px-2"
+              className="text-sm font-medium text-neutral-300 hover:text-white transition-colors whitespace-nowrap rounded-md focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] py-1 px-2"
             >
               {item.name}
             </motion.a>
@@ -82,7 +83,7 @@ export const Header: React.FC = () => {
             href="https://t.me/moonweb_lab"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors whitespace-nowrap shadow-sm"
+            className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] active:scale-[0.98] transition-all whitespace-nowrap shadow-sm"
           >
             <span>Обсудить проект</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -93,7 +94,7 @@ export const Header: React.FC = () => {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Закрыть меню' : 'Открыть меню навигации'}
             aria-expanded={mobileMenuOpen}
-            className="lg:hidden p-2 rounded-xl bg-[#14141C] border border-white/10 text-neutral-300 hover:text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none cursor-pointer"
+            className="lg:hidden p-2 rounded-xl bg-[#14141C] border border-white/10 text-neutral-300 hover:text-white active:bg-[#1E1E28] focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] active:scale-95 transition-all cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -134,7 +135,7 @@ export const Header: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-semibold text-sm hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-semibold text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none active:scale-[0.98] transition-all"
               >
                 <span>Обсудить проект в Telegram</span>
                 <ArrowUpRight className="w-4 h-4" />

@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
 
   return (
     <footer id="contacts" className="w-full bg-[#08080B] border-t border-white/10 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
         
         {/* Main Contact Action Card */}
         <motion.div
@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="rounded-3xl bg-[#121218] border border-purple-500/30 p-8 sm:p-12 mb-10 sm:mb-12 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_0_40px_rgba(168,85,247,0.08)] relative overflow-hidden"
+          className="rounded-3xl bg-[#121218] border border-purple-500/30 p-8 sm:p-12 mb-12 sm:mb-16 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_0_40px_rgba(168,85,247,0.08)] relative overflow-hidden"
         >
           <div className="max-w-3xl space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#181824] border border-purple-500/30 text-xs text-purple-300">
@@ -47,7 +47,7 @@ export const Footer: React.FC = () => {
                 href="https://t.me/moonweb_lab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-lg shadow-white/5"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] active:scale-[0.98] transition-all shadow-lg shadow-white/5"
               >
                 <Send className="w-4 h-4 text-purple-600" />
                 <span>Написать в Telegram (@moonweb_lab)</span>
@@ -61,7 +61,7 @@ export const Footer: React.FC = () => {
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#181824] border border-white/10 hover:bg-[#20202E] text-white font-medium text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#181824] border border-white/10 hover:bg-[#20202E] active:bg-[#28283A] text-white font-medium text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] active:scale-[0.98] transition-all"
               >
                 <Instagram className="w-4 h-4 text-pink-400" />
                 <span>Instagram: @moonweb_labs</span>
@@ -72,16 +72,17 @@ export const Footer: React.FC = () => {
         </motion.div>
 
         {/* Footer Navigation & Brand Row */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-10 sm:mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-12 sm:mb-16">
           
           {/* Brand Col */}
           <div className="md:col-span-6 space-y-5">
             <div className="flex items-center gap-3">
               <img
                 src={avatarImg}
-                alt="MoonWeb Lab Avatar"
+                alt="Логотип MoonWeb Lab"
                 width="36"
                 height="36"
+                loading="lazy"
                 className="w-9 h-9 rounded-xl object-cover border border-purple-500/30"
               />
               <span className="font-extrabold text-2xl tracking-tight text-white">
@@ -101,7 +102,7 @@ export const Footer: React.FC = () => {
                 href="https://t.me/moonweb_lab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 active:bg-white/10 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#08080B] active:scale-[0.98] transition-all shadow-sm"
               >
                 <Send className="w-3.5 h-3.5 text-purple-400" />
                 <span>Telegram: @moonweb_lab</span>
@@ -115,7 +116,7 @@ export const Footer: React.FC = () => {
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 active:bg-white/10 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#08080B] active:scale-[0.98] transition-all shadow-sm"
               >
                 <Instagram className="w-3.5 h-3.5 text-pink-400" />
                 <span>Instagram: @moonweb_labs</span>
@@ -156,7 +157,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-xs text-neutral-300">
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span>Запуск за 3–7 дней</span>
+                <span>Запуск от 3 до 7 дней</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
@@ -187,7 +188,7 @@ export const Footer: React.FC = () => {
             whileTap={{ scale: 0.96 }}
             transition={{ duration: 0.2 }}
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 text-neutral-300 hover:text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors text-xs cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#14141C] border border-white/10 hover:border-white/20 active:bg-white/10 text-neutral-300 hover:text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#08080B] active:scale-95 transition-all text-xs cursor-pointer"
           >
             <span>Наверх</span>
             <ArrowUp className="w-3.5 h-3.5" />

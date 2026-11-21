@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, memo } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ExternalLink, CheckCircle2, Play, EyeOff, Loader2 } from 'lucide-react';
+import coffeeMestoImg from '../assets/case-coffee-mesto.png';
 import djezvaImg from '../assets/case-djezva.png';
 import bladeTimberImg from '../assets/case-blade-timber.png';
 import luminaImg from '../assets/case-lumina.png';
@@ -24,10 +25,25 @@ interface CaseStudy {
 
 const CASES_DATA: CaseStudy[] = [
   {
+    id: 'coffee-mesto',
+    name: '«Кофе Место»: кофейня и бистро',
+    category: 'Спешелти кофе и завтраки',
+    niche: 'Минск, пр-т Независимости, 43',
+    badge: 'Меню завтраков + Предзаказ',
+    problemSolution: 'Гости торопились по утрам возле площади Победы и долго ждали заказ в зале. Запустили светлое адаптивное меню с точными ценами, фото блюд, КБЖУ и моментальным предзаказом ко времени визита прямо в Telegram бариста.',
+    result: 'Гости за 20 секунд оформляют кофе и сытный завтрак навынос по дороге в офис, а бариста заранее готовит заказ к их приходу.',
+    url: 'https://moonweb-lab.github.io/coffee-mesto/',
+    glowColor: 'from-emerald-600/15 via-teal-700/5 to-transparent',
+    badgeColor: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+    accentBorder: 'border-l-emerald-400',
+    mobileImage: coffeeMestoImg,
+    tags: ['Спешелти зерно Spiritus', 'Завтраки до 18:00', 'Предзаказ ко времени', 'Чек сразу в Telegram'],
+  },
+  {
     id: 'djezva',
-    name: '«Джезва» — Кофейня и Бистро',
+    name: '«Джезва»: кофейня и бистро',
     category: 'Общепит и доставка',
-    niche: 'Кофейня-бистро с предзаказом и самовывозом',
+    niche: 'Гродно, кофейня с предзаказом и самовывозом',
     badge: 'Онлайн-меню + Самовывоз',
     problemSolution: 'Гости путались в мелком PDF-меню с экрана телефона и не могли быстро сориентироваться в ценах. Сделали удобный сайт с блюдами, актуальными ценами и предзаказом на вынос без комиссий агрегаторам.',
     result: 'Гости открывают меню прямо из карт и Instagram, выбирают кофе и десерты за полминуты и забирают заказ без очереди.',
@@ -40,7 +56,7 @@ const CASES_DATA: CaseStudy[] = [
   },
   {
     id: 'blade-timber',
-    name: 'Blade & Timber — Барбершоп',
+    name: 'Blade & Timber: барбершоп',
     category: 'Сфера услуг и бьюти',
     niche: 'Мужская парикмахерская с онлайн-записью',
     badge: 'Онлайн-запись 24/7',
@@ -54,23 +70,8 @@ const CASES_DATA: CaseStudy[] = [
     tags: ['Выбор мастера', 'Календарь слотов', 'Каталог косметики', 'Без телефонных звонков'],
   },
   {
-    id: 'lumina',
-    name: 'Lumina Clinic — Медицинский центр',
-    category: 'Медицина и здоровье',
-    niche: 'Клиника эстетической косметологии',
-    badge: 'Сайт клиники + Консультации',
-    problemSolution: 'Пациенты боялись скрытых доплат и хотели заранее понимать опыт врачей и противопоказания. Собрали честный прайс без мелкого шрифта, карточки докторов с опытом работы и быструю форму записи на консультацию.',
-    result: 'Пациенты видят квалификацию врачей, точную стоимость услуг и спокойно записываются на приём за пару кликов со смартфона.',
-    url: 'https://moonweb-lab.github.io/lumina-clinic/',
-    glowColor: 'from-emerald-600/15 via-teal-600/5 to-transparent',
-    badgeColor: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
-    accentBorder: 'border-l-emerald-400',
-    mobileImage: luminaImg,
-    tags: ['Карточки врачей', 'Прайс процедур', 'Запись на консультацию', 'Доверие пациентов'],
-  },
-  {
     id: 'botanica',
-    name: 'Botanica Bistro — Ресторан & Бар',
+    name: 'Botanica Bistro: ресторан и бар',
     category: 'Премиум общепит',
     niche: 'Ресторан с бронированием столов',
     badge: 'Бронирование + Винная карта',
@@ -82,6 +83,21 @@ const CASES_DATA: CaseStudy[] = [
     accentBorder: 'border-l-emerald-400',
     mobileImage: botanicaImg,
     tags: ['Бронь столов', 'Барная карта', 'Галерея интерьера', 'Telegram-оповещения'],
+  },
+  {
+    id: 'lumina',
+    name: 'Lumina Clinic: медицинский центр',
+    category: 'Медицина и здоровье',
+    niche: 'Клиника эстетической косметологии',
+    badge: 'Сайт клиники + Консультации',
+    problemSolution: 'Пациенты боялись скрытых доплат и хотели заранее понимать опыт врачей и противопоказания. Собрали честный прайс без мелкого шрифта, карточки докторов с опытом работы и быструю форму записи на консультацию.',
+    result: 'Пациенты видят квалификацию врачей, точную стоимость услуг и спокойно записываются на приём за пару кликов со смартфона.',
+    url: 'https://moonweb-lab.github.io/lumina-clinic/',
+    glowColor: 'from-emerald-600/15 via-teal-600/5 to-transparent',
+    badgeColor: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+    accentBorder: 'border-l-emerald-400',
+    mobileImage: luminaImg,
+    tags: ['Карточки врачей', 'Прайс процедур', 'Запись на консультацию', 'Доверие пациентов'],
   },
 ];
 
@@ -176,9 +192,9 @@ const CasePreviewFrame = memo<{
                 type="button"
                 onClick={onActivate}
                 aria-label={`Включить интерактивное демо ${caseItem.name}`}
-                className="absolute inset-0 w-full h-full bg-black/35 hover:bg-black/20 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none cursor-pointer flex items-center justify-center transition-colors group"
+                className="absolute inset-0 w-full h-full bg-black/40 hover:bg-black/25 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none cursor-pointer flex items-center justify-center transition-colors group"
               >
-                <div className="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold shadow-2xl flex items-center gap-2 group-hover:scale-105 transition-transform">
+                <div className="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold shadow-2xl flex items-center gap-2 group-hover:scale-105 active:scale-95 transition-transform">
                   <Play className="w-3.5 h-3.5 fill-black text-black" />
                   <span>Включить живой сайт</span>
                 </div>
@@ -200,7 +216,7 @@ export const CasesSection: React.FC = () => {
   const [activeIframeId, setActiveIframeId] = useState<string | null>(null);
 
   return (
-    <section id="cases" className="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="cases" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
       <motion.div
@@ -208,7 +224,7 @@ export const CasesSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-10"
+        className="max-w-3xl mb-12"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
@@ -218,12 +234,12 @@ export const CasesSection: React.FC = () => {
           Кейсы и живые демо-сайты
         </h2>
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
-          Каждый проект решает конкретную проблему владельца: убирает рутину со звонками, показывает честные цены и помогает клиенту сделать заказ со смартфона за минуту.
+          Каждый проект решает понятную задачу владельца: убирает рутину со звонками, показывает актуальные цены и помогает клиенту сделать заказ со смартфона за минуту.
         </p>
       </motion.div>
 
       {/* Projects List (12 columns: 7 cols info + 5 cols centered phone mockup) */}
-      <div className="space-y-8 sm:space-y-10">
+      <div className="space-y-10 sm:space-y-12">
         {CASES_DATA.map((item, index) => {
           const isActiveIframe = activeIframeId === item.id;
 
@@ -295,7 +311,7 @@ export const CasesSection: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setActiveIframeId(item.id)}
-                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-sm cursor-pointer"
+                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] active:scale-[0.98] transition-all shadow-sm cursor-pointer"
                       >
                         <Play className="w-4 h-4 fill-white" />
                         <span>Включить живой сайт</span>
@@ -304,7 +320,7 @@ export const CasesSection: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setActiveIframeId(null)}
-                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.08] hover:bg-white/15 border border-white/15 text-white font-medium text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors cursor-pointer"
+                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.08] hover:bg-white/15 active:bg-white/20 border border-white/15 text-white font-medium text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] active:scale-[0.98] transition-all cursor-pointer"
                       >
                         <EyeOff className="w-4 h-4" />
                         <span>Выключить живой сайт</span>
@@ -315,7 +331,7 @@ export const CasesSection: React.FC = () => {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-sm"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] active:scale-[0.98] transition-all shadow-sm"
                     >
                       <span>В новой вкладке</span>
                       <ExternalLink className="w-4 h-4" />

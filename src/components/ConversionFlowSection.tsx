@@ -61,15 +61,15 @@ export const ConversionFlowSection: React.FC = () => {
   };
 
   return (
-    <section id="how-it-works" className="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="how-it-works" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
-      {/* Section Header (Smooth Entrance) */}
+      {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-10"
+        className="max-w-3xl mb-12"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
@@ -83,7 +83,7 @@ export const ConversionFlowSection: React.FC = () => {
         </p>
       </motion.div>
 
-      {/* 3 Step Cards Grid (Single parent trigger with staggerChildren, zero independent observers) */}
+      {/* 3 Step Cards Grid */}
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -96,7 +96,7 @@ export const ConversionFlowSection: React.FC = () => {
             },
           },
         }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-10"
+        className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12"
       >
         {/* Step 1 */}
         <motion.div
@@ -159,13 +159,13 @@ export const ConversionFlowSection: React.FC = () => {
           <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] text-xs space-y-2">
             <div className="flex items-center justify-between text-white font-medium">
               <span>Выбранная услуга</span>
-              <span className="text-purple-300">45 ₽</span>
+              <span className="text-purple-300">45 BYN</span>
             </div>
             <div className="text-neutral-400 text-[11px]">
               Дата и время: Завтра, 14:00 (Мастер: Дмитрий)
             </div>
             <div className="pt-1 text-[11px] text-emerald-400 font-medium">
-              ✓ Заказ подтверждён в один клик
+              ✓ Заказ подтвержден в один клик
             </div>
           </div>
         </motion.div>
@@ -188,7 +188,7 @@ export const ConversionFlowSection: React.FC = () => {
             </h3>
             
             <p className="text-sm text-neutral-300 leading-relaxed mb-6">
-              Никаких потерь контактов: настроим получение уведомлений в любой удобный для вас канал: личный Telegram, чат сотрудников, WhatsApp или CRM.
+              Никаких потерь контактов: настроим получение уведомлений в любой удобный для вас канал: личный Telegram, рабочий чат сотрудников, WhatsApp или CRM.
             </p>
           </div>
 
@@ -229,7 +229,7 @@ export const ConversionFlowSection: React.FC = () => {
             type="button"
             onClick={handleReplay}
             aria-label="Запустить анимацию заявки заново"
-            className="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] hover:bg-white/10 border border-white/10 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors cursor-pointer"
+            className="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] hover:bg-white/10 active:bg-white/15 border border-white/10 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] active:scale-95 transition-all cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Повторить демо заявки</span>

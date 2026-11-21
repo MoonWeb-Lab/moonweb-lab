@@ -18,11 +18,11 @@ const FORMATS: FormatCard[] = [
     id: 'landing',
     name: 'Сайт-визитка или каталог услуг',
     audience: 'Мастера, подрядчики, автосервисы, юристы и небольшие локальные компании',
-    timeline: '3–5 дней',
+    timeline: 'От 3 до 5 дней',
     description: 'Компактный и быстрый сайт, где клиент сразу находит прайс, примеры работ и может позвонить или написать в один клик.',
     features: [
       'Понятная структура с описанием услуг и прозрачными ценами',
-      'Идеальное отображение на всех типах смартфонов',
+      'Удобное отображение на всех типах смартфонов',
       'Кнопки быстрой связи (звонок в один тап, Telegram, WhatsApp)',
       'Базовая настройка для поиска и карточка на Яндекс Картах',
     ],
@@ -33,7 +33,7 @@ const FORMATS: FormatCard[] = [
     badge: 'Самый частый выбор',
     isPopular: true,
     audience: 'Кофейни, рестораны, бары, барбершопы, салоны красоты и клиники',
-    timeline: '5–7 дней',
+    timeline: 'От 5 до 7 дней',
     description: 'Сайт принимает заказы на самовывоз или ведёт запись к специалистам без участия администратора и без комиссий агрегаторов.',
     features: [
       'Каталог блюд с фото и составом или календарь свободных окон мастеров',
@@ -46,13 +46,13 @@ const FORMATS: FormatCard[] = [
     id: 'custom',
     name: 'Индивидуальный проект с Telegram-ботом',
     audience: 'Компании со сложным ассортиментом, сетью заведений или нестандартной задачей',
-    timeline: 'от 7–10 дней',
+    timeline: 'От 7 до 10 дней',
     description: 'Разработка под специфические процессы бизнеса: несколько филиалов, личный кабинет клиента или связка с Telegram-ботом.',
     features: [
-      'Уникальный дизайн под ваш фирменный стиль и брендинг',
+      'Продуманный дизайн под вашу сферу и бренд',
       'Telegram Mini App для удобных повторных заказов постоянных гостей',
       'Интеграция с вашей таблицей заказов, CRM или базой данных',
-      'Полная передача файлов и инструкция по управлению',
+      'Полная передача файлов и понятная инструкция по управлению',
     ],
   },
 ];
@@ -73,7 +73,7 @@ export const LaunchFormatsSection: React.FC = () => {
   };
 
   return (
-    <section id="formats" className="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="formats" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
       <motion.div
@@ -81,7 +81,7 @@ export const LaunchFormatsSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-10"
+        className="max-w-3xl mb-12"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
@@ -91,7 +91,7 @@ export const LaunchFormatsSection: React.FC = () => {
           Форматы разработки под ваши задачи
         </h2>
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
-          От быстрого сайта-визитки и онлайн-меню до индивидуальных сервисов и Telegram-ботов. Если у вас нестандартная задача — всё обсудим и сделаем в срок.
+          От быстрого сайта-визитки и онлайн-меню до заказных сервисов и Telegram-ботов. Если у вас нестандартная задача: всё обсудим и сделаем в срок.
         </p>
       </motion.div>
 
@@ -108,7 +108,7 @@ export const LaunchFormatsSection: React.FC = () => {
             },
           },
         }}
-        className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-10"
+        className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-12"
       >
         {FORMATS.map((format) => (
           <motion.div
@@ -174,10 +174,10 @@ export const LaunchFormatsSection: React.FC = () => {
                 href="https://t.me/moonweb_lab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-sm ${
+                className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] active:scale-[0.98] transition-all shadow-sm ${
                   format.isPopular
-                    ? 'bg-white text-black hover:bg-neutral-200'
-                    : 'bg-white/[0.08] text-white hover:bg-white/15 border border-white/10'
+                    ? 'bg-white text-black hover:bg-neutral-200 active:bg-neutral-300'
+                    : 'bg-white/[0.08] text-white hover:bg-white/15 active:bg-white/20 border border-white/10'
                 }`}
               >
                 <span>Выбрать этот формат</span>
@@ -213,7 +213,7 @@ export const LaunchFormatsSection: React.FC = () => {
           href="https://t.me/moonweb_lab"
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-lg shadow-purple-600/20 flex items-center gap-2"
+          className="shrink-0 px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] active:scale-[0.98] transition-all shadow-lg shadow-purple-600/20 flex items-center gap-2"
         >
           <span>Обсудить задачу</span>
           <ArrowUpRight className="w-4 h-4" />

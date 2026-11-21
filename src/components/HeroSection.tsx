@@ -39,7 +39,7 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+    <section className="relative py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       
       {/* Soft Ambient Radial Glow Behind Headline (Pure static CSS, zero GPU overhead) */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[360px] rounded-full pointer-events-none bg-purple-600/[0.12] blur-[110px] z-0" />
@@ -57,9 +57,10 @@ export const HeroSection: React.FC = () => {
           >
             <img
               src={avatarImg}
-              alt="MoonWeb Lab"
+              alt="Аватар MoonWeb Lab"
               width="16"
               height="16"
+              loading="eager"
               className="w-4 h-4 rounded-full object-cover"
             />
             <span className="font-medium text-white">Веб-студия MoonWeb Lab</span>
@@ -114,7 +115,7 @@ export const HeroSection: React.FC = () => {
             variants={maskLineVariants}
             className="text-base sm:text-lg lg:text-xl text-neutral-300 leading-relaxed"
           >
-            Разрабатываем удобные решения для общепита, бьюти-студий, клиник и сферы услуг. Клиенты за 30 секунд находят цены и оформляют заказы со смартфона, а вы получаете готовые заявки прямо в Telegram.
+            Создаем удобные веб-сервисы для кофеен, ресторанов, салонов красоты и медицинских центров. Клиенты находят цены и оформляют заказы со смартфонов за 30 секунд, а вы получаете готовые заявки прямо в Telegram.
           </motion.p>
         </div>
 
@@ -129,9 +130,10 @@ export const HeroSection: React.FC = () => {
           >
             <motion.a
               whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
               href="#cases"
-              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-lg shadow-white/5"
+              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] active:scale-[0.98] transition-all shadow-lg shadow-white/5"
             >
               <span>Смотреть живые кейсы</span>
               <ArrowDown className="w-4 h-4" />
@@ -139,11 +141,12 @@ export const HeroSection: React.FC = () => {
 
             <motion.a
               whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
               href="https://t.me/moonweb_lab"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#14141C] border border-white/10 text-white font-medium text-sm hover:bg-white/10 hover:border-white/20 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors shadow-sm"
+              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#14141C] border border-white/10 text-white font-medium text-sm hover:bg-white/10 hover:border-white/20 active:bg-white/15 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] active:scale-[0.98] transition-all shadow-sm"
             >
               <Send className="w-4 h-4 text-purple-400" />
               <span>Обсудить проект в Telegram</span>
@@ -195,7 +198,7 @@ export const HeroSection: React.FC = () => {
             className="p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors"
           >
             <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight mb-1 text-purple-300">
-              3–7 дней
+              От 3 до 7 дней
             </div>
             <p className="text-xs text-neutral-400 leading-relaxed">
               Быстрый запуск от первого созвона до готового сайта без затягивания сроков
