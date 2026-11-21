@@ -61,34 +61,28 @@ export const LaunchFormatsSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="formats" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="formats" className="pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
-      <motion.div
-        initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-8 sm:mb-10"
-      >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-3.5">
+      <div className="max-w-4xl mb-6 sm:mb-8">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2.5">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
           <span>Форматы работы</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-3">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-[1.2] mb-2.5 text-balance">
           Форматы разработки под ваши задачи
         </h2>
-        <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
+        <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl text-pretty">
           От быстрого сайта-визитки и онлайн-меню до заказных сервисов и Telegram-ботов. Если у вас нестандартная задача: всё обсудим и сделаем в срок.
         </p>
-      </motion.div>
+      </div>
 
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-8 sm:mb-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 items-stretch mb-6 sm:mb-8">
         {FORMATS.map((format) => (
           <div
             key={format.id}
-            className={`rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-colors duration-200 relative ${
+            className={`rounded-3xl p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200 relative ${
               format.isPopular
                 ? 'bg-[#14141F] border-2 border-purple-500/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_0_30px_rgba(168,85,247,0.1)]'
                 : 'bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] hover:border-white/20'
@@ -163,7 +157,7 @@ export const LaunchFormatsSection: React.FC = () => {
       </div>
 
       {/* Universal Flexibility Banner */}
-      <div className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#121218] to-blue-900/20 border border-purple-500/30 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
+      <div className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#121218] to-blue-900/20 border border-purple-500/30 p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 text-xs font-semibold text-purple-300">
             <Wrench className="w-4 h-4" />

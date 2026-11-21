@@ -15,27 +15,21 @@ export const Footer: React.FC = () => {
 
   return (
     <footer id="contacts" className="w-full bg-[#08080B] border-t border-white/10 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-10 sm:pt-8 sm:pb-12">
         
         {/* Main Contact Action Card */}
-        <motion.div
-          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="rounded-3xl bg-[#121218] border border-purple-500/30 p-6 sm:p-10 mb-10 sm:mb-12 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_0_40px_rgba(168,85,247,0.08)] relative overflow-hidden"
-        >
-          <div className="max-w-3xl space-y-5">
+        <div className="rounded-3xl bg-[#121218] border border-purple-500/30 p-5 sm:p-8 mb-6 sm:mb-8 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_0_40px_rgba(168,85,247,0.08)] relative overflow-hidden">
+          <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#181824] border border-purple-500/30 text-xs text-purple-300">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>Открыты к новым проектам</span>
             </div>
 
-            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-[1.2] text-balance">
               Готовы обсудить ваш проект? Напишите нам напрямую.
             </h3>
 
-            <p className="text-base sm:text-lg text-neutral-300 leading-relaxed max-w-2xl">
+            <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl text-pretty">
               Расскажите о вашей задаче в Telegram или Instagram: подберём формат решения, сориентируем по срокам и стоимости.
             </p>
 
@@ -69,10 +63,10 @@ export const Footer: React.FC = () => {
               </motion.a>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Footer Navigation & Brand Row */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-10 sm:mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-6 sm:mb-8">
           
           {/* Brand Col */}
           <div className="md:col-span-6 space-y-4">
@@ -127,7 +121,7 @@ export const Footer: React.FC = () => {
 
           {/* Navigation Links */}
           <div className="md:col-span-3 space-y-3">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold">
+            <h4 className="text-xs uppercase tracking-wider text-neutral-400 font-semibold">
               Разделы сайта
             </h4>
             <ul className="space-y-2 text-sm text-neutral-300">
@@ -151,7 +145,7 @@ export const Footer: React.FC = () => {
 
           {/* Principles */}
           <div className="md:col-span-3 space-y-3">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold">
+            <h4 className="text-xs uppercase tracking-wider text-neutral-400 font-semibold">
               Принципы работы
             </h4>
             <ul className="space-y-2 text-xs text-neutral-300">

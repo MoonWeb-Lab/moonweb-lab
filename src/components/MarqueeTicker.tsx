@@ -16,7 +16,7 @@ export const MarqueeTicker: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <div className="w-full overflow-hidden border-y border-white/10 bg-[#08080B] py-3.5 select-none relative group">
+    <div className="w-full overflow-hidden border-y border-white/10 bg-[#08080B] py-3 select-none relative group">
       <div className="flex w-max">
         <motion.div
           animate={shouldReduceMotion ? {} : { x: ['0%', '-50%'] }}
@@ -30,7 +30,7 @@ export const MarqueeTicker: React.FC = () => {
         >
           {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, idx) => (
             <div key={idx} className="flex items-center gap-8">
-              <span className="text-xs font-mono tracking-wider text-neutral-300 uppercase font-medium">
+              <span className="text-xs font-sans tracking-widest text-neutral-300 uppercase font-semibold">
                 {item}
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-purple-500/60" />

@@ -213,31 +213,31 @@ export const CasesSection: React.FC = () => {
   const [activeIframeId, setActiveIframeId] = useState<string | null>(null);
 
   return (
-    <section id="cases" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="cases" className="pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
-      <div className="max-w-3xl mb-8 sm:mb-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-3.5">
+      <div className="max-w-4xl mb-6 sm:mb-8">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2.5">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
           <span>Реальные работы</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-3">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-[1.2] mb-2.5 text-balance">
           Кейсы и живые демо-сайты
         </h2>
-        <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
+        <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl text-pretty">
           Каждый проект решает понятную задачу владельца: убирает рутину со звонками, показывает актуальные цены и помогает клиенту сделать заказ со смартфона за минуту.
         </p>
       </div>
 
       {/* Projects List */}
-      <div className="space-y-6 sm:space-y-8">
+      <div className="space-y-5 sm:space-y-6">
         {CASES_DATA.map((item) => {
           const isActiveIframe = activeIframeId === item.id;
 
           return (
             <div
               key={item.id}
-              className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden p-6 lg:p-8 transition-colors"
+              className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden p-5 sm:p-6 lg:p-7 transition-colors"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
                 

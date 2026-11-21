@@ -49,45 +49,39 @@ export const ConversionFlowSection: React.FC = () => {
   };
 
   return (
-    <section id="how-it-works" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="how-it-works" className="pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
-      <motion.div
-        initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-8 sm:mb-10"
-      >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-3.5">
+      <div className="max-w-4xl mb-6 sm:mb-8">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2.5">
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
           <span>Понятная логика</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-3">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-[1.2] mb-2.5 text-balance">
           Как посетитель сайта становится вашим клиентом
         </h2>
-        <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
+        <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl text-pretty">
           Человек переходит со смартфона, сразу видит цены, выбирает услугу и отправляет контакты. Вы получаете готовую заявку в Telegram без лишних звонков и долгих переписок.
         </p>
-      </motion.div>
+      </div>
 
       {/* 3 Step Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-7 sm:mb-8">
         {/* Step 1 */}
-        <div className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-7 flex flex-col justify-between transition-colors duration-200">
+        <div className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200">
           <div>
-            <div className="flex items-center justify-between mb-5">
-              <span className="font-mono text-3xl font-extrabold text-purple-400">01</span>
-              <div className="w-11 h-11 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-300">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-2xl sm:text-3xl font-extrabold text-purple-400 tracking-tight">01</span>
+              <div className="w-10 h-10 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-300">
                 <Smartphone className="w-5 h-5" />
               </div>
             </div>
             
-            <h3 className="text-xl font-bold text-white mb-2.5">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
               Переход с рекламы, карт или Instagram
             </h3>
             
-            <p className="text-sm text-neutral-300 leading-relaxed mb-5">
+            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-4">
               Потенциальный клиент нажимает на ссылку в профиле или на Яндекс Картах. Страница открывается со смартфона моментально, без долгого ожидания.
             </p>
           </div>
@@ -107,20 +101,20 @@ export const ConversionFlowSection: React.FC = () => {
         </div>
 
         {/* Step 2 */}
-        <div className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-7 flex flex-col justify-between transition-colors duration-200">
+        <div className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200">
           <div>
-            <div className="flex items-center justify-between mb-5">
-              <span className="font-mono text-3xl font-extrabold text-emerald-400">02</span>
-              <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-300">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight">02</span>
+              <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-300">
                 <Clock className="w-5 h-5" />
               </div>
             </div>
             
-            <h3 className="text-xl font-bold text-white mb-2.5">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
               Быстрый выбор за 30 секунд
             </h3>
             
-            <p className="text-sm text-neutral-300 leading-relaxed mb-5">
+            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-4">
               Человек сразу видит понятные цены, фотографии, состав блюд или свободные окна мастеров. Ему не нужно звонить или ждать ответа администратора.
             </p>
           </div>
@@ -140,20 +134,20 @@ export const ConversionFlowSection: React.FC = () => {
         </div>
 
         {/* Step 3 */}
-        <div className="rounded-3xl bg-[#121218] border border-white/10 hover:border-purple-500/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-7 flex flex-col justify-between transition-colors duration-200">
+        <div className="rounded-3xl bg-[#121218] border border-white/10 hover:border-purple-500/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200">
           <div>
-            <div className="flex items-center justify-between mb-5">
-              <span className="font-mono text-3xl font-extrabold text-white">03</span>
-              <div className="w-11 h-11 rounded-2xl bg-white/[0.08] border border-white/20 flex items-center justify-center text-white">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">03</span>
+              <div className="w-10 h-10 rounded-2xl bg-white/[0.08] border border-white/20 flex items-center justify-center text-white">
                 <Send className="w-5 h-5 text-purple-400" />
               </div>
             </div>
             
-            <h3 className="text-xl font-bold text-white mb-2.5">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
               Заявки идут туда, куда вам удобно
             </h3>
             
-            <p className="text-sm text-neutral-300 leading-relaxed mb-5">
+            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-4">
               Никаких потерь контактов: настроим получение уведомлений в любой удобный для вас канал: личный Telegram, рабочий чат сотрудников, WhatsApp или CRM.
             </p>
           </div>
@@ -173,14 +167,14 @@ export const ConversionFlowSection: React.FC = () => {
       </div>
 
       {/* Message Demonstration Feed */}
-      <div className="relative pt-2">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+      <div className="relative pt-0">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold text-purple-300 mb-1">
               <Bell className="w-4 h-4 text-purple-400" />
               <span>Наглядный пример связки «Сайт → Telegram»</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
               Как проходит заявка от клика до подтверждения
             </h3>
           </div>
@@ -189,15 +183,15 @@ export const ConversionFlowSection: React.FC = () => {
             type="button"
             onClick={handleReplay}
             aria-label="Запустить анимацию заявки заново"
-            className="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14141C] hover:bg-white/10 active:bg-white/15 border border-white/10 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] active:scale-95 transition-all cursor-pointer"
+            className="self-start sm:self-auto inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#14141C] hover:bg-white/10 active:bg-white/15 border border-white/10 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] active:scale-95 transition-all cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Повторить демо заявки</span>
           </button>
         </div>
 
-        {/* Message Feed with 0.5s intervals (0.05s -> 0.55s -> 1.05s, duration 0.45s) */}
-        <div key={replayKey} className="space-y-3.5 max-w-3xl mx-auto">
+        {/* Message Feed with 0.5s intervals */}
+        <div key={replayKey} className="space-y-2.5 max-w-3xl mx-auto">
           {DEMO_STEPS.map((step, idx) => {
             const isTelegram = step.type === 'telegram';
             const isStatus = step.type === 'status';
@@ -218,12 +212,12 @@ export const ConversionFlowSection: React.FC = () => {
                   delay: shouldReduceMotion ? 0 : MESSAGE_DELAYS[idx],
                   ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
                 }}
-                className={`p-4 sm:p-5 rounded-2xl border transition-colors ${
+                className={`p-3.5 sm:p-4 rounded-2xl border transition-colors ${
                   isTelegram
-                    ? 'bg-[#151C2C] border-blue-500/30 ml-3 sm:ml-8 shadow-lg shadow-blue-500/5'
+                    ? 'bg-[#151C2C] border-blue-500/30 ml-2 sm:ml-6 shadow-lg shadow-blue-500/5'
                     : isStatus
                     ? 'bg-[#101F18] border-emerald-500/30'
-                    : 'bg-[#161620] border-white/10 mr-3 sm:mr-8'
+                    : 'bg-[#161620] border-white/10 mr-2 sm:mr-6'
                 }`}
               >
                 <div className="flex items-center justify-between gap-3 mb-2">
@@ -238,7 +232,7 @@ export const ConversionFlowSection: React.FC = () => {
                   >
                     {step.badge}
                   </span>
-                  <span className="text-[11px] font-mono text-neutral-400">
+                  <span className="text-[11px] font-medium text-neutral-400">
                     {step.time}
                   </span>
                 </div>
