@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect, memo } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
 import { ExternalLink, CheckCircle2, Play, EyeOff, Loader2 } from 'lucide-react';
 import coffeeMestoImg from '../assets/case-coffee-mesto.png';
 import djezvaImg from '../assets/case-djezva.png';
@@ -135,16 +134,16 @@ const CasePreviewFrame = memo<{
   return (
     <div className="w-full flex items-center justify-center relative select-none py-2">
       
-      {/* Ambient Radial Color Glow directly behind the phone frame (no intermediate box) */}
-      <div className={`absolute w-[320px] h-[480px] bg-gradient-to-br ${caseItem.glowColor} rounded-full blur-[70px] pointer-events-none z-0`} />
+      {/* Ambient Radial Color Glow directly behind the phone frame */}
+      <div className={`absolute w-[300px] h-[450px] bg-gradient-to-br ${caseItem.glowColor} rounded-full blur-[60px] pointer-events-none z-0`} />
 
-      {/* Realistic Mobile Mockup Frame standing directly inside the card */}
-      <div className="relative z-10 w-[270px] sm:w-[290px] h-[540px] sm:h-[580px] rounded-[38px] bg-[#121217] border-[5px] border-neutral-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.12)] flex flex-col overflow-hidden">
+      {/* Realistic Mobile Mockup Frame */}
+      <div className="relative z-10 w-[270px] sm:w-[290px] h-[520px] sm:h-[560px] rounded-[36px] bg-[#121217] border-[4px] border-neutral-700/80 shadow-[0_16px_40px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.12)] flex flex-col overflow-hidden">
         
         {/* Dynamic Island / Speaker notch */}
-        <div className="h-6 flex items-center justify-center shrink-0 bg-black relative select-none">
-          <div className="w-20 h-3.5 bg-neutral-900 rounded-full border border-white/10 flex items-center justify-center">
-            <div className="w-2 h-2 rounded-full bg-black border border-white/20" />
+        <div className="h-5 flex items-center justify-center shrink-0 bg-black relative select-none">
+          <div className="w-18 h-3 bg-neutral-900 rounded-full border border-white/10 flex items-center justify-center">
+            <div className="w-1.5 h-1.5 rounded-full bg-black border border-white/20" />
           </div>
         </div>
 
@@ -154,7 +153,7 @@ const CasePreviewFrame = memo<{
           className="relative flex-1 w-full h-full overflow-hidden bg-[#0A0A0E]"
         >
           {isActiveIframe ? (
-            /* Active Interactive Iframe (Zero overlay button to keep interface 100% clean) */
+            /* Active Interactive Iframe */
             <>
               {!iframeLoaded && (
                 <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#0D0D12] text-neutral-400 gap-2.5">
@@ -187,16 +186,16 @@ const CasePreviewFrame = memo<{
                 decoding="async"
                 className="w-full h-full object-cover object-top select-none"
               />
-              {/* Play live preview overlay with pure contrast button */}
+              {/* Play live preview overlay */}
               <button
                 type="button"
                 onClick={onActivate}
                 aria-label={`Включить интерактивное демо ${caseItem.name}`}
                 className="absolute inset-0 w-full h-full bg-black/40 hover:bg-black/25 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none cursor-pointer flex items-center justify-center transition-colors group"
               >
-                <div className="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold shadow-2xl flex items-center gap-2 group-hover:scale-105 active:scale-95 transition-transform">
+                <div className="px-4 py-2 rounded-full bg-white text-black text-xs font-bold shadow-2xl flex items-center gap-1.5 group-hover:scale-105 active:scale-95 transition-transform">
                   <Play className="w-3.5 h-3.5 fill-black text-black" />
-                  <span>Включить живой сайт</span>
+                  <span>Включить демо</span>
                 </div>
               </button>
             </div>
@@ -210,59 +209,43 @@ const CasePreviewFrame = memo<{
 CasePreviewFrame.displayName = 'CasePreviewFrame';
 
 export const CasesSection: React.FC = () => {
-  const shouldReduceMotion = useReducedMotion();
-
   // Maximum ONE active iframe across entire page
   const [activeIframeId, setActiveIframeId] = useState<string | null>(null);
 
   return (
-    <section id="cases" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="cases" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-12"
-      >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
+      <div className="max-w-3xl mb-8 sm:mb-10">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-3.5">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
           <span>Реальные работы</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-4">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-3">
           Кейсы и живые демо-сайты
         </h2>
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
           Каждый проект решает понятную задачу владельца: убирает рутину со звонками, показывает актуальные цены и помогает клиенту сделать заказ со смартфона за минуту.
         </p>
-      </motion.div>
+      </div>
 
-      {/* Projects List (12 columns: 7 cols info + 5 cols centered phone mockup) */}
-      <div className="space-y-10 sm:space-y-12">
-        {CASES_DATA.map((item, index) => {
+      {/* Projects List */}
+      <div className="space-y-6 sm:space-y-8">
+        {CASES_DATA.map((item) => {
           const isActiveIframe = activeIframeId === item.id;
 
           return (
-            <motion.div
+            <div
               key={item.id}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{
-                duration: shouldReduceMotion ? 0 : 0.65,
-                delay: shouldReduceMotion ? 0 : (index % 2) * 0.08,
-                ease: [0.22, 1, 0.36, 1],
-              }}
               className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden p-6 lg:p-8 transition-colors"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
                 
-                {/* Left Column (7 cols): Context, Problem, Solution, aligned to bottom */}
+                {/* Left Column (7 cols): Context, Problem, Solution */}
                 <div className="lg:col-span-7 flex flex-col justify-between h-full">
                   <div>
                     {/* Top Meta & Badge */}
-                    <div className="flex flex-wrap items-center gap-3 mb-4">
+                    <div className="flex flex-wrap items-center gap-2.5 mb-3">
                       <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${item.badgeColor}`}>
                         {item.badge}
                       </span>
@@ -272,27 +255,27 @@ export const CasesSection: React.FC = () => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 tracking-tight">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1.5 tracking-tight">
                       {item.name}
                     </h3>
-                    <p className="text-sm font-medium text-neutral-400 mb-6">
+                    <p className="text-sm font-medium text-neutral-400 mb-4">
                       {item.niche}
                     </p>
 
                     {/* Problem and Solution Text */}
-                    <div className="space-y-3 mb-6 text-sm text-neutral-300 leading-relaxed">
+                    <div className="space-y-2.5 mb-5 text-sm text-neutral-300 leading-relaxed">
                       <p>
                         <strong className="text-white font-semibold">Задача: </strong>
                         {item.problemSolution}
                       </p>
-                      <p className={`py-3 px-4 rounded-r-xl bg-white/[0.03] border-l-2 ${item.accentBorder} text-neutral-200`}>
+                      <p className={`py-2.5 px-3.5 rounded-r-xl bg-white/[0.03] border-l-2 ${item.accentBorder} text-neutral-200`}>
                         <strong className="text-white font-semibold">Результат: </strong>
                         {item.result}
                       </p>
                     </div>
 
                     {/* Features Tags */}
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-1.5 mb-5">
                       {item.tags.map((tag) => (
                         <span
                           key={tag}
@@ -305,8 +288,8 @@ export const CasesSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Actions: Live Demo & External Link (Aligns cleanly to bottom of right column) */}
-                  <div className="flex flex-wrap items-center gap-3 pt-4 mt-auto">
+                  {/* Actions: Live Demo & External Link */}
+                  <div className="flex flex-wrap items-center gap-3 pt-2 mt-auto">
                     {!isActiveIframe ? (
                       <button
                         type="button"
@@ -349,7 +332,7 @@ export const CasesSection: React.FC = () => {
                 </div>
 
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </div>

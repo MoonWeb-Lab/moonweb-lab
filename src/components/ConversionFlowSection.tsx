@@ -48,34 +48,22 @@ export const ConversionFlowSection: React.FC = () => {
     setReplayKey((prev) => prev + 1);
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 16 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: shouldReduceMotion ? 0 : 0.65,
-        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-      },
-    },
-  };
-
   return (
-    <section id="how-it-works" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="how-it-works" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
       <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+        initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 12 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-12"
+        viewport={{ once: true }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-3xl mb-8 sm:mb-10"
       >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-3.5">
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
           <span>Понятная логика</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-4">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-3">
           Как посетитель сайта становится вашим клиентом
         </h2>
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
@@ -84,43 +72,27 @@ export const ConversionFlowSection: React.FC = () => {
       </motion.div>
 
       {/* 3 Step Cards Grid */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={{
-          hidden: {},
-          visible: {
-            transition: {
-              staggerChildren: 0.1,
-            },
-          },
-        }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12"
-      >
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mb-10">
         {/* Step 1 */}
-        <motion.div
-          variants={cardVariants}
-          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 flex flex-col justify-between transition-colors duration-200"
-        >
+        <div className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-7 flex flex-col justify-between transition-colors duration-200">
           <div>
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-5">
               <span className="font-mono text-3xl font-extrabold text-purple-400">01</span>
-              <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-300">
-                <Smartphone className="w-6 h-6" />
+              <div className="w-11 h-11 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-300">
+                <Smartphone className="w-5 h-5" />
               </div>
             </div>
             
-            <h3 className="text-xl font-bold text-white mb-3">
+            <h3 className="text-xl font-bold text-white mb-2.5">
               Переход с рекламы, карт или Instagram
             </h3>
             
-            <p className="text-sm text-neutral-300 leading-relaxed mb-6">
+            <p className="text-sm text-neutral-300 leading-relaxed mb-5">
               Потенциальный клиент нажимает на ссылку в профиле или на Яндекс Картах. Страница открывается со смартфона моментально, без долгого ожидания.
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] text-xs space-y-2">
+          <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.06] text-xs space-y-2">
             <div className="flex items-center justify-between text-neutral-400">
               <span>Источник: Яндекс Карты</span>
               <span className="text-emerald-400 font-medium">Загрузка ~1 сек</span>
@@ -132,31 +104,28 @@ export const ConversionFlowSection: React.FC = () => {
               Человек не закрывает страницу и сразу видит ваши услуги
             </p>
           </div>
-        </motion.div>
+        </div>
 
         {/* Step 2 */}
-        <motion.div
-          variants={cardVariants}
-          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 flex flex-col justify-between transition-colors duration-200"
-        >
+        <div className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-7 flex flex-col justify-between transition-colors duration-200">
           <div>
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-5">
               <span className="font-mono text-3xl font-extrabold text-emerald-400">02</span>
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-300">
-                <Clock className="w-6 h-6" />
+              <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-300">
+                <Clock className="w-5 h-5" />
               </div>
             </div>
             
-            <h3 className="text-xl font-bold text-white mb-3">
+            <h3 className="text-xl font-bold text-white mb-2.5">
               Быстрый выбор за 30 секунд
             </h3>
             
-            <p className="text-sm text-neutral-300 leading-relaxed mb-6">
+            <p className="text-sm text-neutral-300 leading-relaxed mb-5">
               Человек сразу видит понятные цены, фотографии, состав блюд или свободные окна мастеров. Ему не нужно звонить или ждать ответа администратора.
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] text-xs space-y-2">
+          <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.06] text-xs space-y-2">
             <div className="flex items-center justify-between text-white font-medium">
               <span>Выбранная услуга</span>
               <span className="text-purple-300">45 BYN</span>
@@ -168,26 +137,23 @@ export const ConversionFlowSection: React.FC = () => {
               ✓ Заказ подтвержден в один клик
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Step 3 */}
-        <motion.div
-          variants={cardVariants}
-          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-purple-500/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-8 flex flex-col justify-between transition-colors duration-200"
-        >
+        <div className="rounded-3xl bg-[#121218] border border-white/10 hover:border-purple-500/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 sm:p-7 flex flex-col justify-between transition-colors duration-200">
           <div>
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-5">
               <span className="font-mono text-3xl font-extrabold text-white">03</span>
-              <div className="w-12 h-12 rounded-2xl bg-white/[0.08] border border-white/20 flex items-center justify-center text-white">
-                <Send className="w-6 h-6 text-purple-400" />
+              <div className="w-11 h-11 rounded-2xl bg-white/[0.08] border border-white/20 flex items-center justify-center text-white">
+                <Send className="w-5 h-5 text-purple-400" />
               </div>
             </div>
             
-            <h3 className="text-xl font-bold text-white mb-3">
+            <h3 className="text-xl font-bold text-white mb-2.5">
               Заявки идут туда, куда вам удобно
             </h3>
             
-            <p className="text-sm text-neutral-300 leading-relaxed mb-6">
+            <p className="text-sm text-neutral-300 leading-relaxed mb-5">
               Никаких потерь контактов: настроим получение уведомлений в любой удобный для вас канал: личный Telegram, рабочий чат сотрудников, WhatsApp или CRM.
             </p>
           </div>
@@ -203,20 +169,14 @@ export const ConversionFlowSection: React.FC = () => {
               CRM
             </span>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      {/* Message Demonstration Feed (Clean background, zero card-in-card wrapper) */}
-      <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        className="relative pt-4"
-      >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      {/* Message Demonstration Feed */}
+      <div className="relative pt-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-purple-300 mb-1.5">
+            <div className="flex items-center gap-2 text-xs font-semibold text-purple-300 mb-1">
               <Bell className="w-4 h-4 text-purple-400" />
               <span>Наглядный пример связки «Сайт → Telegram»</span>
             </div>
@@ -237,7 +197,7 @@ export const ConversionFlowSection: React.FC = () => {
         </div>
 
         {/* Message Feed with 0.5s intervals (0.05s -> 0.55s -> 1.05s, duration 0.45s) */}
-        <div key={replayKey} className="space-y-4 max-w-3xl mx-auto">
+        <div key={replayKey} className="space-y-3.5 max-w-3xl mx-auto">
           {DEMO_STEPS.map((step, idx) => {
             const isTelegram = step.type === 'telegram';
             const isStatus = step.type === 'status';
@@ -247,7 +207,7 @@ export const ConversionFlowSection: React.FC = () => {
                 key={step.id}
                 initial={{
                   opacity: 0,
-                  y: shouldReduceMotion ? 0 : 14,
+                  y: shouldReduceMotion ? 0 : 12,
                 }}
                 animate={{
                   opacity: 1,
@@ -258,15 +218,12 @@ export const ConversionFlowSection: React.FC = () => {
                   delay: shouldReduceMotion ? 0 : MESSAGE_DELAYS[idx],
                   ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
                 }}
-                style={{
-                  willChange: 'transform, opacity',
-                }}
                 className={`p-4 sm:p-5 rounded-2xl border transition-colors ${
                   isTelegram
-                    ? 'bg-[#151C2C] border-blue-500/30 ml-4 sm:ml-10 shadow-lg shadow-blue-500/5'
+                    ? 'bg-[#151C2C] border-blue-500/30 ml-3 sm:ml-8 shadow-lg shadow-blue-500/5'
                     : isStatus
                     ? 'bg-[#101F18] border-emerald-500/30'
-                    : 'bg-[#161620] border-white/10 mr-4 sm:mr-10'
+                    : 'bg-[#161620] border-white/10 mr-3 sm:mr-8'
                 }`}
               >
                 <div className="flex items-center justify-between gap-3 mb-2">
@@ -301,7 +258,7 @@ export const ConversionFlowSection: React.FC = () => {
           })}
         </div>
 
-      </motion.div>
+      </div>
     </section>
   );
 };

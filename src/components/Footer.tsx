@@ -15,17 +15,17 @@ export const Footer: React.FC = () => {
 
   return (
     <footer id="contacts" className="w-full bg-[#08080B] border-t border-white/10 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         
         {/* Main Contact Action Card */}
         <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="rounded-3xl bg-[#121218] border border-purple-500/30 p-8 sm:p-12 mb-12 sm:mb-16 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_0_40px_rgba(168,85,247,0.08)] relative overflow-hidden"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="rounded-3xl bg-[#121218] border border-purple-500/30 p-6 sm:p-10 mb-10 sm:mb-12 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_0_40px_rgba(168,85,247,0.08)] relative overflow-hidden"
         >
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-5">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#181824] border border-purple-500/30 text-xs text-purple-300">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>Открыты к новым проектам</span>
@@ -39,7 +39,7 @@ export const Footer: React.FC = () => {
               Расскажите о вашей задаче в Telegram или Instagram: подберём формат решения, сориентируем по срокам и стоимости.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-3.5 pt-1">
               <motion.a
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -72,10 +72,10 @@ export const Footer: React.FC = () => {
         </motion.div>
 
         {/* Footer Navigation & Brand Row */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-12 sm:mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-10 sm:mb-12">
           
           {/* Brand Col */}
-          <div className="md:col-span-6 space-y-5">
+          <div className="md:col-span-6 space-y-4">
             <div className="flex items-center gap-3">
               <img
                 src={avatarImg}
@@ -94,7 +94,7 @@ export const Footer: React.FC = () => {
               Разрабатываем быстрые сайты, онлайн-меню, системы онлайн-записи и Telegram-решения для локального бизнеса.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-1">
               <motion.a
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
@@ -126,11 +126,11 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Navigation Links */}
-          <div className="md:col-span-3 space-y-3.5">
+          <div className="md:col-span-3 space-y-3">
             <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold">
               Разделы сайта
             </h4>
-            <ul className="space-y-2.5 text-sm text-neutral-300">
+            <ul className="space-y-2 text-sm text-neutral-300">
               <li>
                 <a href="#cases" className="hover:text-white rounded-md focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors">
                   Кейсы и живые демо
@@ -150,11 +150,11 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Principles */}
-          <div className="md:col-span-3 space-y-3.5">
+          <div className="md:col-span-3 space-y-3">
             <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold">
               Принципы работы
             </h4>
-            <ul className="space-y-2.5 text-xs text-neutral-300">
+            <ul className="space-y-2 text-xs text-neutral-300">
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                 <span>Запуск от 3 до 7 дней</span>
@@ -176,7 +176,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom copyright */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
           <div>
             © 2026 MoonWeb Lab. Разработка сайтов и онлайн-систем для бизнеса.
           </div>

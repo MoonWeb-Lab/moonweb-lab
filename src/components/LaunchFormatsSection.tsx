@@ -60,34 +60,22 @@ const FORMATS: FormatCard[] = [
 export const LaunchFormatsSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 16 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: shouldReduceMotion ? 0 : 0.65,
-        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-      },
-    },
-  };
-
   return (
-    <section id="formats" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="formats" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
       <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+        initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 12 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-3xl mb-12"
+        viewport={{ once: true }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-3xl mb-8 sm:mb-10"
       >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-3.5">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
           <span>Форматы работы</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-4">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2] mb-3">
           Форматы разработки под ваши задачи
         </h2>
         <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
@@ -95,26 +83,12 @@ export const LaunchFormatsSection: React.FC = () => {
         </p>
       </motion.div>
 
-      {/* Cards Grid (Parent viewport trigger with staggerChildren) */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={{
-          hidden: {},
-          visible: {
-            transition: {
-              staggerChildren: 0.1,
-            },
-          },
-        }}
-        className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-12"
-      >
+      {/* Cards Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-8 sm:mb-10">
         {FORMATS.map((format) => (
-          <motion.div
+          <div
             key={format.id}
-            variants={cardVariants}
-            className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-colors duration-200 relative ${
+            className={`rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-colors duration-200 relative ${
               format.isPopular
                 ? 'bg-[#14141F] border-2 border-purple-500/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_0_30px_rgba(168,85,247,0.1)]'
                 : 'bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] hover:border-white/20'
@@ -130,35 +104,35 @@ export const LaunchFormatsSection: React.FC = () => {
 
             <div>
               {/* Timeline Pill */}
-              <div className="flex items-center gap-2 text-xs font-medium text-neutral-400 mb-4">
+              <div className="flex items-center gap-2 text-xs font-medium text-neutral-400 mb-3.5">
                 <Clock className="w-3.5 h-3.5 text-purple-400" />
                 <span>Срок запуска: </span>
                 <strong className="text-white font-semibold">{format.timeline}</strong>
               </div>
 
               {/* Title */}
-              <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">
+              <h3 className="text-2xl font-bold text-white mb-2.5 tracking-tight">
                 {format.name}
               </h3>
 
               {/* For whom */}
-              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs text-neutral-300 mb-6">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs text-neutral-300 mb-5">
                 <span className="text-neutral-400 block mb-0.5">Для кого:</span>
                 <span className="text-white font-medium">{format.audience}</span>
               </div>
 
               {/* Description */}
-              <p className="text-sm text-neutral-300 leading-relaxed mb-6">
+              <p className="text-sm text-neutral-300 leading-relaxed mb-5">
                 {format.description}
               </p>
 
               {/* Included items */}
-              <div className="space-y-3 pt-4 border-t border-white/10 mb-8">
+              <div className="space-y-2.5 pt-3.5 border-t border-white/10 mb-6">
                 <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider block mb-2">
                   Что входит:
                 </span>
                 {format.features.map((feat, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                  <div key={idx} className="flex items-start gap-2 text-xs text-neutral-300">
                     <div className="w-4 h-4 rounded-full bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
                       <Check className="w-3 h-3" />
                     </div>
@@ -184,18 +158,12 @@ export const LaunchFormatsSection: React.FC = () => {
                 <ArrowUpRight className="w-4 h-4" />
               </a>
             </div>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
 
       {/* Universal Flexibility Banner */}
-      <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#121218] to-blue-900/20 border border-purple-500/30 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
-      >
+      <div className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#121218] to-blue-900/20 border border-purple-500/30 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 text-xs font-semibold text-purple-300">
             <Wrench className="w-4 h-4" />
@@ -218,7 +186,7 @@ export const LaunchFormatsSection: React.FC = () => {
           <span>Обсудить задачу</span>
           <ArrowUpRight className="w-4 h-4" />
         </a>
-      </motion.div>
+      </div>
     </section>
   );
 };
