@@ -3,6 +3,12 @@ import { m, useReducedMotion, type Variants } from 'framer-motion';
 import { ArrowDown, Send } from 'lucide-react';
 import avatarImg from '../assets/avatar.jpg';
 
+/* Premium Apple/Linear easing: smooth deceleration without hard stop */
+const EASE_PREMIUM: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+/* Spring physics for tactile button feedback */
+const SPRING_TACTILE = { type: 'spring' as const, stiffness: 350, damping: 28 };
+
 export const HeroSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
@@ -11,7 +17,7 @@ export const HeroSection: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08,
+        staggerChildren: 0.09,
         delayChildren: 0.05,
       },
     },
@@ -20,14 +26,14 @@ export const HeroSection: React.FC = () => {
   const heroItemVariants: Variants = {
     hidden: {
       opacity: 0,
-      y: shouldReduceMotion ? 0 : 16,
+      y: shouldReduceMotion ? 0 : 18,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: shouldReduceMotion ? 0 : 0.55,
-        ease: [0.22, 1, 0.36, 1],
+        duration: shouldReduceMotion ? 0 : 0.7,
+        ease: EASE_PREMIUM,
       },
     },
   };
@@ -37,8 +43,8 @@ export const HeroSection: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.25,
+        staggerChildren: 0.09,
+        delayChildren: 0.3,
       },
     },
   };
@@ -52,8 +58,8 @@ export const HeroSection: React.FC = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: shouldReduceMotion ? 0 : 0.5,
-        ease: [0.22, 1, 0.36, 1],
+        duration: shouldReduceMotion ? 0 : 0.65,
+        ease: EASE_PREMIUM,
       },
     },
   };
@@ -91,7 +97,7 @@ export const HeroSection: React.FC = () => {
           </div>
         </m.div>
 
-        {/* Headline: Natural, responsive, zero overflow-hidden clipping */}
+        {/* Headline */}
         <m.h1
           variants={heroItemVariants}
           className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.18] mb-5 max-w-4xl"
@@ -101,7 +107,7 @@ export const HeroSection: React.FC = () => {
           с&nbsp;интеграцией в&nbsp;Telegram.
         </m.h1>
 
-        {/* Subtitle: Natural wrapping, full text visible */}
+        {/* Subtitle */}
         <m.p
           variants={heroItemVariants}
           className="text-base sm:text-lg lg:text-xl text-neutral-300 leading-relaxed mb-7 max-w-2xl text-pretty"
@@ -115,24 +121,24 @@ export const HeroSection: React.FC = () => {
           className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-8"
         >
           <m.a
-            whileHover={{ y: -2 }}
+            whileHover={{ y: -3 }}
             whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={SPRING_TACTILE}
             href="#cases"
-            className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] transition-all shadow-lg shadow-white/5"
+            className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] transition-colors shadow-lg shadow-white/5"
           >
             <span>Смотреть живые кейсы</span>
             <ArrowDown className="w-4 h-4" />
           </m.a>
 
           <m.a
-            whileHover={{ y: -2 }}
+            whileHover={{ y: -3 }}
             whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={SPRING_TACTILE}
             href="https://t.me/moonweb_lab"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#14141C] border border-white/10 text-white font-medium text-sm hover:bg-white/10 hover:border-white/20 active:bg-white/15 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] transition-all shadow-sm"
+            className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#14141C] border border-white/10 text-white font-medium text-sm hover:bg-white/10 hover:border-white/20 active:bg-white/15 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] transition-colors shadow-sm"
           >
             <Send className="w-4 h-4 text-purple-400" />
             <span>Обсудить проект в Telegram</span>
@@ -146,8 +152,8 @@ export const HeroSection: React.FC = () => {
         >
           <m.div
             variants={metricCardVariants}
-            whileHover={{ y: -2 }}
-            transition={{ duration: 0.2 }}
+            whileHover={{ y: -3 }}
+            transition={SPRING_TACTILE}
             className="p-4 sm:p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors"
           >
             <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-1">
@@ -160,8 +166,8 @@ export const HeroSection: React.FC = () => {
 
           <m.div
             variants={metricCardVariants}
-            whileHover={{ y: -2 }}
-            transition={{ duration: 0.2 }}
+            whileHover={{ y: -3 }}
+            transition={SPRING_TACTILE}
             className="p-4 sm:p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors"
           >
             <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight mb-1">
@@ -174,8 +180,8 @@ export const HeroSection: React.FC = () => {
 
           <m.div
             variants={metricCardVariants}
-            whileHover={{ y: -2 }}
-            transition={{ duration: 0.2 }}
+            whileHover={{ y: -3 }}
+            transition={SPRING_TACTILE}
             className="p-4 sm:p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors"
           >
             <div className="text-2xl sm:text-3xl font-extrabold text-purple-300 tracking-tight mb-1">

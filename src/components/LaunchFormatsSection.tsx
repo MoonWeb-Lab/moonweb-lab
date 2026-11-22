@@ -57,6 +57,8 @@ const FORMATS: FormatCard[] = [
   },
 ];
 
+const SPRING_TACTILE = { type: 'spring' as const, stiffness: 350, damping: 28 };
+
 export const LaunchFormatsSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
@@ -70,13 +72,13 @@ export const LaunchFormatsSection: React.FC = () => {
   };
 
   const formatCardVariants: Variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 18 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: shouldReduceMotion ? 0 : 0.55,
-        ease: [0.22, 1, 0.36, 1],
+        duration: shouldReduceMotion ? 0 : 0.65,
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };
@@ -89,7 +91,7 @@ export const LaunchFormatsSection: React.FC = () => {
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-4xl mb-5 sm:mb-6"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2">
@@ -117,7 +119,7 @@ export const LaunchFormatsSection: React.FC = () => {
             key={format.id}
             variants={formatCardVariants}
             whileHover={{ y: -3 }}
-            transition={{ duration: 0.2 }}
+            transition={SPRING_TACTILE}
             className={`rounded-3xl p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200 relative ${
               format.isPopular
                 ? 'bg-[#14141F] border-2 border-purple-500/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_0_30px_rgba(168,85,247,0.1)]'
@@ -175,13 +177,13 @@ export const LaunchFormatsSection: React.FC = () => {
             {/* CTA Button -> Direct to https://t.me/moonweb_lab */}
             <div>
               <m.a
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.15 }}
+                transition={SPRING_TACTILE}
                 href="https://t.me/moonweb_lab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-all shadow-sm ${
+                className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-colors shadow-sm ${
                   format.isPopular
                     ? 'bg-white text-black hover:bg-neutral-200 active:bg-neutral-300'
                     : 'bg-white/[0.08] text-white hover:bg-white/15 active:bg-white/20 border border-white/10'
@@ -200,7 +202,7 @@ export const LaunchFormatsSection: React.FC = () => {
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#121218] to-blue-900/20 border border-purple-500/30 p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
       >
         <div className="space-y-2">
@@ -217,13 +219,13 @@ export const LaunchFormatsSection: React.FC = () => {
         </div>
 
         <m.a
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ y: -2 }}
           whileTap={{ scale: 0.98 }}
-          transition={{ duration: 0.15 }}
+          transition={SPRING_TACTILE}
           href="https://t.me/moonweb_lab"
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-all shadow-lg shadow-purple-600/20 flex items-center gap-2"
+          className="shrink-0 px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-colors shadow-lg shadow-purple-600/20 flex items-center gap-2"
         >
           <span>Обсудить задачу</span>
           <ArrowUpRight className="w-4 h-4" />

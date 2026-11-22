@@ -3,6 +3,9 @@ import { m, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import avatarImg from '../assets/avatar.jpg';
 
+const EASE_PREMIUM: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const SPRING_TACTILE = { type: 'spring' as const, stiffness: 350, damping: 28 };
+
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
@@ -18,7 +21,7 @@ export const Header: React.FC = () => {
     <m.header
       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, ease: EASE_PREMIUM }}
       className="sticky top-0 z-50 w-full h-[68px] bg-[#0B0B0F]/90 backdrop-blur-sm border-b border-white/10"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between gap-6">
@@ -26,9 +29,9 @@ export const Header: React.FC = () => {
         {/* Left: Brand Logo + Avatar */}
         <m.a
           href="#"
-          whileHover={{ y: -1 }}
+          whileHover={{ y: -2 }}
           whileTap={{ scale: 0.98 }}
-          transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          transition={SPRING_TACTILE}
           className="flex items-center gap-3 shrink-0 rounded-xl focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] group"
           aria-label="MoonWeb Lab: главная страница"
         >
@@ -54,8 +57,8 @@ export const Header: React.FC = () => {
             <m.a
               key={item.name}
               href={item.href}
-              whileHover={{ y: -1 }}
-              transition={{ duration: 0.2 }}
+              whileHover={{ y: -2 }}
+              transition={SPRING_TACTILE}
               className="text-sm font-medium text-neutral-300 hover:text-white transition-colors whitespace-nowrap rounded-md focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] py-1 px-2"
             >
               {item.name}
@@ -77,13 +80,13 @@ export const Header: React.FC = () => {
 
           {/* CTA Button -> Direct to https://t.me/moonweb_lab */}
           <m.a
-            whileHover={{ y: -2 }}
+            whileHover={{ y: -3 }}
             whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={SPRING_TACTILE}
             href="https://t.me/moonweb_lab"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] active:scale-[0.98] transition-all whitespace-nowrap shadow-sm"
+            className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] transition-colors whitespace-nowrap shadow-sm"
           >
             <span>Обсудить проект</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -105,10 +108,10 @@ export const Header: React.FC = () => {
       <AnimatePresence>
         {mobileMenuOpen && (
           <m.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.35, ease: EASE_PREMIUM }}
             className="lg:hidden absolute top-[68px] left-0 w-full bg-[#0E0E14] border-b border-white/10 px-6 py-6 flex flex-col gap-4 shadow-2xl"
           >
             <nav className="flex flex-col gap-3" aria-label="Мобильная навигация">

@@ -7,6 +7,9 @@ import bladeTimberImg from '../assets/case-blade-timber.png';
 import luminaImg from '../assets/case-lumina.png';
 import botanicaImg from '../assets/case-botanica.png';
 
+const EASE_PREMIUM: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const SPRING_TACTILE = { type: 'spring' as const, stiffness: 350, damping: 28 };
+
 interface CaseStudy {
   id: string;
   name: string;
@@ -158,10 +161,10 @@ const CasePreviewFrame = memo<{
               /* Active Interactive Iframe */
               <m.div
                 key="iframe-view"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.4, ease: EASE_PREMIUM }}
                 className="relative w-full h-full"
               >
                 {!iframeLoaded && (
@@ -187,10 +190,10 @@ const CasePreviewFrame = memo<{
               /* Static Crisp Image Preview of Actual Mobile Site */
               <m.div
                 key="preview-view"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.4, ease: EASE_PREMIUM }}
                 className="relative w-full h-full group"
               >
                 <img
@@ -212,7 +215,7 @@ const CasePreviewFrame = memo<{
                   <m.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                    transition={SPRING_TACTILE}
                     className="px-4 py-2 rounded-full bg-white text-black text-xs font-bold shadow-2xl flex items-center gap-1.5"
                   >
                     <Play className="w-3.5 h-3.5 fill-black text-black" />
@@ -332,10 +335,10 @@ export const CasesSection: React.FC = () => {
                       <m.button
                         type="button"
                         onClick={() => setActiveIframeId(item.id)}
-                        whileHover={{ y: -1 }}
+                        whileHover={{ y: -2 }}
                         whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-all shadow-sm cursor-pointer"
+                        transition={SPRING_TACTILE}
+                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-colors shadow-sm cursor-pointer"
                       >
                         <Play className="w-4 h-4 fill-white" />
                         <span>Включить живой сайт</span>
@@ -344,10 +347,10 @@ export const CasesSection: React.FC = () => {
                       <m.button
                         type="button"
                         onClick={() => setActiveIframeId(null)}
-                        whileHover={{ y: -1 }}
+                        whileHover={{ y: -2 }}
                         whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.08] hover:bg-white/15 active:bg-white/20 border border-white/15 text-white font-medium text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-all cursor-pointer"
+                        transition={SPRING_TACTILE}
+                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.08] hover:bg-white/15 active:bg-white/20 border border-white/15 text-white font-medium text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-colors cursor-pointer"
                       >
                         <EyeOff className="w-4 h-4" />
                         <span>Выключить живой сайт</span>
@@ -358,10 +361,10 @@ export const CasesSection: React.FC = () => {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ y: -1 }}
+                      whileHover={{ y: -2 }}
                       whileTap={{ scale: 0.98 }}
-                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-all shadow-sm"
+                      transition={SPRING_TACTILE}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-colors shadow-sm"
                     >
                       <span>В новой вкладке</span>
                       <ExternalLink className="w-4 h-4" />

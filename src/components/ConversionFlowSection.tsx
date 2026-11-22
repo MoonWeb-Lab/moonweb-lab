@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { m, useReducedMotion, type Variants } from 'framer-motion';
+import { m, AnimatePresence, useReducedMotion, type Variants } from 'framer-motion';
 import { Smartphone, Clock, Send, RotateCcw, CheckCircle2, Bell } from 'lucide-react';
 
 interface DemoMessage {
@@ -38,7 +38,16 @@ const DEMO_STEPS: DemoMessage[] = [
   },
 ];
 
-const MESSAGE_DELAYS = [0.05, 0.55, 1.05];
+/* Tactile button and card feedback */
+const SPRING_TACTILE = { type: 'spring' as const, stiffness: 350, damping: 28 };
+
+/* Push notification physics (Apple / Telegram feel) */
+const SPRING_PUSH = {
+  type: 'spring' as const,
+  stiffness: 300,
+  damping: 26,
+  mass: 0.85,
+};
 
 export const ConversionFlowSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -64,7 +73,7 @@ export const ConversionFlowSection: React.FC = () => {
       y: 0,
       transition: {
         duration: shouldReduceMotion ? 0 : 0.55,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };
@@ -77,7 +86,7 @@ export const ConversionFlowSection: React.FC = () => {
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-4xl mb-5 sm:mb-6"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2">
@@ -104,7 +113,7 @@ export const ConversionFlowSection: React.FC = () => {
         <m.div
           variants={cardItemVariants}
           whileHover={{ y: -3 }}
-          transition={{ duration: 0.2 }}
+          transition={SPRING_TACTILE}
           className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200"
         >
           <div>
@@ -142,7 +151,7 @@ export const ConversionFlowSection: React.FC = () => {
         <m.div
           variants={cardItemVariants}
           whileHover={{ y: -3 }}
-          transition={{ duration: 0.2 }}
+          transition={SPRING_TACTILE}
           className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200"
         >
           <div>
@@ -180,7 +189,7 @@ export const ConversionFlowSection: React.FC = () => {
         <m.div
           variants={cardItemVariants}
           whileHover={{ y: -3 }}
-          transition={{ duration: 0.2 }}
+          transition={SPRING_TACTILE}
           className="rounded-3xl bg-[#121218] border border-white/10 hover:border-purple-500/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200"
         >
           <div>
@@ -219,7 +228,7 @@ export const ConversionFlowSection: React.FC = () => {
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="rounded-3xl bg-[#121218] border border-white/10 p-5 sm:p-6 lg:p-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-white/[0.08]">
@@ -236,78 +245,94 @@ export const ConversionFlowSection: React.FC = () => {
           <m.button
             type="button"
             onClick={handleReplay}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.15 }}
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.96 }}
+            transition={SPRING_TACTILE}
             aria-label="Запустить анимацию заявки заново"
-            className="self-start sm:self-auto inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/[0.08] hover:bg-white/15 active:bg-white/20 border border-white/15 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-all cursor-pointer"
+            className="self-start sm:self-auto inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/[0.08] hover:bg-white/15 active:bg-white/20 border border-white/15 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-colors cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Повторить демо заявки</span>
           </m.button>
         </div>
 
-        {/* Message Feed with 0.5s intervals */}
-        <div key={replayKey} className="space-y-3 max-w-3xl mx-auto">
-          {DEMO_STEPS.map((step, idx) => {
-            const isTelegram = step.type === 'telegram';
-            const isStatus = step.type === 'status';
+        {/* Message Feed with 0.45s cascading spring push notifications */}
+        <div className="max-w-3xl mx-auto min-h-[260px] sm:min-h-[270px]">
+          <AnimatePresence mode="wait">
+            <m.div
+              key={replayKey}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-3"
+            >
+              {DEMO_STEPS.map((step, idx) => {
+                const isTelegram = step.type === 'telegram';
+                const isStatus = step.type === 'status';
 
-            return (
-              <m.div
-                key={step.id}
-                initial={{
-                  opacity: 0,
-                  y: shouldReduceMotion ? 0 : 12,
-                }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                transition={{
-                  duration: shouldReduceMotion ? 0 : 0.45,
-                  delay: shouldReduceMotion ? 0 : MESSAGE_DELAYS[idx],
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                style={{ willChange: 'transform, opacity' }}
-                className={`p-3.5 sm:p-4 rounded-2xl border transition-colors ${
-                  isTelegram
-                    ? 'bg-[#151C2C] border-blue-500/30 ml-2 sm:ml-6 shadow-lg shadow-blue-500/5'
-                    : isStatus
-                    ? 'bg-[#101F18] border-emerald-500/30'
-                    : 'bg-[#161620] border-white/10 mr-2 sm:mr-6'
-                }`}
-              >
-                <div className="flex items-center justify-between gap-3 mb-2">
-                  <span
-                    className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${
+                return (
+                  <m.div
+                    key={step.id}
+                    initial={{
+                      opacity: 0,
+                      y: shouldReduceMotion ? 0 : 16,
+                      scale: shouldReduceMotion ? 1 : 0.96,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                    }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : {
+                            ...SPRING_PUSH,
+                            delay: idx * 0.45,
+                          }
+                    }
+                    style={{ willChange: 'transform, opacity' }}
+                    className={`p-3.5 sm:p-4 rounded-2xl border transition-colors ${
                       isTelegram
-                        ? 'bg-blue-500/20 text-blue-300'
+                        ? 'bg-[#151C2C] border-blue-500/30 ml-2 sm:ml-6 shadow-lg shadow-blue-500/5'
                         : isStatus
-                        ? 'bg-emerald-500/20 text-emerald-300'
-                        : 'bg-purple-500/20 text-purple-300'
+                        ? 'bg-[#101F18] border-emerald-500/30'
+                        : 'bg-[#161620] border-white/10 mr-2 sm:mr-6'
                     }`}
                   >
-                    {step.badge}
-                  </span>
-                  <span className="text-[11px] font-medium text-neutral-400">
-                    {step.time}
-                  </span>
-                </div>
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <span
+                        className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${
+                          isTelegram
+                            ? 'bg-blue-500/20 text-blue-300'
+                            : isStatus
+                            ? 'bg-emerald-500/20 text-emerald-300'
+                            : 'bg-purple-500/20 text-purple-300'
+                        }`}
+                      >
+                        {step.badge}
+                      </span>
+                      <span className="text-[11px] font-medium text-neutral-400">
+                        {step.time}
+                      </span>
+                    </div>
 
-                <div className="text-sm sm:text-base font-medium text-white whitespace-pre-line leading-relaxed mb-1">
-                  {step.text}
-                </div>
+                    <div className="text-sm sm:text-base font-medium text-white whitespace-pre-line leading-relaxed mb-1">
+                      {step.text}
+                    </div>
 
-                {step.subtext && (
-                  <div className="text-xs text-neutral-400 flex items-center gap-1.5 mt-2 pt-2 border-t border-white/[0.06]">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>{step.subtext}</span>
-                  </div>
-                )}
-              </m.div>
-            );
-          })}
+                    {step.subtext && (
+                      <div className="text-xs text-neutral-400 flex items-center gap-1.5 mt-2 pt-2 border-t border-white/[0.06]">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                        <span>{step.subtext}</span>
+                      </div>
+                    )}
+                  </m.div>
+                );
+              })}
+            </m.div>
+          </AnimatePresence>
         </div>
 
         {/* Studio Box Bottom Reassurance (Clean closure) */}
