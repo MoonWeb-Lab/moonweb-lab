@@ -12,6 +12,9 @@
     font-family: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: #0B0B0F;
     color: #F4F4F6;
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   body {
@@ -19,6 +22,28 @@
     background-color: #0B0B0F;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Prevent text I-beam cursor across all text elements */
+  p, h1, h2, h3, h4, h5, h6, span, label, li, blockquote, strong, em, b, i {
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Interactive clickable elements always show hand pointer */
+  a, button, [role="button"], summary {
+    cursor: pointer;
+  }
+
+  /* Form inputs keep standard text cursor if ever present */
+  input, textarea, [contenteditable="true"] {
+    cursor: text;
+    user-select: text;
+    -webkit-user-select: text;
   }
 }
 
