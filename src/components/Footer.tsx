@@ -34,12 +34,12 @@ export const Footer: React.FC = () => {
               <span>Открыты к новым проектам</span>
             </div>
 
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug text-balance">
               Готовы обсудить ваш проект? Напишите нам&nbsp;напрямую.
             </h3>
 
             <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl text-pretty">
-              Расскажите о вашей задаче в Telegram или Instagram: подберём формат решения, сориентируем по срокам и стоимости.
+              Расскажите о&nbsp;вашей задаче в&nbsp;Telegram или&nbsp;Instagram: подберём формат решения, сориентируем по&nbsp;срокам и&nbsp;стоимости.
             </p>
 
             <div className="flex flex-wrap items-center gap-3.5 pt-1">

@@ -81,7 +81,7 @@ export const ConversionFlowSection: React.FC = () => {
   };
 
   return (
-    <section id="how-it-works" className="pt-6 pb-6 sm:pt-7 sm:pb-7 lg:pt-8 lg:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="how-it-works" className="pt-6 pb-6 sm:pt-8 sm:pb-8 lg:pt-8 lg:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
       <m.div
@@ -95,11 +95,11 @@ export const ConversionFlowSection: React.FC = () => {
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
           <span>Понятная логика</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug mb-2">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug mb-2 text-balance">
           Как посетитель сайта становится вашим&nbsp;клиентом
         </h2>
         <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl text-pretty">
-          Человек переходит со смартфона, сразу видит цены, выбирает услугу и отправляет контакты. Вы получаете готовую заявку в Telegram без лишних звонков и долгих переписок.
+          Человек переходит со&nbsp;смартфона, сразу видит цены, выбирает услугу и&nbsp;отправляет контакты. Вы получаете готовую заявку в&nbsp;Telegram без&nbsp;лишних звонков и&nbsp;долгих переписок.
         </p>
       </m.div>
 
@@ -239,8 +239,8 @@ export const ConversionFlowSection: React.FC = () => {
               <Bell className="w-4 h-4 text-purple-400" />
               <span>Наглядный пример связки «Сайт → Telegram»</span>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
-              Как проходит заявка от клика до подтверждения
+            <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight text-balance">
+              Как проходит заявка от&nbsp;клика до&nbsp;подтверждения
             </h3>
           </div>
 
@@ -339,8 +339,8 @@ export const ConversionFlowSection: React.FC = () => {
 
         {/* Studio Box Bottom Reassurance (Clean closure) */}
         <div className="mt-5 pt-4 border-t border-white/[0.08] flex items-center justify-center text-center">
-          <p className="text-xs text-neutral-400">
-            Клиент получает удобный выбор со смартфона, а вы получаете готовую заявку в Telegram без телефонных звонков.
+          <p className="text-xs text-neutral-400 text-pretty">
+            Клиент получает удобный выбор со&nbsp;смартфона, а&nbsp;вы получаете готовую заявку в&nbsp;Telegram без&nbsp;телефонных звонков.
           </p>
         </div>
       </m.div>

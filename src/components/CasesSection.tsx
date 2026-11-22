@@ -240,7 +240,7 @@ export const CasesSection: React.FC = () => {
   const [activeIframeId, setActiveIframeId] = useState<string | null>(null);
 
   return (
-    <section id="cases" className="pt-6 pb-6 sm:pt-7 sm:pb-7 lg:pt-8 lg:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="cases" className="pt-6 pb-6 sm:pt-8 sm:pb-8 lg:pt-8 lg:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
       <m.div
@@ -254,11 +254,11 @@ export const CasesSection: React.FC = () => {
           <span className="w-2 h-2 rounded-full bg-purple-400" />
           <span>Реальные работы</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug mb-2">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug mb-2 text-balance">
           Кейсы и&nbsp;живые демо-сайты
         </h2>
         <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl text-pretty">
-          Каждый проект решает понятную задачу владельца: убирает рутину со звонками, показывает актуальные цены и помогает клиенту сделать заказ со смартфона за минуту.
+          Каждый проект решает понятную задачу владельца: убирает рутину со&nbsp;звонками, показывает актуальные цены и&nbsp;помогает клиенту сделать заказ со&nbsp;смартфона за&nbsp;минуту.
         </p>
       </m.div>
 
@@ -305,7 +305,7 @@ export const CasesSection: React.FC = () => {
                     </p>
 
                     {/* Problem and Solution Text */}
-                    <div className="space-y-2.5 mb-5 text-sm text-neutral-300 leading-relaxed">
+                    <div className="space-y-2.5 mb-5 text-sm text-neutral-300 leading-relaxed text-pretty">
                       <p>
                         <strong className="text-white font-semibold">Задача: </strong>
                         {item.problemSolution}

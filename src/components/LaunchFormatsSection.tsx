@@ -85,7 +85,7 @@ export const LaunchFormatsSection: React.FC = () => {
   };
 
   return (
-    <section id="formats" className="pt-6 pb-6 sm:pt-7 sm:pb-7 lg:pt-8 lg:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="formats" className="pt-6 pb-6 sm:pt-8 sm:pb-8 lg:pt-8 lg:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
       <m.div
@@ -99,11 +99,11 @@ export const LaunchFormatsSection: React.FC = () => {
           <span className="w-2 h-2 rounded-full bg-purple-400" />
           <span>Форматы работы</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug mb-2">
-          Форматы разработки под&nbsp;ваши задачи
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug mb-2 text-balance">
+          Форматы разработки под&nbsp;ваши&nbsp;задачи
         </h2>
         <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl text-pretty">
-          От быстрого сайта-визитки и онлайн-меню до заказных сервисов и Telegram-ботов. Если у вас нестандартная задача: всё обсудим и сделаем в срок.
+          От&nbsp;быстрого сайта-визитки и&nbsp;онлайн-меню до&nbsp;заказных сервисов и&nbsp;Telegram-ботов. Если у&nbsp;вас нестандартная задача: всё обсудим и&nbsp;сделаем в&nbsp;срок.
         </p>
       </m.div>
 
@@ -151,11 +151,11 @@ export const LaunchFormatsSection: React.FC = () => {
               {/* For whom */}
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs text-neutral-300 mb-5">
                 <span className="text-neutral-400 block mb-0.5">Для кого:</span>
-                <span className="text-white font-medium">{format.audience}</span>
+                <span className="text-white font-medium text-pretty">{format.audience}</span>
               </div>
 
               {/* Description */}
-              <p className="text-sm text-neutral-300 leading-relaxed mb-5">
+              <p className="text-sm text-neutral-300 leading-relaxed mb-5 text-pretty">
                 {format.description}
               </p>
 
@@ -211,11 +211,11 @@ export const LaunchFormatsSection: React.FC = () => {
             <Wrench className="w-4 h-4" />
             <span>Любая нестандартная задача</span>
           </div>
-          <h4 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            Нужно доработать текущий сайт или внедрить автоматизацию?
+          <h4 className="text-xl sm:text-2xl font-bold text-white tracking-tight text-balance">
+            Нужно доработать текущий сайт или&nbsp;внедрить автоматизацию?
           </h4>
-          <p className="text-sm text-neutral-300 max-w-2xl leading-relaxed">
-            Берёмся за задачи любой сложности: ускорение страниц, редизайн, онлайн-оплата, базы данных, перенос на быстрый хостинг или Telegram Mini Apps.
+          <p className="text-sm text-neutral-300 max-w-2xl leading-relaxed text-pretty">
+            Берёмся за&nbsp;задачи любой сложности: ускорение страниц, редизайн, онлайн-оплата, базы данных, перенос на&nbsp;быстрый хостинг или&nbsp;Telegram Mini Apps.
           </p>
         </div>
 

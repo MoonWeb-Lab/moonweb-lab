@@ -100,7 +100,7 @@ export const HeroSection: React.FC = () => {
         {/* Headline */}
         <m.h1
           variants={heroItemVariants}
-          className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.18] mb-5 max-w-4xl"
+          className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.18] mb-5 max-w-4xl text-balance"
         >
           Делаем быстрые сайты,{' '}
           <span className="text-neutral-400">онлайн-меню и&nbsp;запись для&nbsp;клиентов,</span>{' '}
