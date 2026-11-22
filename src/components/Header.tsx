@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { m, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import avatarImg from '../assets/avatar.jpg';
 
@@ -15,7 +15,7 @@ export const Header: React.FC = () => {
   ];
 
   return (
-    <motion.header
+    <m.header
       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
@@ -24,7 +24,7 @@ export const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between gap-6">
         
         {/* Left: Brand Logo + Avatar */}
-        <motion.a
+        <m.a
           href="#"
           whileHover={{ y: -1 }}
           whileTap={{ scale: 0.98 }}
@@ -46,12 +46,12 @@ export const Header: React.FC = () => {
           <span className="font-extrabold text-xl tracking-tight text-white group-hover:text-purple-300 transition-colors">
             MoonWeb<span className="text-purple-400 ml-0.5">Lab</span>
           </span>
-        </motion.a>
+        </m.a>
 
         {/* Center: Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8" aria-label="Основная навигация">
           {navLinks.map((item) => (
-            <motion.a
+            <m.a
               key={item.name}
               href={item.href}
               whileHover={{ y: -1 }}
@@ -59,7 +59,7 @@ export const Header: React.FC = () => {
               className="text-sm font-medium text-neutral-300 hover:text-white transition-colors whitespace-nowrap rounded-md focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] py-1 px-2"
             >
               {item.name}
-            </motion.a>
+            </m.a>
           ))}
         </nav>
 
@@ -76,7 +76,7 @@ export const Header: React.FC = () => {
           </div>
 
           {/* CTA Button -> Direct to https://t.me/moonweb_lab */}
-          <motion.a
+          <m.a
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -87,7 +87,7 @@ export const Header: React.FC = () => {
           >
             <span>Обсудить проект</span>
             <ArrowUpRight className="w-4 h-4" />
-          </motion.a>
+          </m.a>
 
           {/* Mobile Menu Button (< 1024px) */}
           <button
@@ -104,7 +104,7 @@ export const Header: React.FC = () => {
       {/* Mobile Drawer Navigation with AnimatePresence */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -141,9 +141,9 @@ export const Header: React.FC = () => {
                 <ArrowUpRight className="w-4 h-4" />
               </a>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </m.header>
   );
 };

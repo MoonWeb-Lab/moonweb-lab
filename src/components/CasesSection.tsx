@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, memo } from 'react';
+import { m, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ExternalLink, CheckCircle2, Play, EyeOff, Loader2 } from 'lucide-react';
 import coffeeMestoImg from '../assets/case-coffee-mesto.png';
 import djezvaImg from '../assets/case-djezva.png';
@@ -152,54 +153,75 @@ const CasePreviewFrame = memo<{
           ref={viewportRef}
           className="relative flex-1 w-full h-full overflow-hidden bg-[#0A0A0E]"
         >
-          {isActiveIframe ? (
-            /* Active Interactive Iframe */
-            <>
-              {!iframeLoaded && (
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#0D0D12] text-neutral-400 gap-2.5">
-                  <Loader2 className="w-6 h-6 animate-spin text-purple-400" />
-                  <span className="text-xs font-medium">Подключаем сайт...</span>
-                </div>
-              )}
-              <iframe
-                src={caseItem.url}
-                title={`${caseItem.name} живое демо`}
-                onLoad={() => setIframeLoaded(true)}
-                style={{
-                  width: `${iframeWidth}px`,
-                  height: `${iframeHeight}px`,
-                  transform: `scale(${scale})`,
-                  transformOrigin: 'top left',
-                }}
-                className="absolute top-0 left-0 border-0"
-              />
-            </>
-          ) : (
-            /* Static Crisp Image Preview of Actual Mobile Site */
-            <div className="relative w-full h-full group">
-              <img
-                src={caseItem.mobileImage}
-                alt={`${caseItem.name} превью`}
-                width="390"
-                height="844"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover object-top select-none"
-              />
-              {/* Play live preview overlay */}
-              <button
-                type="button"
-                onClick={onActivate}
-                aria-label={`Включить интерактивное демо ${caseItem.name}`}
-                className="absolute inset-0 w-full h-full bg-black/40 hover:bg-black/25 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none cursor-pointer flex items-center justify-center transition-colors group"
+          <AnimatePresence mode="wait">
+            {isActiveIframe ? (
+              /* Active Interactive Iframe */
+              <m.div
+                key="iframe-view"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                className="relative w-full h-full"
               >
-                <div className="px-4 py-2 rounded-full bg-white text-black text-xs font-bold shadow-2xl flex items-center gap-1.5 group-hover:scale-105 active:scale-95 transition-transform">
-                  <Play className="w-3.5 h-3.5 fill-black text-black" />
-                  <span>Включить демо</span>
-                </div>
-              </button>
-            </div>
-          )}
+                {!iframeLoaded && (
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#0D0D12] text-neutral-400 gap-2.5">
+                    <Loader2 className="w-6 h-6 animate-spin text-purple-400" />
+                    <span className="text-xs font-medium">Подключаем сайт...</span>
+                  </div>
+                )}
+                <iframe
+                  src={caseItem.url}
+                  title={`${caseItem.name} живое демо`}
+                  onLoad={() => setIframeLoaded(true)}
+                  style={{
+                    width: `${iframeWidth}px`,
+                    height: `${iframeHeight}px`,
+                    transform: `scale(${scale})`,
+                    transformOrigin: 'top left',
+                  }}
+                  className="absolute top-0 left-0 border-0"
+                />
+              </m.div>
+            ) : (
+              /* Static Crisp Image Preview of Actual Mobile Site */
+              <m.div
+                key="preview-view"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                className="relative w-full h-full group"
+              >
+                <img
+                  src={caseItem.mobileImage}
+                  alt={`${caseItem.name} превью`}
+                  width="390"
+                  height="844"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover object-top select-none"
+                />
+                {/* Play live preview overlay */}
+                <button
+                  type="button"
+                  onClick={onActivate}
+                  aria-label={`Включить интерактивное демо ${caseItem.name}`}
+                  className="absolute inset-0 w-full h-full bg-black/40 hover:bg-black/25 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none cursor-pointer flex items-center justify-center transition-colors group"
+                >
+                  <m.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                    className="px-4 py-2 rounded-full bg-white text-black text-xs font-bold shadow-2xl flex items-center gap-1.5"
+                  >
+                    <Play className="w-3.5 h-3.5 fill-black text-black" />
+                    <span>Включить демо</span>
+                  </m.div>
+                </button>
+              </m.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
@@ -209,34 +231,50 @@ const CasePreviewFrame = memo<{
 CasePreviewFrame.displayName = 'CasePreviewFrame';
 
 export const CasesSection: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   // Maximum ONE active iframe across entire page
   const [activeIframeId, setActiveIframeId] = useState<string | null>(null);
 
   return (
-    <section id="cases" className="pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="cases" className="pt-6 pb-6 sm:pt-7 sm:pb-7 lg:pt-8 lg:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
-      <div className="max-w-4xl mb-6 sm:mb-8">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2.5">
+      <m.div
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-4xl mb-5 sm:mb-6"
+      >
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
           <span>Реальные работы</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-[1.2] mb-2.5 text-balance">
-          Кейсы и живые демо-сайты
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug mb-2">
+          Кейсы и&nbsp;живые демо-сайты
         </h2>
         <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl text-pretty">
           Каждый проект решает понятную задачу владельца: убирает рутину со звонками, показывает актуальные цены и помогает клиенту сделать заказ со смартфона за минуту.
         </p>
-      </div>
+      </m.div>
 
       {/* Projects List */}
       <div className="space-y-5 sm:space-y-6">
-        {CASES_DATA.map((item) => {
+        {CASES_DATA.map((item, index) => {
           const isActiveIframe = activeIframeId === item.id;
 
           return (
-            <div
+            <m.div
               key={item.id}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.6,
+                delay: shouldReduceMotion ? 0 : (index % 2) * 0.08,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden p-5 sm:p-6 lg:p-7 transition-colors"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
@@ -291,34 +329,43 @@ export const CasesSection: React.FC = () => {
                   {/* Actions: Live Demo & External Link */}
                   <div className="flex flex-wrap items-center gap-3 pt-2 mt-auto">
                     {!isActiveIframe ? (
-                      <button
+                      <m.button
                         type="button"
                         onClick={() => setActiveIframeId(item.id)}
-                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] active:scale-[0.98] transition-all shadow-sm cursor-pointer"
+                        whileHover={{ y: -1 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-all shadow-sm cursor-pointer"
                       >
                         <Play className="w-4 h-4 fill-white" />
                         <span>Включить живой сайт</span>
-                      </button>
+                      </m.button>
                     ) : (
-                      <button
+                      <m.button
                         type="button"
                         onClick={() => setActiveIframeId(null)}
-                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.08] hover:bg-white/15 active:bg-white/20 border border-white/15 text-white font-medium text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] active:scale-[0.98] transition-all cursor-pointer"
+                        whileHover={{ y: -1 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.08] hover:bg-white/15 active:bg-white/20 border border-white/15 text-white font-medium text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-all cursor-pointer"
                       >
                         <EyeOff className="w-4 h-4" />
                         <span>Выключить живой сайт</span>
-                      </button>
+                      </m.button>
                     )}
 
-                    <a
+                    <m.a
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] active:scale-[0.98] transition-all shadow-sm"
+                      whileHover={{ y: -1 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-all shadow-sm"
                     >
                       <span>В новой вкладке</span>
                       <ExternalLink className="w-4 h-4" />
-                    </a>
+                    </m.a>
                   </div>
                 </div>
 
@@ -332,7 +379,7 @@ export const CasesSection: React.FC = () => {
                 </div>
 
               </div>
-            </div>
+            </m.div>
           );
         })}
       </div>

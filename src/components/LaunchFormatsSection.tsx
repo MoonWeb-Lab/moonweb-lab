@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion, type Variants } from 'framer-motion';
 import { Check, Clock, ArrowUpRight, Star, Wrench } from 'lucide-react';
 
 interface FormatCard {
@@ -60,28 +60,64 @@ const FORMATS: FormatCard[] = [
 export const LaunchFormatsSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
+  const formatContainerVariants: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const formatCardVariants: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.55,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
   return (
-    <section id="formats" className="pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="formats" className="pt-6 pb-6 sm:pt-7 sm:pb-7 lg:pt-8 lg:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
-      <div className="max-w-4xl mb-6 sm:mb-8">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2.5">
+      <m.div
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-4xl mb-5 sm:mb-6"
+      >
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2">
           <span className="w-2 h-2 rounded-full bg-purple-400" />
           <span>Форматы работы</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-[1.2] mb-2.5 text-balance">
-          Форматы разработки под ваши задачи
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug mb-2">
+          Форматы разработки под&nbsp;ваши задачи
         </h2>
         <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl text-pretty">
           От быстрого сайта-визитки и онлайн-меню до заказных сервисов и Telegram-ботов. Если у вас нестандартная задача: всё обсудим и сделаем в срок.
         </p>
-      </div>
+      </m.div>
 
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 items-stretch mb-6 sm:mb-8">
+      <m.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={formatContainerVariants}
+        className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 items-stretch mb-5 sm:mb-6"
+      >
         {FORMATS.map((format) => (
-          <div
+          <m.div
             key={format.id}
+            variants={formatCardVariants}
+            whileHover={{ y: -3 }}
+            transition={{ duration: 0.2 }}
             className={`rounded-3xl p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200 relative ${
               format.isPopular
                 ? 'bg-[#14141F] border-2 border-purple-500/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_0_30px_rgba(168,85,247,0.1)]'
@@ -138,11 +174,14 @@ export const LaunchFormatsSection: React.FC = () => {
 
             {/* CTA Button -> Direct to https://t.me/moonweb_lab */}
             <div>
-              <a
+              <m.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.15 }}
                 href="https://t.me/moonweb_lab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] active:scale-[0.98] transition-all shadow-sm ${
+                className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-all shadow-sm ${
                   format.isPopular
                     ? 'bg-white text-black hover:bg-neutral-200 active:bg-neutral-300'
                     : 'bg-white/[0.08] text-white hover:bg-white/15 active:bg-white/20 border border-white/10'
@@ -150,14 +189,20 @@ export const LaunchFormatsSection: React.FC = () => {
               >
                 <span>Выбрать этот формат</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </a>
+              </m.a>
             </div>
-          </div>
+          </m.div>
         ))}
-      </div>
+      </m.div>
 
       {/* Universal Flexibility Banner */}
-      <div className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#121218] to-blue-900/20 border border-purple-500/30 p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
+      <m.div
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#121218] to-blue-900/20 border border-purple-500/30 p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
+      >
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 text-xs font-semibold text-purple-300">
             <Wrench className="w-4 h-4" />
@@ -171,16 +216,19 @@ export const LaunchFormatsSection: React.FC = () => {
           </p>
         </div>
 
-        <a
+        <m.a
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ duration: 0.15 }}
           href="https://t.me/moonweb_lab"
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] active:scale-[0.98] transition-all shadow-lg shadow-purple-600/20 flex items-center gap-2"
+          className="shrink-0 px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-sm focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#121218] transition-all shadow-lg shadow-purple-600/20 flex items-center gap-2"
         >
           <span>Обсудить задачу</span>
           <ArrowUpRight className="w-4 h-4" />
-        </a>
-      </div>
+        </m.a>
+      </m.div>
     </section>
   );
 };

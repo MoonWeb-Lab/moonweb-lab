@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion } from 'framer-motion';
 import { ArrowUp, ArrowUpRight, Send, Instagram } from 'lucide-react';
 import avatarImg from '../assets/avatar.jpg';
 
@@ -15,18 +15,24 @@ export const Footer: React.FC = () => {
 
   return (
     <footer id="contacts" className="w-full bg-[#08080B] border-t border-white/10 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-10 sm:pt-8 sm:pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8 sm:pt-8 sm:pb-10">
         
         {/* Main Contact Action Card */}
-        <div className="rounded-3xl bg-[#121218] border border-purple-500/30 p-5 sm:p-8 mb-6 sm:mb-8 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_0_40px_rgba(168,85,247,0.08)] relative overflow-hidden">
+        <m.div
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="rounded-3xl bg-[#121218] border border-purple-500/30 p-5 sm:p-7 mb-6 sm:mb-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_0_40px_rgba(168,85,247,0.08)] relative overflow-hidden"
+        >
           <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#181824] border border-purple-500/30 text-xs text-purple-300">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>Открыты к новым проектам</span>
             </div>
 
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-[1.2] text-balance">
-              Готовы обсудить ваш проект? Напишите нам напрямую.
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug">
+              Готовы обсудить ваш проект? Напишите нам&nbsp;напрямую.
             </h3>
 
             <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl text-pretty">
@@ -34,7 +40,7 @@ export const Footer: React.FC = () => {
             </p>
 
             <div className="flex flex-wrap items-center gap-3.5 pt-1">
-              <motion.a
+              <m.a
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -46,9 +52,9 @@ export const Footer: React.FC = () => {
                 <Send className="w-4 h-4 text-purple-600" />
                 <span>Написать в Telegram (@moonweb_lab)</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </motion.a>
+              </m.a>
 
-              <motion.a
+              <m.a
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -60,10 +66,10 @@ export const Footer: React.FC = () => {
                 <Instagram className="w-4 h-4 text-pink-400" />
                 <span>Instagram: @moonweb_labs</span>
                 <ArrowUpRight className="w-4 h-4 text-neutral-400" />
-              </motion.a>
+              </m.a>
             </div>
           </div>
-        </div>
+        </m.div>
 
         {/* Footer Navigation & Brand Row */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-6 sm:mb-8">
@@ -89,7 +95,7 @@ export const Footer: React.FC = () => {
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              <motion.a
+              <m.a
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.2 }}
@@ -101,9 +107,9 @@ export const Footer: React.FC = () => {
                 <Send className="w-3.5 h-3.5 text-purple-400" />
                 <span>Telegram: @moonweb_lab</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400" />
-              </motion.a>
+              </m.a>
 
-              <motion.a
+              <m.a
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.2 }}
@@ -115,7 +121,7 @@ export const Footer: React.FC = () => {
                 <Instagram className="w-3.5 h-3.5 text-pink-400" />
                 <span>Instagram: @moonweb_labs</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400" />
-              </motion.a>
+              </m.a>
             </div>
           </div>
 
@@ -175,7 +181,7 @@ export const Footer: React.FC = () => {
             © 2026 MoonWeb Lab. Разработка сайтов и онлайн-систем для бизнеса.
           </div>
 
-          <motion.button
+          <m.button
             type="button"
             aria-label="Вернуться к началу страницы"
             whileHover={{ y: -2 }}
@@ -186,7 +192,7 @@ export const Footer: React.FC = () => {
           >
             <span>Наверх</span>
             <ArrowUp className="w-3.5 h-3.5" />
-          </motion.button>
+          </m.button>
         </div>
       </div>
     </footer>

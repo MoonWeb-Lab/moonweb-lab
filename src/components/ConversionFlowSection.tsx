@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion, type Variants } from 'framer-motion';
 import { Smartphone, Clock, Send, RotateCcw, CheckCircle2, Bell } from 'lucide-react';
 
 interface DemoMessage {
@@ -48,27 +48,65 @@ export const ConversionFlowSection: React.FC = () => {
     setReplayKey((prev) => prev + 1);
   };
 
+  const cardContainerVariants: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const cardItemVariants: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.55,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
   return (
-    <section id="how-it-works" className="pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="how-it-works" className="pt-6 pb-6 sm:pt-7 sm:pb-7 lg:pt-8 lg:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
-      <div className="max-w-4xl mb-6 sm:mb-8">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2.5">
+      <m.div
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-4xl mb-5 sm:mb-6"
+      >
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
           <span>Понятная логика</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-[1.2] mb-2.5 text-balance">
-          Как посетитель сайта становится вашим клиентом
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug mb-2">
+          Как посетитель сайта становится вашим&nbsp;клиентом
         </h2>
         <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl text-pretty">
           Человек переходит со смартфона, сразу видит цены, выбирает услугу и отправляет контакты. Вы получаете готовую заявку в Telegram без лишних звонков и долгих переписок.
         </p>
-      </div>
+      </m.div>
 
       {/* 3 Step Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-7 sm:mb-8">
+      <m.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={cardContainerVariants}
+        className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-5 sm:mb-6"
+      >
         {/* Step 1 */}
-        <div className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200">
+        <m.div
+          variants={cardItemVariants}
+          whileHover={{ y: -3 }}
+          transition={{ duration: 0.2 }}
+          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200"
+        >
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="text-2xl sm:text-3xl font-extrabold text-purple-400 tracking-tight">01</span>
@@ -98,10 +136,15 @@ export const ConversionFlowSection: React.FC = () => {
               Человек не закрывает страницу и сразу видит ваши услуги
             </p>
           </div>
-        </div>
+        </m.div>
 
         {/* Step 2 */}
-        <div className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200">
+        <m.div
+          variants={cardItemVariants}
+          whileHover={{ y: -3 }}
+          transition={{ duration: 0.2 }}
+          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200"
+        >
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight">02</span>
@@ -131,10 +174,15 @@ export const ConversionFlowSection: React.FC = () => {
               ✓ Заказ подтвержден в один клик
             </div>
           </div>
-        </div>
+        </m.div>
 
         {/* Step 3 */}
-        <div className="rounded-3xl bg-[#121218] border border-white/10 hover:border-purple-500/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200">
+        <m.div
+          variants={cardItemVariants}
+          whileHover={{ y: -3 }}
+          transition={{ duration: 0.2 }}
+          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-purple-500/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200"
+        >
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">03</span>
@@ -163,12 +211,18 @@ export const ConversionFlowSection: React.FC = () => {
               CRM
             </span>
           </div>
-        </div>
-      </div>
+        </m.div>
+      </m.div>
 
-      {/* Message Demonstration Feed */}
-      <div className="relative pt-0">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+      {/* Message Demonstration Studio Box */}
+      <m.div
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="rounded-3xl bg-[#121218] border border-white/10 p-5 sm:p-6 lg:p-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-white/[0.08]">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold text-purple-300 mb-1">
               <Bell className="w-4 h-4 text-purple-400" />
@@ -179,25 +233,28 @@ export const ConversionFlowSection: React.FC = () => {
             </h3>
           </div>
 
-          <button
+          <m.button
             type="button"
             onClick={handleReplay}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.15 }}
             aria-label="Запустить анимацию заявки заново"
-            className="self-start sm:self-auto inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#14141C] hover:bg-white/10 active:bg-white/15 border border-white/10 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0F] active:scale-95 transition-all cursor-pointer"
+            className="self-start sm:self-auto inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/[0.08] hover:bg-white/15 active:bg-white/20 border border-white/15 text-xs font-semibold text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none transition-all cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Повторить демо заявки</span>
-          </button>
+          </m.button>
         </div>
 
         {/* Message Feed with 0.5s intervals */}
-        <div key={replayKey} className="space-y-2.5 max-w-3xl mx-auto">
+        <div key={replayKey} className="space-y-3 max-w-3xl mx-auto">
           {DEMO_STEPS.map((step, idx) => {
             const isTelegram = step.type === 'telegram';
             const isStatus = step.type === 'status';
 
             return (
-              <motion.div
+              <m.div
                 key={step.id}
                 initial={{
                   opacity: 0,
@@ -210,8 +267,9 @@ export const ConversionFlowSection: React.FC = () => {
                 transition={{
                   duration: shouldReduceMotion ? 0 : 0.45,
                   delay: shouldReduceMotion ? 0 : MESSAGE_DELAYS[idx],
-                  ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+                  ease: [0.22, 1, 0.36, 1],
                 }}
+                style={{ willChange: 'transform, opacity' }}
                 className={`p-3.5 sm:p-4 rounded-2xl border transition-colors ${
                   isTelegram
                     ? 'bg-[#151C2C] border-blue-500/30 ml-2 sm:ml-6 shadow-lg shadow-blue-500/5'
@@ -247,12 +305,18 @@ export const ConversionFlowSection: React.FC = () => {
                     <span>{step.subtext}</span>
                   </div>
                 )}
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
 
-      </div>
+        {/* Studio Box Bottom Reassurance (Clean closure) */}
+        <div className="mt-5 pt-4 border-t border-white/[0.08] flex items-center justify-center text-center">
+          <p className="text-xs text-neutral-400">
+            Клиент получает удобный выбор со смартфона, а вы получаете готовую заявку в Telegram без телефонных звонков.
+          </p>
+        </div>
+      </m.div>
     </section>
   );
 };

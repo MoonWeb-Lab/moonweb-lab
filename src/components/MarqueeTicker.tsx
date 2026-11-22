@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion } from 'framer-motion';
 
 const TICKER_ITEMS = [
   'ОНЛАЙН-МЕНЮ ДЛЯ РЕСТОРАНОВ И КОФЕЕН',
@@ -18,7 +18,7 @@ export const MarqueeTicker: React.FC = () => {
   return (
     <div className="w-full overflow-hidden border-y border-white/10 bg-[#08080B] py-3 select-none relative group">
       <div className="flex w-max">
-        <motion.div
+        <m.div
           animate={shouldReduceMotion ? {} : { x: ['0%', '-50%'] }}
           transition={{
             repeat: Infinity,
@@ -36,7 +36,7 @@ export const MarqueeTicker: React.FC = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-purple-500/60" />
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );
