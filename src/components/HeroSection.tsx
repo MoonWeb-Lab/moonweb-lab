@@ -17,49 +17,32 @@ export const HeroSection: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.05,
+        staggerChildren: 0.13,
+        delayChildren: 0.1,
       },
     },
   };
 
   const heroItemVariants: Variants = {
     hidden: {
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : 16,
+      opacity: shouldReduceMotion ? 1 : 0,
+      y: shouldReduceMotion ? 0 : 26,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: shouldReduceMotion ? 0 : 0.65,
+        duration: shouldReduceMotion ? 0 : 0.85,
         ease: EASE_PREMIUM,
       },
     },
   };
 
   const metricsContainerVariants: Variants = {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: {
-      opacity: 1,
       transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.25,
-      },
-    },
-  };
-
-  const metricCardVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : 16,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: shouldReduceMotion ? 0 : 0.65,
-        ease: EASE_PREMIUM,
+        staggerChildren: 0.13,
       },
     },
   };
@@ -72,7 +55,7 @@ export const HeroSection: React.FC = () => {
 
       <m.div
         variants={heroContainerVariants}
-        initial={shouldReduceMotion ? false : 'hidden'}
+        initial="hidden"
         animate="visible"
         className="relative z-10 max-w-4xl"
       >
@@ -145,13 +128,13 @@ export const HeroSection: React.FC = () => {
           </m.a>
         </m.div>
 
-        {/* 3 Business Metrics */}
+        {/* 5. 3 Business Metrics */}
         <m.div
           variants={metricsContainerVariants}
           className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 pt-5 border-t border-white/10"
         >
           <m.div
-            variants={metricCardVariants}
+            variants={heroItemVariants}
             whileHover={{ y: -3 }}
             transition={SPRING_TACTILE}
             className="p-4 sm:p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors transform-gpu"
@@ -165,7 +148,7 @@ export const HeroSection: React.FC = () => {
           </m.div>
 
           <m.div
-            variants={metricCardVariants}
+            variants={heroItemVariants}
             whileHover={{ y: -3 }}
             transition={SPRING_TACTILE}
             className="p-4 sm:p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors transform-gpu"
@@ -179,7 +162,7 @@ export const HeroSection: React.FC = () => {
           </m.div>
 
           <m.div
-            variants={metricCardVariants}
+            variants={heroItemVariants}
             whileHover={{ y: -3 }}
             transition={SPRING_TACTILE}
             className="p-4 sm:p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors transform-gpu"
