@@ -11,7 +11,7 @@ import { Footer } from './components/Footer';
 export const App: React.FC = () => {
   return (
     <LazyMotion features={domAnimation} strict={false}>
-      <MotionConfig reducedMotion="user" transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
+      <MotionConfig reducedMotion="user" transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}>
         <div className="relative min-h-screen bg-[#0B0B0F] text-[#F4F4F6] selection:bg-purple-500/30 selection:text-white">
           {/* Pure CSS dot grid background (zero JS calculations, locked 60 FPS) */}
           <div className="fixed inset-0 bg-dot-grid pointer-events-none opacity-45 z-0" />

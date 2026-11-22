@@ -38,8 +38,10 @@ const DEMO_STEPS: DemoMessage[] = [
   },
 ];
 
+const EASE_PREMIUM: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 /* Tactile button and card feedback */
-const SPRING_TACTILE = { type: 'spring' as const, stiffness: 350, damping: 28 };
+const SPRING_TACTILE = { type: 'spring' as const, stiffness: 320, damping: 28 };
 
 /* Push notification physics (Apple / Telegram feel) */
 const SPRING_PUSH = {
@@ -72,8 +74,8 @@ export const ConversionFlowSection: React.FC = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: shouldReduceMotion ? 0 : 0.55,
-        ease: [0.16, 1, 0.3, 1],
+        duration: shouldReduceMotion ? 0 : 0.65,
+        ease: EASE_PREMIUM,
       },
     },
   };
@@ -85,8 +87,8 @@ export const ConversionFlowSection: React.FC = () => {
       <m.div
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, amount: 'some' }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.65, ease: EASE_PREMIUM }}
         className="max-w-4xl mb-5 sm:mb-6"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2">
@@ -105,7 +107,7 @@ export const ConversionFlowSection: React.FC = () => {
       <m.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 'some' }}
         variants={cardContainerVariants}
         className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-5 sm:mb-6"
       >
@@ -114,7 +116,7 @@ export const ConversionFlowSection: React.FC = () => {
           variants={cardItemVariants}
           whileHover={{ y: -3 }}
           transition={SPRING_TACTILE}
-          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200"
+          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200 transform-gpu"
         >
           <div>
             <div className="flex items-center justify-between mb-4">
@@ -152,7 +154,7 @@ export const ConversionFlowSection: React.FC = () => {
           variants={cardItemVariants}
           whileHover={{ y: -3 }}
           transition={SPRING_TACTILE}
-          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200"
+          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200 transform-gpu"
         >
           <div>
             <div className="flex items-center justify-between mb-4">
@@ -190,7 +192,7 @@ export const ConversionFlowSection: React.FC = () => {
           variants={cardItemVariants}
           whileHover={{ y: -3 }}
           transition={SPRING_TACTILE}
-          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-purple-500/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200"
+          className="rounded-3xl bg-[#121218] border border-white/10 hover:border-purple-500/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200 transform-gpu"
         >
           <div>
             <div className="flex items-center justify-between mb-4">
@@ -227,9 +229,9 @@ export const ConversionFlowSection: React.FC = () => {
       <m.div
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-        className="rounded-3xl bg-[#121218] border border-white/10 p-5 sm:p-6 lg:p-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
+        viewport={{ once: true, amount: 'some' }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.65, ease: EASE_PREMIUM }}
+        className="rounded-3xl bg-[#121218] border border-white/10 p-5 sm:p-6 lg:p-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transform-gpu"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-white/[0.08]">
           <div>
@@ -258,7 +260,7 @@ export const ConversionFlowSection: React.FC = () => {
 
         {/* Message Feed with 0.45s cascading spring push notifications */}
         <div className="max-w-3xl mx-auto min-h-[260px] sm:min-h-[270px]">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={false}>
             <m.div
               key={replayKey}
               initial={{ opacity: 0 }}
@@ -293,7 +295,7 @@ export const ConversionFlowSection: React.FC = () => {
                           }
                     }
                     style={{ willChange: 'transform, opacity' }}
-                    className={`p-3.5 sm:p-4 rounded-2xl border transition-colors ${
+                    className={`p-3.5 sm:p-4 rounded-2xl border transition-colors transform-gpu ${
                       isTelegram
                         ? 'bg-[#151C2C] border-blue-500/30 ml-2 sm:ml-6 shadow-lg shadow-blue-500/5'
                         : isStatus

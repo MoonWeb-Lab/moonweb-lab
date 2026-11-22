@@ -7,7 +7,7 @@ import avatarImg from '../assets/avatar.jpg';
 const EASE_PREMIUM: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 /* Spring physics for tactile button feedback */
-const SPRING_TACTILE = { type: 'spring' as const, stiffness: 350, damping: 28 };
+const SPRING_TACTILE = { type: 'spring' as const, stiffness: 320, damping: 28 };
 
 export const HeroSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -17,7 +17,7 @@ export const HeroSection: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.09,
+        staggerChildren: 0.08,
         delayChildren: 0.05,
       },
     },
@@ -26,13 +26,13 @@ export const HeroSection: React.FC = () => {
   const heroItemVariants: Variants = {
     hidden: {
       opacity: 0,
-      y: shouldReduceMotion ? 0 : 18,
+      y: shouldReduceMotion ? 0 : 16,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: shouldReduceMotion ? 0 : 0.7,
+        duration: shouldReduceMotion ? 0 : 0.65,
         ease: EASE_PREMIUM,
       },
     },
@@ -43,8 +43,8 @@ export const HeroSection: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.09,
-        delayChildren: 0.3,
+        staggerChildren: 0.08,
+        delayChildren: 0.25,
       },
     },
   };
@@ -52,7 +52,7 @@ export const HeroSection: React.FC = () => {
   const metricCardVariants: Variants = {
     hidden: {
       opacity: 0,
-      y: shouldReduceMotion ? 0 : 14,
+      y: shouldReduceMotion ? 0 : 16,
     },
     visible: {
       opacity: 1,
@@ -121,7 +121,7 @@ export const HeroSection: React.FC = () => {
           className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-8"
         >
           <m.a
-            whileHover={{ y: -3 }}
+            whileHover={{ y: -2 }}
             whileTap={{ scale: 0.98 }}
             transition={SPRING_TACTILE}
             href="#cases"
@@ -132,7 +132,7 @@ export const HeroSection: React.FC = () => {
           </m.a>
 
           <m.a
-            whileHover={{ y: -3 }}
+            whileHover={{ y: -2 }}
             whileTap={{ scale: 0.98 }}
             transition={SPRING_TACTILE}
             href="https://t.me/moonweb_lab"
@@ -154,7 +154,7 @@ export const HeroSection: React.FC = () => {
             variants={metricCardVariants}
             whileHover={{ y: -3 }}
             transition={SPRING_TACTILE}
-            className="p-4 sm:p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors"
+            className="p-4 sm:p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors transform-gpu"
           >
             <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-1">
               ~1 сек
@@ -168,7 +168,7 @@ export const HeroSection: React.FC = () => {
             variants={metricCardVariants}
             whileHover={{ y: -3 }}
             transition={SPRING_TACTILE}
-            className="p-4 sm:p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors"
+            className="p-4 sm:p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors transform-gpu"
           >
             <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight mb-1">
               В Telegram
@@ -182,7 +182,7 @@ export const HeroSection: React.FC = () => {
             variants={metricCardVariants}
             whileHover={{ y: -3 }}
             transition={SPRING_TACTILE}
-            className="p-4 sm:p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors"
+            className="p-4 sm:p-5 rounded-2xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-colors transform-gpu"
           >
             <div className="text-2xl sm:text-3xl font-extrabold text-purple-300 tracking-tight mb-1">
               От 3 до 7 дней

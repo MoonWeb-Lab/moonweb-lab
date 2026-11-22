@@ -57,7 +57,8 @@ const FORMATS: FormatCard[] = [
   },
 ];
 
-const SPRING_TACTILE = { type: 'spring' as const, stiffness: 350, damping: 28 };
+const EASE_PREMIUM: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const SPRING_TACTILE = { type: 'spring' as const, stiffness: 320, damping: 28 };
 
 export const LaunchFormatsSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -72,13 +73,13 @@ export const LaunchFormatsSection: React.FC = () => {
   };
 
   const formatCardVariants: Variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 18 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 16 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: shouldReduceMotion ? 0 : 0.65,
-        ease: [0.16, 1, 0.3, 1],
+        ease: EASE_PREMIUM,
       },
     },
   };
@@ -90,8 +91,8 @@ export const LaunchFormatsSection: React.FC = () => {
       <m.div
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, amount: 'some' }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.65, ease: EASE_PREMIUM }}
         className="max-w-4xl mb-5 sm:mb-6"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2">
@@ -110,7 +111,7 @@ export const LaunchFormatsSection: React.FC = () => {
       <m.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 'some' }}
         variants={formatContainerVariants}
         className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 items-stretch mb-5 sm:mb-6"
       >
@@ -120,7 +121,7 @@ export const LaunchFormatsSection: React.FC = () => {
             variants={formatCardVariants}
             whileHover={{ y: -3 }}
             transition={SPRING_TACTILE}
-            className={`rounded-3xl p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200 relative ${
+            className={`rounded-3xl p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200 relative transform-gpu ${
               format.isPopular
                 ? 'bg-[#14141F] border-2 border-purple-500/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_0_30px_rgba(168,85,247,0.1)]'
                 : 'bg-[#121218] border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] hover:border-white/20'
@@ -201,9 +202,9 @@ export const LaunchFormatsSection: React.FC = () => {
       <m.div
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-        className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#121218] to-blue-900/20 border border-purple-500/30 p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
+        viewport={{ once: true, amount: 'some' }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.65, ease: EASE_PREMIUM }}
+        className="rounded-3xl bg-gradient-to-r from-purple-900/20 via-[#121218] to-blue-900/20 border border-purple-500/30 p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transform-gpu"
       >
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 text-xs font-semibold text-purple-300">

@@ -3,7 +3,8 @@ import { m, useReducedMotion } from 'framer-motion';
 import { ArrowUp, ArrowUpRight, Send, Instagram } from 'lucide-react';
 import avatarImg from '../assets/avatar.jpg';
 
-const SPRING_TACTILE = { type: 'spring' as const, stiffness: 350, damping: 28 };
+const EASE_PREMIUM: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const SPRING_TACTILE = { type: 'spring' as const, stiffness: 320, damping: 28 };
 
 export const Footer: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -23,9 +24,9 @@ export const Footer: React.FC = () => {
         <m.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-3xl bg-[#121218] border border-purple-500/30 p-5 sm:p-7 mb-6 sm:mb-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_0_40px_rgba(168,85,247,0.08)] relative overflow-hidden"
+          viewport={{ once: true, amount: 'some' }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.65, ease: EASE_PREMIUM }}
+          className="rounded-3xl bg-[#121218] border border-purple-500/30 p-5 sm:p-7 mb-6 sm:mb-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_0_40px_rgba(168,85,247,0.08)] relative overflow-hidden transform-gpu"
         >
           <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#181824] border border-purple-500/30 text-xs text-purple-300">

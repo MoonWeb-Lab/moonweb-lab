@@ -8,7 +8,7 @@ import luminaImg from '../assets/case-lumina.png';
 import botanicaImg from '../assets/case-botanica.png';
 
 const EASE_PREMIUM: [number, number, number, number] = [0.16, 1, 0.3, 1];
-const SPRING_TACTILE = { type: 'spring' as const, stiffness: 350, damping: 28 };
+const SPRING_TACTILE = { type: 'spring' as const, stiffness: 320, damping: 28 };
 
 interface CaseStudy {
   id: string;
@@ -142,7 +142,7 @@ const CasePreviewFrame = memo<{
       <div className={`absolute w-[300px] h-[450px] bg-gradient-to-br ${caseItem.glowColor} rounded-full blur-[60px] pointer-events-none z-0`} />
 
       {/* Realistic Mobile Mockup Frame */}
-      <div className="relative z-10 w-[270px] sm:w-[290px] h-[520px] sm:h-[560px] rounded-[36px] bg-[#121217] border-[4px] border-neutral-700/80 shadow-[0_16px_40px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.12)] flex flex-col overflow-hidden">
+      <div className="relative z-10 w-[270px] sm:w-[290px] h-[520px] sm:h-[560px] rounded-[36px] bg-[#121217] border-[4px] border-neutral-700/80 shadow-[0_16px_40px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.12)] flex flex-col overflow-hidden transform-gpu">
         
         {/* Dynamic Island / Speaker notch */}
         <div className="h-5 flex items-center justify-center shrink-0 bg-black relative select-none">
@@ -156,7 +156,7 @@ const CasePreviewFrame = memo<{
           ref={viewportRef}
           className="relative flex-1 w-full h-full overflow-hidden bg-[#0A0A0E]"
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={false}>
             {isActiveIframe ? (
               /* Active Interactive Iframe */
               <m.div
@@ -164,7 +164,7 @@ const CasePreviewFrame = memo<{
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.4, ease: EASE_PREMIUM }}
+                transition={{ duration: 0.35, ease: EASE_PREMIUM }}
                 className="relative w-full h-full"
               >
                 {!iframeLoaded && (
@@ -193,8 +193,8 @@ const CasePreviewFrame = memo<{
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.4, ease: EASE_PREMIUM }}
-                className="relative w-full h-full group"
+                transition={{ duration: 0.35, ease: EASE_PREMIUM }}
+                className="relative w-full h-full bg-[#0A0A0E] group"
               >
                 <img
                   src={caseItem.mobileImage}
@@ -246,8 +246,8 @@ export const CasesSection: React.FC = () => {
       <m.div
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        viewport={{ once: true, amount: 'some' }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.65, ease: EASE_PREMIUM }}
         className="max-w-4xl mb-5 sm:mb-6"
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-xs text-neutral-300 mb-2">
@@ -270,15 +270,16 @@ export const CasesSection: React.FC = () => {
           return (
             <m.div
               key={item.id}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
+              viewport={{ once: true, amount: 'some' }}
+              whileHover={{ y: -3 }}
               transition={{
-                duration: shouldReduceMotion ? 0 : 0.6,
+                duration: shouldReduceMotion ? 0 : 0.65,
                 delay: shouldReduceMotion ? 0 : (index % 2) * 0.08,
-                ease: [0.22, 1, 0.36, 1],
+                ease: EASE_PREMIUM,
               }}
-              className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden p-5 sm:p-6 lg:p-7 transition-colors"
+              className="rounded-3xl bg-[#121218] border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden p-5 sm:p-6 lg:p-7 transition-colors transform-gpu"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
                 
